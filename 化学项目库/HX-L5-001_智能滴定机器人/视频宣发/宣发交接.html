@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宣发交接 · 智能滴定机器人</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#ef9f27;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fdf0d9,#fce6cf);border:2px solid #f1c98a;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-org{background:#ef9f27;}.c-red{background:#d36a5a;}
+  h2{font-size:16px;color:#b5740f;margin:22px 0 10px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:24px;height:24px;background:#ef9f27;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;flex:none;}
+  .hook{background:linear-gradient(120deg,#fff3df,#ffe9d6);border:2px dashed #ef9f27;border-radius:14px;padding:16px 18px;font-size:15.5px;font-weight:700;color:#7a3d12;text-align:center;line-height:1.7;}
+  .hook small{display:block;font-size:12px;color:#ba7517;font-weight:400;margin-top:6px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#fcefdb;color:#7a3d12;font-weight:700;}
+  .tags span{display:inline-block;background:#fdecea;color:#a32d2d;border-radius:8px;padding:3px 11px;margin:4px 6px 0 0;font-size:12.5px;}
+  ul{padding-left:20px;font-size:13.5px;}ul li{margin:4px 0;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <polygon points="20,18 20,62 58,40" fill="#ef9f27"/>
+      <circle cx="62" cy="22" r="6" fill="#f6dcae"/><circle cx="68" cy="40" r="4" fill="#f4a8a8"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L5-001 智能滴定机器人</div>
+      <div class="tt2">宣发交接</div>
+      <div class="chips"><span class="chip c-org">②线下物料</span><span class="chip c-red">真机器人 · 自动化</span></div>
+    </div>
+    <div class="meta">交接 → 视频/宣发<br>知识反转 + 素材源</div>
+  </div>
+
+  <h2><span class="n">1</span>知识反转一句话</h2>
+  <div class="hook">
+    "滴定这种<u>实验室才有的'手感绝活'</u>,被我家小孩手搓的一台机器人<u>自动完成了</u>——它靠'看颜色'知道该停,液体一变色就立刻收手。"
+    <small>反转点:实验室里讲手感、滴多一滴就废 → 其实孩子用传感+程序+小泵,让机器自己看、自己判断、自己停</small>
+  </div>
+
+  <h2><span class="n">2</span>3 秒钩子</h2>
+  <ul>
+    <li>首选:机器一滴一滴往杯里滴 → 紫甘蓝汁<b>"唰"地变色</b> → 机器<b>自己停住</b>,没人碰它。</li>
+    <li>备选:并排放<b>自动 vs 手动</b>——手动那杯滴过头颜色太深,自动那杯刚好停在终点。</li>
+    <li>话题:这台"会看会停"的机器人,到底靠什么知道该停?(感知—判断—执行)</li>
+  </ul>
+
+  <h2><span class="n">3</span>关键字幕条</h2>
+  <div class="tags">
+    <span>它自己滴自己停</span><span>看到变色就收手</span><span>实验室绝活被机器人接管</span>
+    <span>紫甘蓝汁=安全指示剂</span><span>感知→判断→执行</span><span>自动比手动更准</span>
+    <span>micro:bit 一块板既看又动</span><span>孩子手搓的滴定机器人</span>
+  </div>
+
+  <h2><span class="n">4</span>可视化素材源</h2>
+  <table>
+    <tr><th style="width:30%">素材</th><th>拍摄要点</th></tr>
+    <tr><td>自滴自停特写</td><td>固定机位拍滴管落滴 + 烧杯颜色;变色瞬间机器停下、滴管收住,同框抓"叮"那一下。</td></tr>
+    <tr><td>紫甘蓝汁变色瞬间</td><td>微距慢镜拍液体由起始色"唰"地翻到终点色,强调天然、食用级、安全。</td></tr>
+    <tr><td>自动 vs 手动对比</td><td>两杯并排:手动滴过头颜色深,自动刚好停在终点;数字/标签贴杯前突出准度差。</td></tr>
+    <tr><td>闭环框图动画</td><td>"感知→判断→执行→回到感知"循环箭头动起来,配字幕讲机器靠什么知道停。</td></tr>
+    <tr><td>组装调试特写</td><td>拍孩子装支架、对准颜色传感、调阈值——强调"这台机器人是孩子自己搭的"。</td></tr>
+  </table>
+
+  <h2><span class="n">5</span>CTA</h2>
+  <ul>
+    <li>"这是孩子第一次造出会'感知—判断—执行'的机器人——从读数据,到让数据自己做决定。"</li>
+    <li>"材料包到手即可拍同款:micro:bit + 颜色传感 + 小泵,一块板继续接着下一个项目用。"</li>
+  </ul>
+</section>
+</div>
+</body>
+</html>

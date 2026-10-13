@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品交接 · 智能滴定机器人</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#3a86b5;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#e3f0f8,#eafaf3);border:2px solid #a9cfe5;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#2c6a90;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#1f4f6e;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-blue{background:#3a86b5;}.c-elec{background:#7a4fae;}
+  h2{font-size:16px;color:#2c6a90;margin:22px 0 10px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:24px;height:24px;background:#3a86b5;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;flex:none;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #d8e6ef;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#e3f0f8;color:#1f4f6e;font-weight:700;}
+  tr:nth-child(even) td{background:#f7fbfd;}
+  .matgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:6px 0;}
+  .item{font-size:13.5px;padding:4px 0;display:flex;align-items:center;}
+  .box{width:15px;height:15px;border:2px solid #6aa3c4;border-radius:4px;margin-right:9px;flex:none;}
+  .warn{background:#fdecea;border:2px dashed #d36a5a;border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  .warn b{color:#a32d2d;}
+  .key{background:#fff6e6;border:2px solid #ef9f27;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .key b{color:#b5740f;}
+  .elec{background:#f3eefb;border:2px solid #7a4fae;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .note{background:#eef5fa;border-left:4px solid #6aa3c4;color:#2c6a90;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  @media(max-width:640px){.matgrid{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="16" y="24" width="48" height="40" rx="4" fill="#dff3ff" stroke="#6aa3c4" stroke-width="2.5"/>
+      <path d="M16 24 L40 12 L64 24" fill="none" stroke="#6aa3c4" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="40" y1="12" x2="40" y2="64" stroke="#a9cfe5" stroke-width="2"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L5-001 智能滴定机器人</div>
+      <div class="tt2">产品交接</div>
+      <div class="chips"><span class="chip c-blue">物料盒子 BOM</span><span class="chip c-elec">电子:micro:bit+执行器</span></div>
+    </div>
+    <div class="meta">交接 → 产品/供应链<br>BOM · 电子 · 安全</div>
+  </div>
+
+  <div class="elec">
+    <b>⚡ 电子升级 · 系统集成进盒:</b>本阶第一次把<b>主板 + 传感器 + 执行器</b>三件装成一个系统——micro:bit(复用同一块板)读颜色传感、再驱动舵机/泵滴加。比前几阶"只读数"多了"会动手"的执行环节。<b>micro:bit 继续复用</b>,新增的只是颜色传感模块和一个微型执行器,符合"硬件一次买、按阶加小件"的订阅逻辑。
+  </div>
+
+  <h2><span class="n">1</span>物料清单 BOM</h2>
+  <div class="matgrid">
+    <div class="item"><span class="box"></span>micro:bit 主板 ×1(<b>通用核心,复用</b>)</div>
+    <div class="item"><span class="box"></span>颜色/光传感模块 ×1(或自制 LED+光敏比色)</div>
+    <div class="item"><span class="box"></span>微型舵机 / 蠕动泵 ×1 + 滴管</div>
+    <div class="item"><span class="box"></span>紫甘蓝(自制指示剂用)</div>
+    <div class="item"><span class="box"></span>食用级弱酸碱:白醋 / 柠檬酸 / 小苏打水</div>
+    <div class="item"><span class="box"></span>烧杯 / 小瓶 若干</div>
+    <div class="item"><span class="box"></span>支架 / 简易滴定架(固定滴管与传感)</div>
+    <div class="item"><span class="box"></span>电池盒 + 电池(低压供电)</div>
+    <div class="item"><span class="box"></span>接线 / 鳄鱼夹、扩展板(接传感与执行器)</div>
+    <div class="item"><span class="box"></span>记录卡 + 闭环图卡 + 阈值记录卡</div>
+  </div>
+  <div class="note">紫甘蓝由用户当场榨汁/泡汁,食用级、安全,贴近"厨房里就能做指示剂"话题;白醋/小苏打等也可由家庭自备补充。</div>
+
+  <div class="key">
+    <b>关键质控:每滴量一致 + 颜色传感遮光,是本盒成败点。</b>① <b>滴加量要稳</b>——舵机行程或蠕动泵转速须出厂<b>标定</b>,让每滴体积尽量一致,否则到点判断和重复性都会飘;② <b>颜色传感要遮光</b>——必须加<b>遮光罩</b>挡住环境光,否则室内灯光变化会让读到的颜色乱跳、终点判断不稳。两条做不到,机器就会"停早停晚",闭环不成立。
+  </div>
+
+  <h2><span class="n">2</span>电子元器件清单</h2>
+  <table>
+    <tr><th style="width:24%">项</th><th>说明</th></tr>
+    <tr><td>主控</td><td><b>micro:bit ×1</b>:读颜色传感、判断阈值、驱动执行器。一次性硬件,跨盒复用同一块板。</td></tr>
+    <tr><td>颜色传感</td><td>颜色/光传感模块(或自制 LED 照射 + 光敏元件比色);<b>需配遮光罩</b>避免环境光干扰。</td></tr>
+    <tr><td>执行器</td><td>微型舵机(压滴管)或蠕动泵 + 滴管;出厂<b>标定每滴量/转速</b>,保证滴加一致。</td></tr>
+    <tr><td>预置程序</td><td>盒内附烧录好的 .hex 或扫码即烧版本:读色→判阈值→停泵;进阶可让学员自己改阈值/滴速。</td></tr>
+    <tr><td>供电</td><td>电池盒低压供电,<b>严禁接市电</b>;舵机/泵与主板同低压。</td></tr>
+  </table>
+  <div class="note">第 6 阶(自造仪器)起,同一块 micro:bit + 这套传感/执行件可扩成多执行器系统,无需重买主板——务必在说明里强调"板子和小泵留好,下个盒接着用"。</div>
+
+  <h2><span class="n">3</span>安全与履约</h2>
+  <div class="warn">
+    <b>安全:</b><b>只用食用级弱酸碱</b>(白醋 / 柠檬酸 / 小苏打水),严禁强酸强碱;<b>低压电池供电、严禁接市电</b>;舵机 / 泵转动部位<b>注意夹手</b>,装防护或加限位;实验液<b>一律不入口</b>;接线、首次烧录与组装由<b>成人协助</b>。
+  </div>
+  <table>
+    <tr><th style="width:24%">项</th><th>建议</th></tr>
+    <tr><td>分装</td><td>micro:bit 与传感/执行模块防静电袋;玻璃件防碎独立收纳;紫甘蓝/酸碱小件分装防潮防漏。</td></tr>
+    <tr><td>开箱即玩</td><td>随盒附五拍任务卡 + 闭环图卡 + 阈值记录卡 + 烧录指引,与导师/教研口径一致。</td></tr>
+    <tr><td>合规</td><td>电子件 CE/RoHS;儿童用品安全标识;低压供电、"勿接市电"、"转动夹手"、"勿入口"警示清晰。</td></tr>
+  </table>
+</section>
+</div>
+</body>
+</html>

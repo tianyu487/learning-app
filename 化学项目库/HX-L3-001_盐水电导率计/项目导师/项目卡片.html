@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目卡片 · 盐水电导率计</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-org{background:#ef9f27;}.c-blue{background:#3a86b5;}.c-gray{background:#9a948a;}.c-elec{background:#7a4fae;}
+  .ladder{display:flex;gap:6px;margin-top:14px;}
+  .ladder .st{flex:1;text-align:center;font-size:11px;color:#9a948a;padding:7px 2px;border-radius:9px;background:#f3eee2;border:1.5px solid #ece3cf;}
+  .ladder .st b{display:block;font-size:13px;color:#b3a89a;}
+  .ladder .st.on{background:#1d9e75;border-color:#178060;color:#eafaf3;}
+  .ladder .st.on b{color:#fff;}
+  h2{font-size:17px;color:#0f6e56;margin:24px 0 12px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:14px;flex:none;}
+  h3{font-size:14.5px;color:#7a3d12;margin:18px 0 8px;border-left:4px solid #ef9f27;padding-left:9px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:#f3eee2;color:#7a3d12;font-weight:700;}
+  tr:nth-child(even) td{background:#fdfbf4;}
+  .kpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0;}
+  .kp{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:12px;padding:10px 12px;font-size:13px;}
+  .kp b{color:#0f6e56;}
+  .kp .lv{float:right;font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;}
+  .callout{border-radius:13px;padding:12px 16px;margin:10px 0;font-size:13.5px;}
+  .open{background:#fdf3e6;border:2px dashed #ef9f27;}.open b{color:#b5740f;}
+  .qa{background:#eafaf3;border:1.5px solid #bfe7d6;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .elec{background:#f3eefb;border-left:4px solid #7a4fae;color:#5a3b86;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .beat{display:flex;gap:12px;margin:8px 0;align-items:stretch;}
+  .beat .num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef9f27;color:#fff;font-weight:800;text-align:center;line-height:30px;}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #eee4cf;border-radius:11px;padding:9px 12px;font-size:13px;}
+  .beat .bt{font-weight:700;color:#7a3d12;}
+  .beat .kptag{display:inline-block;font-size:10.5px;background:#eafaf3;color:#0f6e56;border:1px solid #bfe7d6;border-radius:8px;padding:1px 7px;margin-left:6px;}
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0;}
+  ol.steps li{counter-increment:s;position:relative;padding:7px 0 7px 40px;border-bottom:1px dashed #ece3cf;font-size:13.5px;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:800;font-size:13px;}
+  ul.ev{padding-left:20px;font-size:13.5px;}ul.ev li{margin:3px 0;}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0;}
+  .fig{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:10px 8px;text-align:center;margin:0;}
+  .fig svg{width:100%;height:auto;}
+  .fig .cap{font-size:12.5px;font-weight:700;color:#7a3d12;margin-top:6px;display:block;}
+  .fig .cap .sub{display:block;font-size:10.5px;font-weight:400;color:#9a948a;margin-top:2px;}
+  .deco{position:absolute;opacity:.5;pointer-events:none;}
+  @media(max-width:640px){.figs{grid-template-columns:1fr;}.kpgrid{grid-template-columns:1fr;}.ladder{flex-wrap:wrap;}.ladder .st{min-width:30%;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+<section class="sheet">
+  <svg class="deco" style="top:-10px;right:-6px;width:130px" viewBox="0 0 140 150" aria-hidden="true">
+    <circle cx="40" cy="30" r="6" fill="#f1d79e"/><circle cx="90" cy="20" r="4" fill="#bfe7d6"/>
+    <circle cx="116" cy="48" r="9" fill="#cdb6ec"/><circle cx="70" cy="60" r="3" fill="#a9cfe5"/>
+  </svg>
+  <div class="head">
+    <svg viewBox="0 0 90 100" width="68" height="76" aria-hidden="true">
+      <rect x="20" y="20" width="50" height="38" rx="5" fill="#efe6fb" stroke="#a98fd6" stroke-width="2"/>
+      <circle cx="32" cy="33" r="3.2" fill="#7a4fae"/><circle cx="42" cy="33" r="3.2" fill="#7a4fae"/><circle cx="52" cy="33" r="3.2" fill="#7a4fae"/>
+      <circle cx="37" cy="44" r="3.2" fill="#c9b3e8"/><circle cx="47" cy="44" r="3.2" fill="#c9b3e8"/>
+      <path d="M30 58 L30 78" stroke="#9a948a" stroke-width="2.5"/><path d="M60 58 L60 78" stroke="#9a948a" stroke-width="2.5"/>
+      <path d="M14 86 L78 86 L72 98 L20 98 Z" fill="#dff3ff" stroke="#9fcbe3" stroke-width="2"/>
+      <path d="M18 90 L74 90 L70 97 L22 97 Z" fill="#bfe7d6"/>
+      <rect x="27" y="76" width="6" height="6" fill="#7a4fae"/><rect x="57" y="76" width="6" height="6" fill="#7a4fae"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L3-001</div>
+      <div class="tt2">盐水电导率计 · 项目卡片</div>
+      <div class="chips">
+        <span class="chip c-green">第 3 阶 · 小升初</span>
+        <span class="chip c-org">②线下物料</span>
+        <span class="chip c-blue">L2 → L3</span>
+        <span class="chip c-elec">电子:micro:bit 首秀</span>
+      </div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>含六件套教学核</div>
+  </div>
+  <div class="ladder">
+    <div class="st"><b>1</b>看现象</div>
+    <div class="st"><b>2</b>量化控变量</div>
+    <div class="st on"><b>3</b>传感建模</div>
+    <div class="st"><b>4</b>多变量迭代</div>
+    <div class="st"><b>5</b>系统闭环</div>
+    <div class="st"><b>6</b>自造仪器</div>
+  </div>
+
+  <h2><span class="n">★</span>分类标注</h2>
+  <table>
+    <tr><th style="width:28%">字段</th><th>内容</th></tr>
+    <tr><td>项目编号</td><td>HX-L3-001</td></tr>
+    <tr><td>类型</td><td>②线下物料项目,有"自制仪器测水"话题、需物料盒子</td></tr>
+    <tr><td>难度阶</td><td><b>第 3 阶</b> · 小升初 · 引入建模与简单电子反馈</td></tr>
+    <tr><td>学员定位</td><td>L2 改造者 → L3 设计者(能自定方案并用数据建模)</td></tr>
+    <tr><td>电子含量</td><td><b>micro:bit 首次登场</b>:两电极 + 模拟输入读数,后续盒子复用同一块板</td></tr>
+  </table>
+
+  <div class="elec"><b>⚡ 电子核心首秀:</b>这是化学阶梯里 micro:bit 第一次进盒。它只做一件最简单的事——读两根电极间的电流大小、变成屏上的数字。一块板从这阶起,第 4–6 阶反复复用,正是手册"一块电子大脑跑几十个盒子"的落点。</div>
+
+  <h2><span class="n">★</span>点亮 KP</h2>
+  <div class="note">本阶 4 个 KP 从定性走向"半定量 + 建模 + 传感",掌握到"能解释离子导电、能画浓度—读数曲线、能说清为什么要校准"。</div>
+  <div class="kpgrid">
+    <div class="kp"><span class="lv">认识</span><b>KP1 电解质·离子导电</b><br>盐溶进水里变成会动的离子,电才通得过;纯水、糖水几乎不导电。</div>
+    <div class="kp"><span class="lv">半定量</span><b>KP2 电导随浓度变化</b><br>盐越多,导电越强,屏上读数越大——浓度可被"读出来"。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP3 传感建模启蒙</b><br>用电路当"传感器",把看不见的导电变成数字,再连成一条曲线。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP4 校准与零点</b><br>先用纯水定"零"、已知盐水定"标",不同杯子的读数才可比。</div>
+  </div>
+  <div class="note">移入"上不封顶"、本阶不点亮:离子浓度计算、电阻率/电阻、欧姆定律、强弱电解质,留给初中—高中(见习题进阶题)。</div>
+
+  <h2><span class="n">★</span>开放决策点</h2>
+  <div class="callout open">
+    <b>挑战:做一把自己的"咸度尺",猜中一杯未知盐水。</b><br>
+    孩子自选探究方向:<b>测哪些水(自来水/矿泉水/糖水/不同浓度盐水) ｜ 电极插多深 ｜ 用几个浓度点定标</b>。
+    要求:<b>先猜 → 再测 → 画"浓度—读数"曲线</b>,并说清"我固定了什么、怎么归零"。
+  </div>
+</section>
+
+<section class="sheet">
+  <h2><span class="n">六</span>件套 · 教学内容核</h2>
+
+  <h3>① 驱动问题</h3>
+  <div class="callout qa">"纯水几乎不导电,撒一把盐就通了电。能不能<b>自己做一台仪器</b>,让一杯水的'咸淡'变成屏幕上<b>能读的数字</b>,再用它猜出一杯神秘水有多咸?"</div>
+
+  <h3>② 探究脉络</h3>
+  <div class="beat"><div class="num">1</div><div class="bd"><span class="bt">好奇钩子</span><span class="kptag">KP1 预告</span><br>两根线接 micro:bit 插进纯水 → 屏上数字≈0;撒一勺盐搅开 → 数字"噌"地跳起来。<br><i>反直觉:水看着一样,数字却差很多,3 秒抓注意力。</i></div></div>
+  <div class="beat"><div class="num">2</div><div class="bd"><span class="bt">先动手试错</span><span class="kptag">KP1 缺口</span><br><b>先测纯水、再测糖水</b> → 都几乎不导电。"糖也化进水里了,凭什么糖水不导电、盐水导电?"<br><i>制造"咦,为什么"的缺口,逼出对"离子"的需求。</i></div></div>
+  <div class="beat"><div class="num">3</div><div class="bd"><span class="bt">玩中探究</span><span class="kptag">KP1</span><span class="kptag">KP2</span><br>引入:盐在水里拆成会动的离子→能带电;糖不拆成离子→不导电。配 1/2/3 勺盐水,读数一阶阶升高。<br><i>在最想知道答案时引入离子导电 + 浓度越高读数越大。</i></div></div>
+  <div class="beat"><div class="num">4</div><div class="bd"><span class="bt">回现实检验</span><span class="kptag">KP3</span><span class="kptag">KP4</span><br>先校准(纯水归零、已知盐水定标),把几个浓度点画成"浓度—读数"曲线;再测一杯<b>未知盐水</b>,用曲线反推它有多咸。<br><i>用自造曲线预测未知,误差当裁判——现实说了算。</i></div></div>
+  <div class="beat"><div class="num">5</div><div class="bd"><span class="bt">点亮+费曼</span><span class="kptag">全部</span><br>点亮 KP1–4;让孩子讲"为什么盐水导电、糖水不导电?屏上的数字到底代表什么?为什么测之前要先归零?"<br><i>讲明白才算学会。</i></div></div>
+
+  <h3>③ 证据</h3>
+  <table>
+    <tr><th style="width:26%">类型</th><th>内容</th></tr>
+    <tr><td>对比证据</td><td>纯水/糖水读数≈0、盐水读数高 → 导电靠的是<b>离子</b>,不是"湿"或"甜"。</td></tr>
+    <tr><td>单调证据</td><td>盐量逐级增加,读数随之逐级升高 → 电导随浓度变化,可用来"量"浓度。</td></tr>
+    <tr><td>校准证据</td><td>同一台仪器先归零、再用已知盐水定标,不同杯子的读数才能放在一起比。</td></tr>
+    <tr><td>建模证据</td><td>把"浓度—读数"几个点连成一条线,就能预测曲线上没测过的未知点。</td></tr>
+  </table>
+
+  <h3>④ 评价</h3>
+  <ul class="ev">
+    <li>能说出:盐溶解会拆出<b>离子</b>才导电;糖水不导电是因为糖不拆成离子。</li>
+    <li>能说出:盐越多读数越大;能把几个点画成<b>浓度—读数曲线</b>。</li>
+    <li>能解释:测前为什么要<b>归零/校准</b>,电极插多深要固定。</li>
+    <li><b>L3 萌芽</b>:能用自制曲线<b>预测一杯未知盐水</b>的浓度,并讲清仪器原理(费曼)。</li>
+    <li>导师端三轴记录:点亮 KP 数 / 开放决策是否真由孩子定 / 能否独立讲解建模过程。</li>
+  </ul>
+
+  <h3>⑤ 分步解答</h3>
+  <ol class="steps">
+    <li>接探头:两根导线(鳄鱼夹)分别接 micro:bit 的 <b>P1(读数)</b> 与 <b>3V</b>,线头做成两片不碰到的"电极"。</li>
+    <li>烧程序:读 P1 模拟值 → 映射成 LED 点阵亮度条 / 数字,边测边显示(可串口记录)。</li>
+    <li>归零:电极插入<b>纯水</b>,记下"零读数"。</li>
+    <li>定标:配 1 勺、2 勺、3 勺盐水(每杯水量一致),分别读数。</li>
+    <li>画<b>浓度—读数曲线</b>(柱状或折线)。</li>
+    <li>校准后测一杯<b>未知盐水</b>,在曲线上反查它的浓度。</li>
+    <li>记录卡:画曲线 + 写"我固定了什么、电极插多深、怎么归的零"。</li>
+  </ol>
+
+  <h3>⑥ 示意图</h3>
+  <div class="figs">
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="电极探头接线图">
+        <defs>
+          <linearGradient id="c1_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <linearGradient id="c1_liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8f4e6"/><stop offset="1" stop-color="#7ec9a8"/></linearGradient>
+          <linearGradient id="c1_mb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe6fb"/><stop offset="1" stop-color="#d8c6f0"/></linearGradient>
+        </defs>
+        <line x1="20" y1="178" x2="200" y2="178" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <rect x="24" y="22" width="78" height="50" rx="6" fill="url(#c1_mb)" stroke="#a98fd6" stroke-width="2"/>
+        <circle cx="40" cy="40" r="3" fill="#7a4fae"/><circle cx="52" cy="40" r="3" fill="#7a4fae"/><circle cx="64" cy="40" r="3" fill="#7a4fae"/><circle cx="76" cy="40" r="3" fill="#7a4fae"/><circle cx="88" cy="40" r="3" fill="#7a4fae"/>
+        <circle cx="46" cy="54" r="3" fill="#c9b3e8"/><circle cx="58" cy="54" r="3" fill="#c9b3e8"/><circle cx="70" cy="54" r="3" fill="#c9b3e8"/><circle cx="82" cy="54" r="3" fill="#c9b3e8"/>
+        <text x="63" y="18" font-size="9" fill="#5a3b86" text-anchor="middle" font-weight="700">micro:bit</text>
+        <rect x="30" y="66" width="9" height="6" fill="#d4b24a"/><text x="34.5" y="86" font-size="8" fill="#7a3d12" text-anchor="middle">3V</text>
+        <rect x="86" y="66" width="9" height="6" fill="#d4b24a"/><text x="90.5" y="86" font-size="8" fill="#7a3d12" text-anchor="middle">P1</text>
+        <path d="M34 72 C30 110 40 120 64 122" fill="none" stroke="#d36a5a" stroke-width="2.5"/>
+        <path d="M90 72 C96 110 88 120 76 122" fill="none" stroke="#3a86b5" stroke-width="2.5"/>
+        <path d="M104 110 L150 110 L142 172 L96 172 Z" fill="url(#c1_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M100 128 L146 128 L140 170 L98 170 Z" fill="url(#c1_liq)"/>
+        <rect x="118" y="120" width="5" height="34" rx="2" fill="#d36a5a"/>
+        <rect x="128" y="120" width="5" height="34" rx="2" fill="#3a86b5"/>
+        <circle cx="110" cy="138" r="2.4" fill="#fff" opacity=".6"/><circle cx="136" cy="146" r="2" fill="#fff" opacity=".6"/>
+        <g fill="#f6c945"><path d="M165 64 l1.6 4.6 4.6 1.6 -4.6 1.6 -1.6 4.6 -1.6 -4.6 -4.6 -1.6 4.6 -1.6z"/></g>
+        <text x="178" y="118" font-size="10" fill="#0f6e56" text-anchor="middle" font-weight="700">离子</text>
+        <text x="178" y="132" font-size="10" fill="#0f6e56" text-anchor="middle" font-weight="700">导电</text>
+      </svg>
+      <figcaption class="cap">图1 自制探头<span class="sub">两电极 + micro:bit 读数</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 240 190" aria-label="纯水糖水盐水对比">
+        <defs>
+          <linearGradient id="c2_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+        </defs>
+        <rect x="56" y="6" width="128" height="22" rx="11" fill="#f3eefb" stroke="#7a4fae" stroke-width="1.5"/>
+        <text x="120" y="21" font-size="11" font-weight="700" fill="#5a3b86" text-anchor="middle">同样插探头,读数差很多</text>
+        <line x1="14" y1="172" x2="226" y2="172" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 纯水 -->
+        <path d="M22 96 L66 96 L61 158 L27 158 Z" fill="url(#c2_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M26 122 L62 122 L58 156 L30 156 Z" fill="#eef6ff"/>
+        <rect x="40" y="112" width="4" height="30" fill="#9a948a"/><rect x="46" y="112" width="4" height="30" fill="#9a948a"/>
+        <text x="44" y="184" font-size="10" font-weight="700" fill="#9a948a" text-anchor="middle">纯水 · 0</text>
+        <!-- 糖水 -->
+        <path d="M98 96 L142 96 L137 158 L103 158 Z" fill="url(#c2_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M102 122 L138 122 L134 156 L106 156 Z" fill="#fbf2dd"/>
+        <rect x="116" y="112" width="4" height="30" fill="#9a948a"/><rect x="122" y="112" width="4" height="30" fill="#9a948a"/>
+        <text x="120" y="184" font-size="10" font-weight="700" fill="#9a948a" text-anchor="middle">糖水 · ≈0</text>
+        <!-- 盐水 -->
+        <path d="M174 96 L218 96 L213 158 L179 158 Z" fill="url(#c2_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M178 122 L214 122 L210 156 L182 156 Z" fill="#d8f4e6"/>
+        <rect x="192" y="112" width="4" height="30" fill="#d36a5a"/><rect x="198" y="112" width="4" height="30" fill="#3a86b5"/>
+        <g stroke="#f6b73c" stroke-width="2.2" stroke-linecap="round"><line x1="188" y1="108" x2="184" y2="100"/><line x1="206" y1="108" x2="210" y2="100"/></g>
+        <text x="196" y="184" font-size="10" font-weight="700" fill="#0f6e56" text-anchor="middle">盐水 · 高</text>
+      </svg>
+      <figcaption class="cap">图2 三杯对比<span class="sub">导电靠离子,不靠"湿"或"甜"</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="浓度读数曲线">
+        <line x1="34" y1="20" x2="34" y2="158" stroke="#cbbfa6" stroke-width="2"/>
+        <line x1="34" y1="158" x2="200" y2="158" stroke="#cbbfa6" stroke-width="2"/>
+        <text x="20" y="26" font-size="10" fill="#7a3d12" text-anchor="middle">读数</text>
+        <text x="196" y="176" font-size="10" fill="#7a3d12" text-anchor="middle">浓度</text>
+        <polyline points="34,150 70,118 106,86 142,58 178,38" fill="none" stroke="#1d9e75" stroke-width="2.5"/>
+        <circle cx="70" cy="118" r="4.5" fill="#1d9e75"/><circle cx="106" cy="86" r="4.5" fill="#1d9e75"/><circle cx="142" cy="58" r="4.5" fill="#1d9e75"/>
+        <text x="70" y="112" font-size="9" fill="#0f6e56" text-anchor="middle">1勺</text><text x="106" y="80" font-size="9" fill="#0f6e56" text-anchor="middle">2勺</text><text x="142" y="52" font-size="9" fill="#0f6e56" text-anchor="middle">3勺</text>
+        <!-- 未知点 -->
+        <line x1="124" y1="72" x2="124" y2="158" stroke="#ef9f27" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <line x1="34" y1="72" x2="124" y2="72" stroke="#ef9f27" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <circle cx="124" cy="72" r="5" fill="#ef9f27" stroke="#b5740f" stroke-width="1.5"/>
+        <text x="150" y="74" font-size="9.5" fill="#b5740f" font-weight="700">未知?</text>
+        <text x="117" y="153" font-size="8.5" fill="#b5740f" text-anchor="middle">反推浓度</text>
+      </svg>
+      <figcaption class="cap">图3 建模预测<span class="sub">连成曲线,反推未知盐水浓度</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>

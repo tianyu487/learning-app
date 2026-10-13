@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目卡片 · 福尔摩斯小侦探鉴证科</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-org{background:#ef9f27;}.c-blue{background:#3a86b5;}.c-gray{background:#9a948a;}.c-book{background:#b5740f;}
+  .ladder{display:flex;gap:6px;margin-top:14px;}
+  .ladder .st{flex:1;text-align:center;font-size:11px;color:#9a948a;padding:7px 2px;border-radius:9px;background:#f3eee2;border:1.5px solid #ece3cf;}
+  .ladder .st b{display:block;font-size:13px;color:#b3a89a;}
+  .ladder .st.on{background:#1d9e75;border-color:#178060;color:#eafaf3;}
+  .ladder .st.on b{color:#fff;}
+  h2{font-size:17px;color:#0f6e56;margin:24px 0 12px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:14px;flex:none;}
+  h3{font-size:14.5px;color:#7a3d12;margin:18px 0 8px;border-left:4px solid #ef9f27;padding-left:9px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:#f3eee2;color:#7a3d12;font-weight:700;}
+  tr:nth-child(even) td{background:#fdfbf4;}
+  .kpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0;}
+  .kp{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:12px;padding:10px 12px;font-size:13px;}
+  .kp b{color:#0f6e56;}
+  .kp .lv{float:right;font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;}
+  .kp .lv.lg{background:#7a4fae;}
+  .callout{border-radius:13px;padding:12px 16px;margin:10px 0;font-size:13.5px;}
+  .open{background:#fdf3e6;border:2px dashed #ef9f27;}.open b{color:#b5740f;}
+  .qa{background:#eafaf3;border:1.5px solid #bfe7d6;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .book{background:#f7f1e6;border-left:4px solid #b5740f;color:#7a4d12;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .book b{color:#7a4d12;}
+  .beat{display:flex;gap:12px;margin:8px 0;align-items:stretch;}
+  .beat .num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef9f27;color:#fff;font-weight:800;text-align:center;line-height:30px;}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #eee4cf;border-radius:11px;padding:9px 12px;font-size:13px;}
+  .beat .bt{font-weight:700;color:#7a3d12;}
+  .beat .kptag{display:inline-block;font-size:10.5px;background:#eafaf3;color:#0f6e56;border:1px solid #bfe7d6;border-radius:8px;padding:1px 7px;margin-left:6px;}
+  .beat .kptag.lg{background:#f3eefb;color:#5a3b86;border-color:#cdb6ec;}
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0;}
+  ol.steps li{counter-increment:s;position:relative;padding:7px 0 7px 40px;border-bottom:1px dashed #ece3cf;font-size:13.5px;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:800;font-size:13px;}
+  ul.ev{padding-left:20px;font-size:13.5px;}ul.ev li{margin:3px 0;}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0;}
+  .fig{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:10px 8px;text-align:center;margin:0;}
+  .fig svg{width:100%;height:auto;}
+  .fig .cap{font-size:12.5px;font-weight:700;color:#7a3d12;margin-top:6px;display:block;}
+  .fig .cap .sub{display:block;font-size:10.5px;font-weight:400;color:#9a948a;margin-top:2px;}
+  .deco{position:absolute;opacity:.5;pointer-events:none;}
+  @media(max-width:640px){.figs{grid-template-columns:1fr;}.kpgrid{grid-template-columns:1fr;}.ladder{flex-wrap:wrap;}.ladder .st{min-width:30%;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+<section class="sheet">
+  <svg class="deco" style="top:-10px;right:-6px;width:130px" viewBox="0 0 140 150" aria-hidden="true">
+    <circle cx="40" cy="30" r="6" fill="#f1d79e"/><circle cx="90" cy="20" r="4" fill="#bfe7d6"/>
+    <circle cx="116" cy="48" r="9" fill="#f4c4b3"/><circle cx="70" cy="60" r="3" fill="#a9cfe5"/>
+  </svg>
+  <div class="head">
+    <svg viewBox="0 0 90 100" width="68" height="76" aria-hidden="true">
+      <circle cx="40" cy="40" r="22" fill="#eafaf3" stroke="#5a8a76" stroke-width="3.5"/>
+      <circle cx="40" cy="40" r="14" fill="#dff0fa" opacity=".7"/>
+      <line x1="56" y1="56" x2="78" y2="80" stroke="#7a4d12" stroke-width="7" stroke-linecap="round"/>
+      <path d="M30 36 l3 3 6 -7" fill="none" stroke="#d36a5a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="48" cy="44" r="2.4" fill="#3a86b5"/><circle cx="44" cy="50" r="1.8" fill="#d3568f"/>
+    </svg>
+    <div>
+      <div class="tt1">读经典难度阶梯 · DJ-L3-001</div>
+      <div class="tt2">福尔摩斯 · 小侦探鉴证科</div>
+      <div class="chips">
+        <span class="chip c-green">第 3 阶 · 小升初</span>
+        <span class="chip c-org">②线下 · 轻物料</span>
+        <span class="chip c-blue">L2 → L3</span>
+        <span class="chip c-book">📖 书为主 · 电子无</span>
+      </div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>含六件套教学核</div>
+  </div>
+  <div class="ladder">
+    <div class="st"><b>1</b>看现象</div>
+    <div class="st"><b>2</b>量化控变量</div>
+    <div class="st on"><b>3</b>推理建模</div>
+    <div class="st"><b>4</b>多变量迭代</div>
+    <div class="st"><b>5</b>系统跨学科</div>
+    <div class="st"><b>6</b>开放立项</div>
+  </div>
+
+  <h2><span class="n">★</span>分类标注</h2>
+  <table>
+    <tr><th style="width:28%">字段</th><th>内容</th></tr>
+    <tr><td>项目编号</td><td>DJ-L3-001</td></tr>
+    <tr><td>类型</td><td>②线下物料项目(<b>轻物料包</b>)·有"破案"强话题、以书为主体</td></tr>
+    <tr><td>难度阶</td><td><b>第 3 阶</b> · 小升初 · 推理与建模(用证据比对锁定结论)</td></tr>
+    <tr><td>学员定位</td><td>L2 改造者 → L3 设计者(能自己设计一个"案子"让别人破)</td></tr>
+    <tr><td>跨学科</td><td><b>化学</b>(纸层析/色谱启蒙) × <b>逻辑学</b>(证据链·演绎推理)</td></tr>
+    <tr><td>电子含量</td><td>无 · 轻物料,主营是配套书 + 几张滤纸一杯水</td></tr>
+  </table>
+
+  <div class="book"><b>📖 锚定书(产品主体):</b>经典《福尔摩斯探案集》 + 自编配套书《小侦探鉴证科 · 办案手册》。卖的是书与办案故事,滤纸、彩笔只是几块钱的轻物料包(可家庭自备)。书里把福尔摩斯的"观察—推理—验证"翻译成孩子能上手的鉴证术,本项目就是手册里"读经典 + 做一件有意义的事"的样板。</div>
+
+  <h2><span class="n">★</span>点亮 KP</h2>
+  <div class="note">本阶 4 个 KP 跨化学与逻辑,掌握到"能用层析把墨水分开、能控制变量做出可比的'墨水指纹'、能用证据链排除嫌疑锁定唯一"。绿=化学/方法,紫=逻辑学。</div>
+  <div class="kpgrid">
+    <div class="kp"><span class="lv">认识</span><b>KP1 纸层析·色谱启蒙</b><br>黑墨水其实是好几种颜色混的;用水在滤纸上"跑",能把它们分成各自的色带。</div>
+    <div class="kp"><span class="lv lg">方法</span><b>KP2 物证比对·同一认定</b><br>把现场墨迹的色带图谱和几支嫌疑笔比对,找出"就是这一支"。</div>
+    <div class="kp"><span class="lv lg">认识</span><b>KP3 演绎推理·证据链</b><br>像福尔摩斯一样:线索 → 排除 → 锁定唯一,每一步都讲得出理由。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP4 控制变量·对照</b><br>几支笔在同一张纸、同样的水、同一条起跑线上比,图谱才公平可比。</div>
+  </div>
+  <div class="note">移入"上不封顶"、本阶不点亮:比移值 Rf 计算、溶解度/极性与分离原理、薄层色谱 TLC、充分/必要条件与形式谬误,留给初中—高中(见习题进阶题)。</div>
+
+  <h2><span class="n">★</span>开放决策点</h2>
+  <div class="callout open">
+    <b>挑战:自己当出题人,设计一桩"墨水疑案"。</b><br>
+    孩子自选:<b>用几支笔当嫌疑 ｜ 用哪一支写"罪证字条" ｜ 要不要加柠檬汁密写当暗线</b>。
+    要求:<b>先布案 → 让同伴用层析破 → 公布答案验证</b>,并讲清"凭哪条证据锁定、又凭哪条排除了别的笔"。
+  </div>
+</section>
+
+<section class="sheet">
+  <h2><span class="n">六</span>件套 · 教学内容核</h2>
+
+  <h3>① 驱动问题</h3>
+  <div class="callout qa">"案发现场留下一张神秘字条。三个嫌疑人各有一支黑笔,看上去墨水都一样。你能不能像福尔摩斯那样,只用<b>几张滤纸和一杯水</b>,让墨水自己'招供'——<b>说出字条到底是哪支笔写的</b>?"</div>
+
+  <h3>② 探究脉络</h3>
+  <div class="beat"><div class="num">1</div><div class="bd"><span class="bt">好奇钩子</span><span class="kptag">KP1 预告</span><br>一支"纯黑"水笔,在滤纸上点一点、滴上水 → 黑色竟然<b>裂成蓝、紫、粉</b>好几条带!<br><i>反直觉:黑墨水原来是"混血",3 秒抓注意力。</i></div></div>
+  <div class="beat"><div class="num">2</div><div class="bd"><span class="bt">先动手试错</span><span class="kptag">KP3 缺口</span><br>让孩子先<b>拿现场字条对着光看、猜</b>是哪支笔 → 各执一词、谁也说不准。"光靠眼睛,破不了案。"<br><i>制造"需要客观证据"的缺口,逼出鉴证方法。</i></div></div>
+  <div class="beat"><div class="num">3</div><div class="bd"><span class="bt">玩中探究</span><span class="kptag">KP1</span><span class="kptag">KP4</span><br>引入纸层析:现场墨 + 几支嫌疑笔,在<b>同一张滤纸、同一条起跑线</b>点样,一起浸水,各自跑出"彩色指纹带"。<br><i>在最想破案时引入层析 + 控制变量。</i></div></div>
+  <div class="beat"><div class="num">4</div><div class="bd"><span class="bt">回现实检验</span><span class="kptag lg">KP2</span><span class="kptag lg">KP3</span><br>把现场墨的色带和嫌疑笔逐一比对,组合一致的就是"凶器笔";再用<b>证据链</b>讲清为什么排除其余几支。让出题人公布答案验证对错。<br><i>用证据说话、出题人当裁判——现实说了算。</i></div></div>
+  <div class="beat"><div class="num">5</div><div class="bd"><span class="bt">点亮+费曼</span><span class="kptag">全部</span><br>点亮 KP1–4;让孩子像福尔摩斯一样<b>复盘破案</b>:讲"黑墨为什么会分开?我靠哪条证据锁定、又排除了谁?"<br><i>讲明白推理链才算学会。</i></div></div>
+
+  <h3>③ 证据</h3>
+  <table>
+    <tr><th style="width:26%">类型</th><th>内容</th></tr>
+    <tr><td>分离证据</td><td>一个"黑点"在滤纸上跑出多条不同颜色的带 → 墨水是<b>混合物</b>,不是单一颜色。</td></tr>
+    <tr><td>指纹证据</td><td>每支笔的色带组合各不相同 → 可当作这支笔的"墨水指纹"。</td></tr>
+    <tr><td>同一认定证据</td><td>现场墨的色带组合与某支笔<b>完全一致</b> → 指向同一支笔。</td></tr>
+    <tr><td>对照证据</td><td>同纸、同水、同起跑线,比对才公平 → 控制变量是鉴证可信的前提。</td></tr>
+  </table>
+
+  <h3>④ 评价</h3>
+  <ul class="ev">
+    <li>能说出:黑墨水其实是<b>多种颜色的混合物</b>;层析能把它们分开。</li>
+    <li>能做到:<b>控制变量</b>地做层析(同纸同水同起跑线),得到可比的"墨水指纹"。</li>
+    <li>能用<b>证据链</b>:由图谱比对 + 排除法锁定唯一嫌疑,并讲清每一步理由。</li>
+    <li><b>L3 萌芽</b>:能自己<b>设计一桩案子</b>(选嫌疑笔、写罪证、让人破),并讲清鉴证原理(费曼)。</li>
+    <li>导师端三轴记录:点亮 KP 数 / 案子是否真由孩子自己设计 / 能否独立讲清证据链。</li>
+  </ul>
+
+  <h3>⑤ 分步解答</h3>
+  <ol class="steps">
+    <li>裁一条滤纸(或咖啡滤纸剪条),距底边约 2 cm 用<b>铅笔</b>画一条起跑线。</li>
+    <li>在起跑线上点"<b>现场墨</b>"一小点,旁边依次点几支<b>嫌疑笔</b>的墨点(隔开、标号)。</li>
+    <li>杯里加约 1 cm 浅水,把滤纸下端浸入(<b>水面别没过墨点</b>),竖直静置。</li>
+    <li>水沿滤纸往上爬,墨点被"拉"开成多条<b>色带</b>;水快到顶时取出晾干。</li>
+    <li><b>比对</b>:现场墨的色带组合 = 哪支笔的组合 → 锁定"凶器笔"。</li>
+    <li>写<b>证据链</b>:"现场=蓝+粉=3 号笔;排除 1 号(只蓝)、2 号(蓝+黄)……"</li>
+    <li>办案卡:画各笔图谱 + 写推理结论 + 自评(我靠什么锁定、排除了谁)。</li>
+  </ol>
+
+  <h3>⑥ 示意图</h3>
+  <div class="figs">
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="黑墨裂开成色带">
+        <defs>
+          <linearGradient id="d1_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+        </defs>
+        <line x1="20" y1="178" x2="200" y2="178" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 杯与水 -->
+        <path d="M70 150 L150 150 L144 176 L76 176 Z" fill="url(#d1_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M74 160 L146 160 L142 174 L78 174 Z" fill="#dff0fa"/>
+        <!-- 滤纸条 -->
+        <rect x="100" y="24" width="20" height="140" rx="2" fill="#fffdf5" stroke="#e6dcc4" stroke-width="1.5"/>
+        <line x1="100" y1="150" x2="120" y2="150" stroke="#b3a89a" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="135" y="153" font-size="8" fill="#9a948a">起跑线</text>
+        <!-- 色带:黑点裂成多色 -->
+        <rect x="103" y="138" width="14" height="6" rx="2" fill="#322f2a"/>
+        <rect x="103" y="118" width="14" height="7" rx="2" fill="#d3568f"/>
+        <rect x="103" y="96" width="14" height="8" rx="2" fill="#7a4fae"/>
+        <rect x="103" y="72" width="14" height="9" rx="2" fill="#3a86b5"/>
+        <rect x="103" y="48" width="14" height="7" rx="2" fill="#2c9bd6" opacity=".7"/>
+        <!-- 上升箭头 -->
+        <path d="M128 150 L128 60" stroke="#1d9e75" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <polygon points="128,52 124,62 132,62" fill="#1d9e75"/>
+        <text x="150" y="100" font-size="9" fill="#0f6e56" transform="rotate(90 150 100)">水往上爬</text>
+        <text x="110" y="20" font-size="9.5" font-weight="700" fill="#7a3d12" text-anchor="middle">黑墨"裂"开</text>
+      </svg>
+      <figcaption class="cap">图1 黑墨裂开<span class="sub">一个黑点 → 蓝紫粉多条带</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 240 190" aria-label="嫌疑笔比对">
+        <rect x="40" y="6" width="160" height="22" rx="11" fill="#fdf3e6" stroke="#ef9f27" stroke-width="1.5"/>
+        <text x="120" y="21" font-size="11" font-weight="700" fill="#b5740f" text-anchor="middle">现场墨 = 哪支笔?</text>
+        <line x1="14" y1="172" x2="226" y2="172" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 现场 -->
+        <g>
+          <rect x="26" y="44" width="24" height="120" rx="2" fill="#fffdf5" stroke="#d36a5a" stroke-width="2"/>
+          <rect x="30" y="140" width="16" height="6" fill="#3a86b5"/><rect x="30" y="118" width="16" height="6" fill="#d3568f"/>
+          <text x="38" y="184" font-size="9" font-weight="700" fill="#a32d2d" text-anchor="middle">现场</text>
+        </g>
+        <text x="62" y="108" font-size="13" fill="#c8a96a" text-anchor="middle">VS</text>
+        <!-- 1号 -->
+        <g>
+          <rect x="76" y="50" width="22" height="114" rx="2" fill="#fffdf5" stroke="#cbbfa6" stroke-width="1.5"/>
+          <rect x="79" y="140" width="16" height="6" fill="#3a86b5"/>
+          <text x="87" y="184" font-size="9" fill="#9a948a" text-anchor="middle">1号·只蓝</text>
+        </g>
+        <!-- 2号 -->
+        <g>
+          <rect x="118" y="50" width="22" height="114" rx="2" fill="#fffdf5" stroke="#cbbfa6" stroke-width="1.5"/>
+          <rect x="121" y="140" width="16" height="6" fill="#3a86b5"/><rect x="121" y="118" width="16" height="6" fill="#e1b33a"/>
+          <text x="129" y="184" font-size="9" fill="#9a948a" text-anchor="middle">2号·蓝黄</text>
+        </g>
+        <!-- 3号 命中 -->
+        <g>
+          <rect x="162" y="44" width="24" height="120" rx="2" fill="#eafaf3" stroke="#1d9e75" stroke-width="2.5"/>
+          <rect x="166" y="140" width="16" height="6" fill="#3a86b5"/><rect x="166" y="118" width="16" height="6" fill="#d3568f"/>
+          <text x="174" y="184" font-size="9" font-weight="700" fill="#0f6e56" text-anchor="middle">3号·蓝粉 ✓</text>
+        </g>
+        <path d="M196 70 l5 6 9 -12" fill="none" stroke="#1d9e75" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <figcaption class="cap">图2 墨水指纹比对<span class="sub">色带组合相同 = 同一支笔</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="证据链排除法">
+        <text x="110" y="18" font-size="10.5" font-weight="700" fill="#5a3b86" text-anchor="middle">线索 → 排除 → 锁定唯一</text>
+        <!-- 三个嫌疑 -->
+        <circle cx="45" cy="55" r="18" fill="#f3eefb" stroke="#a98fd6" stroke-width="2"/><text x="45" y="59" font-size="11" fill="#5a3b86" text-anchor="middle" font-weight="700">1号</text>
+        <circle cx="110" cy="55" r="18" fill="#f3eefb" stroke="#a98fd6" stroke-width="2"/><text x="110" y="59" font-size="11" fill="#5a3b86" text-anchor="middle" font-weight="700">2号</text>
+        <circle cx="175" cy="55" r="20" fill="#eafaf3" stroke="#1d9e75" stroke-width="3"/><text x="175" y="59" font-size="11" fill="#0f6e56" text-anchor="middle" font-weight="800">3号</text>
+        <!-- 排除叉 -->
+        <g stroke="#d36a5a" stroke-width="3" stroke-linecap="round"><line x1="36" y1="46" x2="54" y2="64"/><line x1="54" y1="46" x2="36" y2="64"/><line x1="101" y1="46" x2="119" y2="64"/><line x1="119" y1="46" x2="101" y2="64"/></g>
+        <text x="45" y="88" font-size="8.5" fill="#a32d2d" text-anchor="middle">无粉,排除</text>
+        <text x="110" y="88" font-size="8.5" fill="#a32d2d" text-anchor="middle">有黄,排除</text>
+        <text x="175" y="90" font-size="8.5" fill="#0f6e56" text-anchor="middle" font-weight="700">蓝+粉,命中</text>
+        <!-- 放大镜锁定 -->
+        <circle cx="175" cy="135" r="16" fill="none" stroke="#7a4d12" stroke-width="3"/>
+        <line x1="187" y1="147" x2="200" y2="162" stroke="#7a4d12" stroke-width="5" stroke-linecap="round"/>
+        <path d="M168 135 l4 4 8 -9" fill="none" stroke="#1d9e75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M45 73 C45 110 150 120 162 128" fill="none" stroke="#cbbfa6" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <path d="M110 73 C110 105 150 116 162 126" fill="none" stroke="#cbbfa6" stroke-width="1.3" stroke-dasharray="3 3"/>
+        <text x="80" y="150" font-size="9" fill="#7a3d12">证据链锁定</text>
+      </svg>
+      <figcaption class="cap">图3 证据链<span class="sub">排除其余,锁定唯一嫌疑</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>

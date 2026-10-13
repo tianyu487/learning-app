@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品交接 · 盐水电导率计</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#3a86b5;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#e3f0f8,#eafaf3);border:2px solid #a9cfe5;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#2c6a90;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#1f4f6e;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-blue{background:#3a86b5;}.c-elec{background:#7a4fae;}
+  h2{font-size:16px;color:#2c6a90;margin:22px 0 10px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:24px;height:24px;background:#3a86b5;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;flex:none;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #d8e6ef;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#e3f0f8;color:#1f4f6e;font-weight:700;}
+  tr:nth-child(even) td{background:#f7fbfd;}
+  .matgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:6px 0;}
+  .item{font-size:13.5px;padding:4px 0;display:flex;align-items:center;}
+  .box{width:15px;height:15px;border:2px solid #6aa3c4;border-radius:4px;margin-right:9px;flex:none;}
+  .warn{background:#fdecea;border:2px dashed #d36a5a;border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  .warn b{color:#a32d2d;}
+  .key{background:#fff6e6;border:2px solid #ef9f27;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .key b{color:#b5740f;}
+  .elec{background:#f3eefb;border:2px solid #7a4fae;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .note{background:#eef5fa;border-left:4px solid #6aa3c4;color:#2c6a90;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  @media(max-width:640px){.matgrid{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="16" y="24" width="48" height="40" rx="4" fill="#dff3ff" stroke="#6aa3c4" stroke-width="2.5"/>
+      <path d="M16 24 L40 12 L64 24" fill="none" stroke="#6aa3c4" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="40" y1="12" x2="40" y2="64" stroke="#a9cfe5" stroke-width="2"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L3-001 盐水电导率计</div>
+      <div class="tt2">产品交接</div>
+      <div class="chips"><span class="chip c-blue">物料盒子 BOM</span><span class="chip c-elec">电子:micro:bit 首秀</span></div>
+    </div>
+    <div class="meta">交接 → 产品/供应链<br>BOM · 电子 · 安全</div>
+  </div>
+
+  <div class="elec">
+    <b>⚡ 电子核心首次进盒:</b>本阶起 micro:bit 正式登场。它是<b>一次性硬件</b>、家长买一次,第 4–6 阶的盒子继续复用同一块板——这是订阅制"硬件一次买、耗材月月换"的支点。本盒只需 micro:bit + 电极 + 导线,成本可控。
+  </div>
+
+  <h2><span class="n">1</span>物料清单 BOM</h2>
+  <div class="matgrid">
+    <div class="item"><span class="box"></span>micro:bit 主板 ×1(<b>通用核心,可复用</b>)</div>
+    <div class="item"><span class="box"></span>电池盒 + 电池 / USB 供电线</div>
+    <div class="item"><span class="box"></span>鳄鱼夹导线 ×2(接 P1 / 3V)</div>
+    <div class="item"><span class="box"></span>不锈钢电极片 / 镀锌钉 ×2</div>
+    <div class="item"><span class="box"></span>电极固定座(保证间距/插入深度一致)</div>
+    <div class="item"><span class="box"></span>透明小杯 ×6</div>
+    <div class="item"><span class="box"></span>食盐 + 白糖(对照用)小包</div>
+    <div class="item"><span class="box"></span>小量勺 / 量杯</div>
+    <div class="item"><span class="box"></span>蒸馏水(归零用)小瓶</div>
+    <div class="item"><span class="box"></span>记录卡 + 曲线坐标卡</div>
+  </div>
+  <div class="note">水样(自来水/矿泉水/纯净水)由用户自备,贴近"测自家的水"话题;果汁/饮料也可作拓展样品。</div>
+
+  <div class="key">
+    <b>关键质控:电极间距与插入深度必须可固定。</b>本阶读数是半定量,若每次电极间距、插入深浅不同,读数无法横比、曲线就不准。建议盒内配一个<b>带卡槽的电极固定座</b>(固定间距 + 限位插入深度),并在任务卡注明"测前先用蒸馏水归零"。这是本盒成败点。
+  </div>
+
+  <h2><span class="n">2</span>电子元器件清单</h2>
+  <table>
+    <tr><th style="width:24%">项</th><th>说明</th></tr>
+    <tr><td>主控</td><td><b>micro:bit ×1</b>:读 P1 模拟输入,映射成 LED 点阵亮度条 / 串口数字。一次性硬件,跨盒复用。</td></tr>
+    <tr><td>探头</td><td>两片不锈钢电极 + 鳄鱼夹导线;接 3V 与 P1,中间隔水。</td></tr>
+    <tr><td>预置程序</td><td>盒内附烧录好的 .hex 或扫码即烧版本,降低上手门槛;进阶可让学员自己改映射/加阈值提示。</td></tr>
+    <tr><td>供电</td><td>电池盒供电,避免插电直连市电;探头电压仅 3V,安全。</td></tr>
+  </table>
+  <div class="note">第 4 阶(反应速率擂台)起,同一块 micro:bit 改接温度/计时即可复用,无需重买主板——务必在说明里强调"板子留好,下个盒接着用"。</div>
+
+  <h2><span class="n">3</span>安全与履约</h2>
+  <div class="warn">
+    <b>安全:</b>仅用电池/USB 低压(3V)供电,<b>严禁接市电</b>;电极与水接触部分用食品级不锈钢、防锈防溶出;实验用过的盐水/水样不作饮用;由成人协助接线与首次烧录。
+  </div>
+  <table>
+    <tr><th style="width:24%">项</th><th>建议</th></tr>
+    <tr><td>分装</td><td>micro:bit 防静电袋;电极、导线独立收纳;盐/糖小包防潮。</td></tr>
+    <tr><td>开箱即玩</td><td>随盒附五拍任务卡 + 曲线记录卡 + 烧录指引,与导师/教研口径一致。</td></tr>
+    <tr><td>合规</td><td>电子件 CE/RoHS;儿童用品安全标识;低压供电与"勿接市电"警示清晰。</td></tr>
+  </table>
+</section>
+</div>
+</body>
+</html>

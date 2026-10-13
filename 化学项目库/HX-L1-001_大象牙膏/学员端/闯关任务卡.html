@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>闯关任务卡 · 大象牙膏</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{--brand:#ff8a3d;--brand-d:#f2701a;--green:#27c08a;--green-d:#15a472;--blue:#4c9af5;--ink:#3b3942;--soft:#7d7986;--paper:#fbf8f3;}
+  body{background:radial-gradient(circle at 6% 2%,#ffe6d2 0,transparent 26%),radial-gradient(circle at 94% 1%,#dceefb 0,transparent 22%),var(--paper);background-attachment:fixed;
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:14px;padding:9px 22px;border:0;border-radius:14px;background:var(--brand);color:#fff;cursor:pointer;font-weight:800;box-shadow:0 5px 12px rgba(255,138,61,.32);}
+  .wrap{max-width:760px;margin:0 auto 50px;padding:0 16px;}
+  .hero{background:linear-gradient(120deg,#ffa24c,#ff6f61);color:#fff;border-radius:26px;padding:24px 26px;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(255,111,97,.25);margin-bottom:18px;}
+  .hero .lv{font-size:12.5px;font-weight:700;letter-spacing:1px;opacity:.95;}
+  .hero h1{font-size:27px;font-weight:800;margin:4px 0 8px;}
+  .hero .q{background:rgba(255,255,255,.2);border-radius:15px;padding:12px 16px;font-size:14.5px;border-left:3px solid #fff3cf;max-width:540px;position:relative;}
+  .hero .mascot{position:absolute;right:18px;bottom:-6px;width:104px;}
+  @media(max-width:560px){.hero .mascot{width:70px;right:6px;opacity:.92;}}
+  .card{background:#fff;border-radius:22px;box-shadow:0 8px 24px rgba(70,50,30,.07);border:1px solid #f3ecdf;padding:22px 24px;margin-bottom:16px;}
+  h2{font-size:19px;color:#33313a;display:flex;align-items:center;gap:9px;margin-bottom:12px;font-weight:800;}
+  h2 .ic{font-size:22px;}
+  .mat{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  @media(max-width:560px){.mat{grid-template-columns:1fr;}}
+  .mat .it{display:flex;align-items:center;gap:10px;font-size:14px;}
+  .mat .bx{width:18px;height:18px;border:2px solid var(--brand);border-radius:6px;flex:none;}
+  .mat .it small{color:var(--soft);font-size:11.5px;}
+  .step{display:flex;gap:13px;margin:11px 0;align-items:flex-start;}
+  .step .n{flex:none;width:36px;height:36px;border-radius:13px;background:linear-gradient(135deg,#ffb15c,#f2701a);color:#fff;font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 9px rgba(255,138,61,.3);transform:rotate(-4deg);}
+  .step .tx{flex:1;background:#fff8f1;border:1.5px solid #ffe6d0;border-radius:14px;padding:10px 14px;font-size:14.5px;}
+  .step .tx b{color:var(--brand-d);}
+  .opencard{display:block;text-align:center;margin-top:14px;padding:12px;border-radius:14px;background:linear-gradient(120deg,#ffa24c,#ff6f61);color:#fff;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 6px 14px rgba(255,111,97,.28);}
+  .pick{background:linear-gradient(120deg,#fff4e6,#fff0e6);border:2px dashed var(--brand);border-radius:18px;padding:16px 18px;font-size:14.5px;}
+  .pick b{color:var(--brand-d);}
+  .recipe{background:#f3fbff;border:1.5px solid #cfe6f5;border-radius:16px;padding:14px 16px;margin-bottom:14px;font-size:14px;}
+  .recipe .rt{font-weight:800;color:#2c6a90;margin-bottom:6px;display:flex;align-items:center;gap:7px;}
+  .recipe table{width:100%;border-collapse:collapse;}
+  .recipe td{padding:5px 8px;border-bottom:1px dashed #dcecf5;}
+  .recipe td:last-child{text-align:right;font-weight:800;color:#1f4f6e;white-space:nowrap;}
+  .recipe .tip{margin-top:8px;font-size:12.5px;color:#6a8aa0;}
+  .guard{background:#fff6f4;border:2px solid #ffc9bd;border-radius:12px;padding:9px 13px;margin-top:10px;font-size:13.5px;color:#b23b22;}
+  .guard b{color:#e2563a;}
+  .safe{background:#fff6f4;border:2px solid #ffd2c8;border-radius:18px;padding:16px 18px;font-size:14px;}
+  .safe b{color:#e2563a;}
+  .safe ul{margin:6px 0 0 20px;}.safe li{margin:4px 0;}
+  .feyn{background:linear-gradient(120deg,#eafaf4,#eaf5ff);border:2px solid #b7ead4;border-radius:18px;padding:16px 18px;font-size:14.5px;}
+  .feyn b{color:var(--green-d);}
+  @media print{body{background:#fff;}.noprint{display:none;}.card,.hero{box-shadow:none;}.card,.step,.recipe,.safe,.pick,.feyn{break-inside:avoid;}.opencard{display:none;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+  <div class="hero">
+    <svg class="mascot" viewBox="0 0 120 142" aria-hidden="true">
+      <circle cx="80" cy="14" r="6" fill="#ffe08a"/><circle cx="93" cy="27" r="4" fill="#fff" opacity=".75"/><circle cx="69" cy="6" r="3.6" fill="#7fd6b4"/>
+      <path d="M30 80 q-16 -6 -20 -23" fill="none" stroke="#0c6b51" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="9" cy="54" r="5" fill="#eaf6ff" stroke="#0c6b51" stroke-width="2"/>
+      <path d="M44 24 h32 v6 h-5 v20 l20 41 a8 8 0 0 1 -7.2 11.6 h-47.6 a8 8 0 0 1 -7.2 -11.6 l20 -41 v-20 h-5 z" fill="#eaf6ff" stroke="#0c6b51" stroke-width="3.4" stroke-linejoin="round"/>
+      <path d="M38 78 h44 l12.5 25.6 a8 8 0 0 1 -7.2 11.6 h-47.6 a8 8 0 0 1 -7.2 -11.6 z" fill="#7fd6b4"/>
+      <circle cx="50" cy="92" r="3.4" fill="#0c4b3a"/><circle cx="70" cy="92" r="3.4" fill="#0c4b3a"/>
+      <path d="M52 101 q8 6 16 0" fill="none" stroke="#0c4b3a" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="42" cy="99" r="3.4" fill="#f4a8a8" opacity=".7"/><circle cx="78" cy="99" r="3.4" fill="#f4a8a8" opacity=".7"/>
+    </svg>
+    <div class="lv">🧪 第 1 关 · 闯关任务卡</div>
+    <h1>🐘 大象牙膏</h1>
+    <div class="q">🎯 <b>大问题：</b>有没有办法，让一管"牙膏"在 3 秒内自己喷出来，堆成一座冒着热气的小山？</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">🧰</span>你需要准备的东西</h2>
+    <div class="mat">
+      <div class="it"><span class="bx"></span>家用双氧水（3%）<small>大人帮忙</small></div>
+      <div class="it"><span class="bx"></span>干酵母 一小包</div>
+      <div class="it"><span class="bx"></span>洗洁精 一点点</div>
+      <div class="it"><span class="bx"></span>食用色素 几滴</div>
+      <div class="it"><span class="bx"></span>透明杯子 ×2</div>
+      <div class="it"><span class="bx"></span>温水 一点（化酵母用）</div>
+      <div class="it"><span class="bx"></span>大托盘 / 盘子<small>接泡沫</small></div>
+      <div class="it"><span class="bx"></span>手套 + 护目镜</div>
+      <div class="it"><span class="bx"></span>一根木条 + 记录卡</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">👣</span>跟着做（照着一步步来）</h2>
+    <div class="recipe">
+      <div class="rt">🧪 第一杯先按这个量做（记住它，后面比赛要用）</div>
+      <table>
+        <tr><td>家用 3% 双氧水</td><td>约 50 ml（半杯）</td></tr>
+        <tr><td>洗洁精</td><td>1 泵 / 1 大勺</td></tr>
+        <tr><td>食用色素</td><td>几滴</td></tr>
+        <tr><td>干酵母</td><td>1 小包（约 1 茶匙）</td></tr>
+        <tr><td>化酵母的温水</td><td>约 40 ml（温的，不烫手）</td></tr>
+      </table>
+      <div class="tip">先照这个量做一杯，心里就有了"标准"——后面改一样东西时，才知道到底改了多少。</div>
+    </div>
+    <div class="step"><div class="n">1</div><div class="tx">杯子里倒<b>约 50 ml 双氧水</b>，滴几滴你喜欢的<b>颜色</b>，再挤<b>1 泵洗洁精</b>，轻轻晃一晃。</div></div>
+    <div class="step"><div class="n">2</div><div class="tx">用<b>约 40 ml 温水</b>把<b>一小包酵母</b>化开，搅成糊糊。</div></div>
+    <div class="step"><div class="n">3</div><div class="tx">把酵母水<b>一次性倒进去</b>——快闪开，看它"牙膏"喷出来！🌋</div></div>
+    <div class="step"><div class="n">4</div><div class="tx">用手摸摸杯子外面——咦，是不是<b>热热的</b>？</div></div>
+    <div class="step"><div class="n">5</div><div class="tx">点根木条吹灭、留下<b>火星</b>，凑近泡沫口，看它会不会<b>又烧起来</b>。🔥</div></div>
+    <div class="step"><div class="n">6</div><div class="tx">再做一杯<b>不放酵母</b>的，其他都一样，两杯比一比。</div></div>
+    <div class="step"><div class="n">7</div><div class="tx">在<b>记录卡</b>上<b>画下来</b>，写一句"我改了哪一样"。✏️</div></div>
+    <a class="opencard" href="记录卡.html">📝 打开我的记录卡 →</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">🎨</span>这一关你自己说了算</h2>
+    <div class="pick"><b>挑战：让泡沫喷得最高！</b><br>你自己挑<b>一样</b>来改：<b>酵母多放点</b>？<b>洗洁精多一点</b>？<b>水更温一点</b>？——其他都别动（双氧水保持那 50 ml 不变），先<b>猜一猜</b>，再试，看是不是真的更高。
+      <div class="guard">⛔ <b>双氧水不能换更浓的、也别加多</b>——想喷更高，就多放<b>酵母</b>。更浓的双氧水会烧手烧眼睛，我们只用家里 3% 的。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">⚠️</span>安全小提醒</h2>
+    <div class="safe">
+      <b>这几条一定要做到：</b>
+      <ul>
+        <li>双氧水请<b>大人帮忙倒</b>，<b>只用家里 3% 的那种，绝不换更浓的</b>（药店更浓的会灼伤皮肤和眼睛）。</li>
+        <li>戴好<b>护目镜和手套</b>，别让泡沫进眼睛。</li>
+        <li>泡沫<b>不能吃、不能舔</b>（它是皂水和气体）。</li>
+        <li>旁边放块<b>湿布</b>，喷出来好擦。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">🗣️</span>做完，讲给家人听</h2>
+    <div class="feyn"><b>用你自己的话讲清楚：</b>为什么加了一勺酵母，它就"噗"地喷出来了？那勺酵母后来去哪了？<br>能讲明白，你就真的学会啦！🎉</div>
+  </div>
+
+</div>
+</body>
+</html>

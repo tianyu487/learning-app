@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目卡片 · 大象牙膏</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:12px;color:#6f6a62;text-align:right;line-height:1.8;}
+  .suitenav{max-width:860px;margin:0 auto 16px;padding:0 16px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:12.5px;justify-content:center;}
+  .suitenav .sn-label{color:#6f6a62;font-weight:700;margin-right:2px;}
+  .suitenav a{text-decoration:none;color:#2c6a90;background:#fffdf8;border:1px solid #d8d0bf;border-radius:20px;padding:4px 13px;}
+  .suitenav a.cur{background:#3b3942;border-color:#3b3942;color:#fff;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-org{background:#ef9f27;}.c-blue{background:#3a86b5;}.c-gray{background:#6f6a62;}
+  .ladder{display:flex;gap:6px;margin-top:14px;}
+  .ladder .st{flex:1;text-align:center;font-size:11.5px;color:#7a7268;padding:7px 2px;border-radius:9px;background:#f3eee2;border:1.5px solid #ece3cf;}
+  .ladder .st b{display:block;font-size:13px;color:#8a7f72;}
+  .ladder .st.on{background:#1d9e75;border-color:#178060;color:#eafaf3;}
+  .ladder .st.on b{color:#fff;}
+  h2{font-size:17px;color:#0f6e56;margin:24px 0 12px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:14px;flex:none;}
+  h3{font-size:14.5px;color:#7a3d12;margin:18px 0 8px;border-left:4px solid #ef9f27;padding-left:9px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:#f3eee2;color:#7a3d12;font-weight:700;}
+  tr:nth-child(even) td{background:#fdfbf4;}
+  .kpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0;}
+  .kp{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:12px;padding:10px 12px;font-size:13px;}
+  .kp b{color:#0f6e56;}
+  .kp .lv{float:right;font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;}
+  .callout{border-radius:13px;padding:12px 16px;margin:10px 0;font-size:13.5px;}
+  .open{background:#fdf3e6;border:2px dashed #ef9f27;}.open b{color:#b5740f;}
+  .qa{background:#eafaf3;border:1.5px solid #bfe7d6;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .beat{display:flex;gap:12px;margin:8px 0;align-items:stretch;}
+  .beat .num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef9f27;color:#fff;font-weight:800;text-align:center;line-height:30px;}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #eee4cf;border-radius:11px;padding:9px 12px;font-size:13px;}
+  .beat .bt{font-weight:700;color:#7a3d12;}
+  .beat .kptag{display:inline-block;font-size:10.5px;background:#eafaf3;color:#0f6e56;border:1px solid #bfe7d6;border-radius:8px;padding:1px 7px;margin-left:6px;}
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0;}
+  ol.steps li{counter-increment:s;position:relative;padding:7px 0 7px 40px;border-bottom:1px dashed #ece3cf;font-size:13.5px;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:800;font-size:13px;}
+  ul.ev{padding-left:20px;font-size:13.5px;}ul.ev li{margin:3px 0;}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0;}
+  .fig{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:10px 8px;text-align:center;margin:0;}
+  .fig svg{width:100%;height:auto;}
+  .fig .cap{font-size:12.5px;font-weight:700;color:#7a3d12;margin-top:6px;display:block;}
+  .fig .cap .sub{display:block;font-size:10.5px;font-weight:400;color:#9a948a;margin-top:2px;}
+  @media(max-width:640px){.figs{grid-template-columns:1fr;}}
+  .deco{position:absolute;opacity:.5;pointer-events:none;}
+  @media(max-width:640px){.kpgrid{grid-template-columns:1fr;}.ladder{flex-wrap:wrap;}.ladder .st{min-width:30%;}}
+  .fig .cap .sub{color:#7a7268;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}
+    h2,h3{break-after:avoid;}table,.beat,.fig,.kp,.callout,ol.steps li,.kpgrid{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<nav class="suitenav noprint">
+  <span class="sn-label">交接套件 HX-L1-001 ·</span>
+  <a class="cur" href="项目卡片.html">项目卡片</a>
+  <a href="习题.html">习题</a>
+  <a href="图谱KP.html">图谱KP</a>
+  <a href="../产品供应链/产品交接.html">产品交接</a>
+  <a href="../视频宣发/宣发交接.html">宣发交接</a>
+</nav>
+<div class="wrap">
+
+<section class="sheet">
+  <svg class="deco" style="top:-10px;right:-6px;width:130px" viewBox="0 0 140 150" aria-hidden="true">
+    <circle cx="40" cy="30" r="6" fill="#f1d79e"/><circle cx="90" cy="20" r="4" fill="#bfe7d6"/>
+    <circle cx="116" cy="48" r="9" fill="#f6dcae"/><circle cx="70" cy="60" r="3" fill="#f4c4b3"/>
+  </svg>
+  <div class="head">
+    <svg viewBox="0 0 90 100" width="68" height="76" aria-hidden="true">
+      <rect x="34" y="34" width="22" height="52" rx="4" fill="#dff3ff" stroke="#9fcbe3" stroke-width="2"/>
+      <rect x="34" y="60" width="22" height="26" fill="#7ec9a8"/>
+      <path d="M30 34 q15-26 30 0z" fill="#bfe7d6"/>
+      <circle cx="38" cy="20" r="5" fill="#f6c1b0"/><circle cx="52" cy="14" r="6" fill="#f1d79e"/>
+      <circle cx="60" cy="26" r="4" fill="#bfe7d6"/><circle cx="45" cy="9" r="4" fill="#f4a8a8"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L1-001</div>
+      <div class="tt2">大象牙膏 · 项目卡片</div>
+      <div class="chips">
+        <span class="chip c-green">第 1 阶 · 小学中年级</span>
+        <span class="chip c-org">②线下物料</span>
+        <span class="chip c-blue">L1 玩家</span>
+        <span class="chip c-gray">电子:无</span>
+      </div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>含六件套教学核</div>
+  </div>
+  <div class="ladder">
+    <div class="st on"><b>1</b>看现象</div>
+    <div class="st"><b>2</b>量化控变量</div>
+    <div class="st"><b>3</b>传感建模</div>
+    <div class="st"><b>4</b>多变量迭代</div>
+    <div class="st"><b>5</b>系统闭环</div>
+    <div class="st"><b>6</b>自造仪器</div>
+  </div>
+
+  <h2><span class="n">★</span>分类标注</h2>
+  <table>
+    <tr><th style="width:28%">字段</th><th>内容</th></tr>
+    <tr><td>项目编号</td><td>HX-L1-001</td></tr>
+    <tr><td>类型</td><td>②线下物料项目,强揭晓爆点、需物料盒子</td></tr>
+    <tr><td>难度阶</td><td><b>第 1 阶</b> · 小学中年级 · 看得见、摸得着、立刻有反馈</td></tr>
+    <tr><td>学员定位</td><td>L1 玩家</td></tr>
+    <tr><td>电子含量</td><td>无</td></tr>
+  </table>
+
+  <h2><span class="n">★</span>点亮 KP</h2>
+  <div class="note">本阶 4 个 KP 均为定性,掌握到"认识 / 能复述 / 能用证据判断"。</div>
+  <div class="kpgrid">
+    <div class="kp"><span class="lv">认识</span><b>KP1 催化剂</b><br>有的东西能让反应突然加速,自己却没被用掉。</div>
+    <div class="kp"><span class="lv">认识</span><b>KP2 放热反应</b><br>有的反应会放出热,泡沫是温的。</div>
+    <div class="kp"><span class="lv">认识</span><b>KP3 氧气助燃</b><br>泡沫里是新生成的氧气;氧气让火更旺,木条复燃。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP4 对照法启蒙</b><br>只改这一样、其他不变,做两组比较。</div>
+  </div>
+  <div class="note">移入"上不封顶"、本阶不点亮:2H₂O₂→2H₂O+O₂ 方程式、酶/催化机理、反应速率定量,留给第 2–3 阶。</div>
+
+  <h2><span class="n">★</span>开放决策点</h2>
+  <div class="callout open">
+    <b>挑战:让泡沫喷得最高 / 最快。</b><br>
+    孩子自选一个变量去试:<b>酵母用量 / 洗洁精的量 / 化酵母的水温</b>(双氧水固定 50 ml 作不变量)。
+    要求:<b>先猜 → 再试 → 画下来</b>,并说清"我只改了哪一样"。
+  </div>
+  <div class="note" style="background:#fff6f4;border-color:#e2563a;color:#b23b22;">
+    <b>导师安全护栏:</b>双氧水<b>只用家用 3%,且不作为可调变量</b>——孩子想"喷更高"一律引导加酵母,绝不引导提高双氧水浓度或用量。课前向家长强调勿自行换购高浓度双氧水。
+  </div>
+</section>
+
+<section class="sheet">
+  <h2><span class="n">六</span>件套 · 教学内容核</h2>
+
+  <h3>① 驱动问题</h3>
+  <div class="callout qa">"牙膏得一点点挤。有没有办法,让一管'牙膏'在 <b>3 秒内自己喷出来</b>,堆成一座冒着热气的小山?"</div>
+
+  <h3>② 探究脉络</h3>
+  <div class="beat"><div class="num">1</div><div class="bd"><span class="bt">好奇钩子</span><span class="kptag">KP1 预告</span><br>展示一杯普通液体 + 一小勺"魔法粉",预告 3 秒喷发。<br><i>反直觉现象,3 秒抓注意力。</i></div></div>
+  <div class="beat"><div class="num">2</div><div class="bd"><span class="bt">先动手试错</span><span class="kptag">KP1 反衬</span><br><b>先不加酵母</b>,只有双氧水+洗洁精+色素,几乎不喷。<br><i>制造"咦,为什么不喷?"的缺口,逼出对催化剂的需求。</i></div></div>
+  <div class="beat"><div class="num">3</div><div class="bd"><span class="bt">玩中探究</span><span class="kptag">KP1</span><span class="kptag">KP2</span><br>倒入温水化开的酵母 → 猛烈喷涌;摸杯壁→温的。<br><i>在最想知道答案时引入"催化剂/放热";酵母自己没被用掉。</i></div></div>
+  <div class="beat"><div class="num">4</div><div class="bd"><span class="bt">回现实检验</span><span class="kptag">KP3</span><span class="kptag">KP4</span><br>带火星木条探入泡沫口 → 复燃;并排对比"有酵母/无酵母"。<br><i>用"火"当探测器证明是氧气;用对照证明是酵母起作用——现实当裁判。</i></div></div>
+  <div class="beat"><div class="num">5</div><div class="bd"><span class="bt">点亮+费曼</span><span class="kptag">全部</span><br>点亮 KP1–4;让孩子讲"为什么加一勺酵母就喷了?酵母去哪了?"<br><i>讲明白才算学会。</i></div></div>
+
+  <h3>③ 证据</h3>
+  <table>
+    <tr><th style="width:26%">类型</th><th>内容</th></tr>
+    <tr><td>对照证据</td><td>同样的双氧水+洗洁精,只差一勺酵母,一个不喷一个猛喷 → 是酵母这个催化剂起的作用。</td></tr>
+    <tr><td>检验证据</td><td>带火星木条在泡沫口<b>复燃</b> → 生成气体支持燃烧 = 氧气,与"会灭火的二氧化碳"形成对比。</td></tr>
+    <tr><td>守恒线索</td><td>反应前后酵母还在、没消失 → 催化剂"只帮忙不消耗"的特征。</td></tr>
+  </table>
+
+  <h3>④ 评价</h3>
+  <ul class="ev">
+    <li>能说出:加酵母才喷;酵母是<b>催化剂</b>,自己没被用掉。</li>
+    <li>能说出:泡沫是<b>温的</b>放热;泡沫里是<b>氧气</b>,能让火星复燃。</li>
+    <li>能说出:怎样比较才算公平——<b>只改一样</b>。</li>
+    <li><b>费曼达标线、L1 毕业</b>:能向家人讲清"为什么加一勺酵母就喷了"。</li>
+    <li>导师端三轴记录:点亮 KP 数 / 开放决策是否真由孩子定 / 能否独立讲解。</li>
+  </ul>
+
+  <h3>⑤ 分步解答</h3>
+  <div class="note">基准配方(第一杯按此,作对照基线):<b>3% 双氧水 50 ml · 洗洁精 1 泵(约 1 大勺) · 食用色素几滴 · 干酵母 1 小包(约 1 茶匙) · 化酵母温水 40 ml</b>。后续探究只在此基线上改动单一变量。</div>
+  <ol class="steps">
+    <li>量取家用 3% 双氧水<b>约 50 ml</b>入杯;滴入食用色素;挤入<b>1 泵</b>洗洁精,轻晃混匀。</li>
+    <li><b>约 40 ml</b>温水（不烫手）化开一小包干酵母,搅成糊。</li>
+    <li>把酵母水<b>一次性倒入</b> → 立刻喷涌。</li>
+    <li>手贴杯外壁,感受<b>变温</b>。</li>
+    <li>点燃木条吹灭留<b>火星</b>,探入泡沫口看是否<b>复燃</b>。</li>
+    <li><b>对照</b>:另一杯不加酵母,其余相同,对比。</li>
+    <li>记录卡:画现象 + 写"我改了哪一个变量、结果怎样"。</li>
+  </ol>
+
+  <h3>⑥ 示意图</h3>
+  <div class="figs">
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="喷涌剖面图">
+        <defs>
+          <linearGradient id="f1_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <linearGradient id="f1_liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe89a"/><stop offset="1" stop-color="#f7c948"/></linearGradient>
+          <radialGradient id="f1_g" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#d8f4e6"/><stop offset="1" stop-color="#79cda6"/></radialGradient>
+          <radialGradient id="f1_p" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffdbe4"/><stop offset="1" stop-color="#f29ab0"/></radialGradient>
+          <radialGradient id="f1_o" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffe0bc"/><stop offset="1" stop-color="#f3a35e"/></radialGradient>
+        </defs>
+        <g fill="#f6c945"><path d="M40 28 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z"/><path d="M186 46 l1.6 4.6 4.6 1.6 -4.6 1.6 -1.6 4.6 -1.6 -4.6 -4.6 -1.6 4.6 -1.6z"/></g>
+        <line x1="20" y1="178" x2="200" y2="178" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <path d="M76 94 L144 94 L136 174 L84 174 Z" fill="url(#f1_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M82 120 L138 120 L135 172 L85 172 Z" fill="url(#f1_liq)"/>
+        <circle cx="98" cy="142" r="4.5" fill="#fff" opacity=".55"/><circle cx="116" cy="152" r="3" fill="#fff" opacity=".55"/><circle cx="106" cy="134" r="2.5" fill="#fff" opacity=".55"/>
+        <circle cx="80" cy="106" r="10" fill="url(#f1_g)"/><circle cx="73" cy="122" r="8" fill="url(#f1_p)"/><circle cx="70" cy="138" r="6" fill="url(#f1_o)"/>
+        <circle cx="142" cy="106" r="10" fill="url(#f1_o)"/><circle cx="150" cy="122" r="8" fill="url(#f1_g)"/><circle cx="153" cy="138" r="6" fill="url(#f1_p)"/>
+        <circle cx="110" cy="92" r="18" fill="url(#f1_g)"/><circle cx="90" cy="86" r="13" fill="url(#f1_o)"/><circle cx="130" cy="84" r="14" fill="url(#f1_p)"/>
+        <circle cx="103" cy="66" r="15" fill="url(#f1_p)"/><circle cx="123" cy="60" r="12" fill="url(#f1_g)"/><circle cx="88" cy="64" r="10" fill="url(#f1_g)"/><circle cx="112" cy="46" r="11" fill="url(#f1_o)"/><circle cx="98" cy="48" r="8" fill="url(#f1_p)"/>
+        <circle cx="105" cy="86" r="4" fill="#fff" opacity=".5"/><circle cx="118" cy="56" r="3" fill="#fff" opacity=".5"/><circle cx="96" cy="60" r="2.5" fill="#fff" opacity=".5"/>
+        <line x1="135" y1="58" x2="150" y2="50" stroke="#1d9e75" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <circle cx="164" cy="46" r="11" fill="#bfe7d6" stroke="#1d9e75" stroke-width="1.5"/><circle cx="176" cy="46" r="11" fill="#bfe7d6" stroke="#1d9e75" stroke-width="1.5"/>
+        <text x="164" y="50" font-size="9" font-weight="700" fill="#0f6e56" text-anchor="middle">O</text><text x="176" y="50" font-size="9" font-weight="700" fill="#0f6e56" text-anchor="middle">O</text>
+      </svg>
+      <figcaption class="cap">图1 喷涌剖面<span class="sub">气泡里是氧气,被洗洁精包成泡沫</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 240 190" aria-label="对照并排图">
+        <defs>
+          <linearGradient id="f2_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <linearGradient id="f2_liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe89a"/><stop offset="1" stop-color="#f7c948"/></linearGradient>
+          <radialGradient id="f2_g" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#d8f4e6"/><stop offset="1" stop-color="#79cda6"/></radialGradient>
+          <radialGradient id="f2_p" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffdbe4"/><stop offset="1" stop-color="#f29ab0"/></radialGradient>
+          <radialGradient id="f2_o" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffe0bc"/><stop offset="1" stop-color="#f3a35e"/></radialGradient>
+        </defs>
+        <rect x="58" y="6" width="124" height="22" rx="11" fill="#fdf3e6" stroke="#ef9f27" stroke-width="1.5"/>
+        <text x="120" y="21" font-size="11.5" font-weight="700" fill="#b5740f" text-anchor="middle">唯一变量:酵母</text>
+        <line x1="18" y1="170" x2="222" y2="170" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <g stroke="#f6b73c" stroke-width="2.5" stroke-linecap="round"><line x1="30" y1="62" x2="22" y2="56"/><line x1="34" y1="48" x2="30" y2="40"/><line x1="104" y1="62" x2="112" y2="56"/><line x1="100" y1="48" x2="104" y2="40"/></g>
+        <circle cx="68" cy="98" r="16" fill="url(#f2_g)"/><circle cx="50" cy="92" r="11" fill="url(#f2_o)"/><circle cx="86" cy="90" r="12" fill="url(#f2_p)"/>
+        <circle cx="64" cy="74" r="13" fill="url(#f2_p)"/><circle cx="82" cy="62" r="10" fill="url(#f2_g)"/><circle cx="52" cy="64" r="9" fill="url(#f2_o)"/><circle cx="70" cy="50" r="9" fill="url(#f2_g)"/>
+        <path d="M40 102 L96 102 L90 158 L46 158 Z" fill="url(#f2_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <circle cx="60" cy="126" r="2.6" fill="#3a2f25"/><circle cx="76" cy="126" r="2.6" fill="#3a2f25"/>
+        <path d="M58 134 Q68 142 78 134" fill="none" stroke="#3a2f25" stroke-width="2.2" stroke-linecap="round"/>
+        <text x="68" y="182" font-size="11.5" font-weight="700" fill="#0f6e56" text-anchor="middle">加酵母 → 猛喷</text>
+        <text x="120" y="124" font-size="15" font-weight="800" fill="#c8a96a" text-anchor="middle">VS</text>
+        <path d="M150 102 L206 102 L200 158 L156 158 Z" fill="url(#f2_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M154 128 L202 128 L200 158 L156 158 Z" fill="url(#f2_liq)"/>
+        <circle cx="170" cy="120" r="3" fill="#fff" opacity=".7"/><circle cx="184" cy="123" r="2.4" fill="#fff" opacity=".7"/>
+        <circle cx="170" cy="114" r="2.4" fill="#9a948a"/><circle cx="186" cy="114" r="2.4" fill="#9a948a"/>
+        <line x1="168" y1="122" x2="188" y2="122" stroke="#9a948a" stroke-width="2" stroke-linecap="round"/>
+        <text x="178" y="182" font-size="11.5" font-weight="700" fill="#9a948a" text-anchor="middle">无酵母 → 不动</text>
+      </svg>
+      <figcaption class="cap">图2 对照并排<span class="sub">只差一勺酵母,一个猛喷一个不动</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="复燃检验图">
+        <defs>
+          <radialGradient id="f3_glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ff9a2e" stop-opacity=".7"/><stop offset="1" stop-color="#ff5a1a" stop-opacity="0"/></radialGradient>
+          <radialGradient id="f3_ember" cx=".4" cy=".4" r=".7"><stop offset="0" stop-color="#fff0a0"/><stop offset=".6" stop-color="#ff8a1e"/><stop offset="1" stop-color="#e0480f"/></radialGradient>
+          <linearGradient id="f3_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <radialGradient id="f3_g" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#d8f4e6"/><stop offset="1" stop-color="#79cda6"/></radialGradient>
+          <radialGradient id="f3_p" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffdbe4"/><stop offset="1" stop-color="#f29ab0"/></radialGradient>
+        </defs>
+        <line x1="20" y1="176" x2="200" y2="176" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <path d="M48 110 L104 110 L98 172 L54 172 Z" fill="url(#f3_glass)" stroke="#9fcbe3" stroke-width="2"/>
+        <circle cx="76" cy="106" r="14" fill="url(#f3_g)"/><circle cx="60" cy="100" r="10" fill="url(#f3_p)"/><circle cx="92" cy="98" r="11" fill="url(#f3_p)"/><circle cx="74" cy="86" r="11" fill="url(#f3_g)"/>
+        <circle cx="100" cy="84" r="28" fill="url(#f3_glow)"/>
+        <line x1="186" y1="34" x2="100" y2="84" stroke="#b5793f" stroke-width="7" stroke-linecap="round"/>
+        <line x1="186" y1="34" x2="100" y2="84" stroke="#925f2c" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 7"/>
+        <circle cx="100" cy="84" r="8" fill="url(#f3_ember)"/>
+        <path d="M100 72 q-5 -8 0 -16 q5 8 0 16z" fill="#ff8a1e"/><path d="M100 70 q-2.5 -4 0 -9 q2.5 5 0 9z" fill="#ffd23f"/>
+        <g fill="#ff7a18"><circle cx="113" cy="74" r="2"/><circle cx="89" cy="70" r="1.6"/><circle cx="106" cy="63" r="1.6"/><circle cx="116" cy="90" r="1.6"/></g>
+        <text x="152" y="120" font-size="12" font-weight="800" fill="#a32d2d" text-anchor="middle">火星复燃</text>
+        <text x="152" y="138" font-size="10.5" fill="#7a3d12" text-anchor="middle">→ 氧气助燃</text>
+      </svg>
+      <figcaption class="cap">图3 复燃检验<span class="sub">带火星木条凑近泡沫口 → 复燃</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>

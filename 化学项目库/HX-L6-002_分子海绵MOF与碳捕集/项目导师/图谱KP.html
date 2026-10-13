@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图谱 KP 条目 · 分子海绵 MOF 与碳捕集</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:24px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-pur{background:#7a4fae;}.c-gold{background:#d4a017;}
+  .nodes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+  .node{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:13px 14px;}
+  .node.pur{border-color:#cdb6ec;background:#fcfaff;}
+  .node .nm{font-weight:800;color:#7a3d12;font-size:14px;}
+  .node.pur .nm{color:#5a3b86;}
+  .node .lv{font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;margin-left:6px;}
+  .node .lv.m{background:#7a4fae;}
+  .node .edge{display:block;margin-top:7px;font-size:12.5px;color:#7a7268;}
+  .node .edge.pre{border-left:3px solid #69a85a;padding-left:8px;}
+  .node .edge.post{border-left:3px solid #ef9f27;padding-left:8px;}
+  .node .ev{display:block;margin-top:7px;font-size:12px;color:#3a86b5;border-left:3px solid #a9cfe5;padding-left:8px;}
+  .warn{border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  @media(max-width:640px){.nodes{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 90 80" width="64" height="58" aria-hidden="true">
+      <g stroke="#cbbfa6" stroke-width="2"><line x1="20" y1="20" x2="50" y2="40"/><line x1="20" y1="60" x2="50" y2="40"/><line x1="50" y1="40" x2="78" y2="28"/></g>
+      <circle cx="20" cy="20" r="9" fill="#cdb6ec"/><circle cx="20" cy="60" r="9" fill="#bfe7d6"/>
+      <circle cx="50" cy="40" r="11" fill="#7a4fae"/><circle cx="78" cy="28" r="8" fill="#e8cf8a"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L6-002 分子海绵 MOF · 🏆 2025 诺奖</div>
+      <div class="tt2">图谱 KP 条目</div>
+      <div class="chips"><span class="chip c-green">4 节点 · 跨多分支</span><span class="chip c-gold">前沿锚定</span><span class="chip c-pur">校验通过 ✓</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师 / 教研内用<br>已并入完整化学图谱</div>
+  </div>
+
+  <div class="warn" style="background:#eafaf3;border:2px solid #1d9e75;">
+    <b>校验结果：已通过。</b>本项目<b>跨化学图谱多个分支</b>：配位键(A 化学键 / E9 配位化学)、多孔吸附(C5 速率与表面 / G 表征)、物理吸附与再生(方法)、自组装超分子(H4 纳米材料)——4 个 KP 自校验通过、0 孤点、0 环；并向上接 H7 碳中和/绿色化学，构成"前沿情境"的图谱落点。
+  </div>
+
+  <div class="nodes">
+    <div class="node pur">
+      <span class="nm">配位键</span><span class="lv m">高中 · 认识</span>
+      <span class="edge">分支 A「化学键」× E9「配位化学」</span>
+      <span class="edge pre">前置：共价键 · 化学键的类型 · 原子轨道与孤对电子</span>
+      <span class="edge post">后继：配合物的组成与命名 → 晶体场 / 配位数(A6)</span>
+      <span class="ev">点亮 ← MOF=金属节点+配体靠配位键连接</span>
+    </div>
+    <div class="node">
+      <span class="nm">多孔与比表面积·吸附</span><span class="lv">高中 · 认识/半定量</span>
+      <span class="edge">分支 C5「速率与表面」× G「分析与表征」</span>
+      <span class="edge pre">前置：表面与界面 · 分子间作用力(A5)</span>
+      <span class="edge post">后继：吸附等温线 · 多相催化 · BET 比表面积测定</span>
+      <span class="ev">点亮 ← 等质量多孔 vs 致密吸水称重对比</span>
+    </div>
+    <div class="node pur">
+      <span class="nm">物理吸附 vs 化学吸附</span><span class="lv m">高中 · 方法</span>
+      <span class="edge">分支 C「反应原理」(吸附作用与能量)</span>
+      <span class="edge pre">前置：分子间作用力 · 放热/吸热 · 化学键</span>
+      <span class="edge post">后继：变压/变温吸附再生 · 工业碳捕集工艺</span>
+      <span class="ev">点亮 ← 硅胶加热脱附又变蓝、可循环</span>
+    </div>
+    <div class="node">
+      <span class="nm">自组装·超分子</span><span class="lv">高中 · 认识</span>
+      <span class="edge">分支 H4「纳米材料与表面」</span>
+      <span class="edge pre">前置：分子间作用力 · 配位键 · 晶体结构(A6)</span>
+      <span class="edge post">后继：MOF / COF 材料设计 → 碳中和与绿色化学(H7)</span>
+      <span class="ev">点亮 ← "节点+连接杆"搭出可设计多孔网络</span>
+    </div>
+  </div>
+
+  <div class="warn" style="background:#fdf6e3;border:2px dashed #d4a017;">
+    <b>跨学科 / 前沿主线说明：</b>本项目把"<b>配位键(A3/E9)→ 自组装多孔(H4)→ 物理吸附可逆(C)→ 比表面积(G)</b>"四个图谱节点，用 2025 诺奖 MOF 这一真实情境串成一条"<b>结构决定性质、性质服务碳中和(H7)</b>"的主线。它是中高考"信息给予 / 科技情境"题的天然素材：先读懂前沿信息，再迁移回图谱里的基础概念。习题高中档延伸到晶胞配位数计算、配合物命名、碳捕集工业与绿色化学。
+  </div>
+</section>
+</div>
+</body>
+</html>

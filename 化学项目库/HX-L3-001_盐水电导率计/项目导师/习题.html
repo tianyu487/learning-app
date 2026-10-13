@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题 · 盐水电导率计</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}
+  .seg{font-size:14px;font-weight:800;color:#0f6e56;margin:22px 0 4px;padding-bottom:5px;border-bottom:2px solid #cfe7dc;}
+  .seg small{font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;}
+  .q{border:1.5px solid #eee4cf;border-radius:14px;padding:13px 16px;margin:12px 0;background:#fff;}
+  .q .qh{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap;}
+  .q .qn{width:28px;height:28px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;flex:none;}
+  .q .qt{font-size:14px;font-weight:700;color:#322f2a;flex:1;min-width:60%;}
+  .badge{font-size:10.5px;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap;}
+  .b-base{background:#69a85a;}.b-mid{background:#ef9f27;}.b-hard{background:#d36a5a;}
+  .b-s3{background:#1d9e75;}.b-cz{background:#3a86b5;}.b-gz{background:#7a4fae;}
+  .b-auto{background:#7a8a99;}.b-man{background:#b3a89a;}
+  .think{display:block;background:#eafaf3;border-left:4px solid #1d9e75;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;color:#0f6e56;font-size:12.5px;}
+  .think b{color:#0f6e56;}
+  .ans{display:inline-block;background:#fdecea;color:#a32d2d;font-weight:700;border-radius:8px;padding:2px 10px;margin-top:2px;font-size:12.5px;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:14px 0 0;}
+  code{background:#f3eee2;border-radius:5px;padding:1px 6px;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="14" y="12" width="52" height="56" rx="8" fill="#fff" stroke="#f1d79e" stroke-width="2.5"/>
+      <line x1="24" y1="28" x2="56" y2="28" stroke="#1d9e75" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#3a86b5" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="52" x2="44" y2="52" stroke="#7a4fae" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L3-001 盐水电导率计</div>
+      <div class="tt2">习题</div>
+      <div class="chips"><span class="chip c-green">11 题 · 每题含思考方法</span><span class="chip c-blue">本阶 → 初中 → 高中</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>分档可裁剪使用</div>
+  </div>
+
+  <div class="note">标签:绿=本阶(小升初)、蓝=初中考点、紫=高中考点;后附难度与是否可判分。进阶题用于"上不封顶",按学员水平选用。</div>
+
+  <div class="seg">A · 本阶题<small>离子导电 · 浓度建模 · 校准</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">1</span><span class="qt">把探头插入下面三杯,读数最大的是?A 纯净水 / B 糖水 / C 盐水</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>能导电的是水里"会动的离子";盐拆成离子,糖不拆成离子。</span>
+    <span class="ans">答:C</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">2</span><span class="qt">同一杯盐水,不停加盐搅开,屏上读数会怎样变化?为什么?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>盐越多 → 离子越多 → 电越容易通过 → 读数越大。</span>
+    <span class="ans">参考:读数变大;盐越多离子越多,导电越强。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">3</span><span class="qt">为什么每次测之前要先把探头插进纯水"归零"、且电极要插同样深?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>仪器要"公平":不归零、插得深浅不同,数字就没法互相比——这就是校准 + 控制变量。</span>
+    <span class="ans">参考:归零去掉本底、固定插入深度,几杯读数才能放在一起比。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">4</span><span class="qt">你测了 1/2/3 勺盐水的读数并画成曲线。现在测一杯未知盐水,读数落在 2 勺和 3 勺之间,你怎么估它的浓度?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>在"浓度—读数"曲线上,用读数横着找到曲线、再竖下来读浓度——这就是用模型预测。</span>
+    <span class="ans">参考:在曲线上反查,浓度介于 2~3 勺之间、靠近哪端看读数更接近哪点。</span>
+  </div>
+
+  <div class="seg">B · 初中考点<small>物质的导电性 · 溶液 · 电路</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">5</span><span class="qt">下列能导电的是?A 干燥食盐晶体 / B 食盐水溶液 / C 蔗糖水</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>要有"能自由移动的带电粒子"才导电:干盐离子被固定不动、糖水无离子,只有盐水溶液有自由离子。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">6</span><span class="qt">盐水导电时,水里负责"搬运电"的是?A 水分子 / B 自由移动的离子 / C 糖分子</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>食盐在水中解离成带正、负电的离子,它们在电场里定向移动 = 电流。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">7</span><span class="qt">【实验探究】两杯盐水读数不同,小红说"一定是浓度不同"。可能还有哪些原因让读数不同?请至少说两条,并说怎么排除。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>控制变量——除了浓度,水温、电极插入深度、电极间距、是否归零都会影响读数。</span>
+    <span class="ans">参考:温度、电极插入深度/间距、是否归零等都会影响;排除法是把这些全固定,只留浓度不同再比。</span>
+  </div>
+
+  <div class="seg">C · 高中考点<small>电解质 · 离子浓度 · 电阻与导电</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">8</span><span class="qt">下列属于电解质、且其水溶液能导电的是?A NaCl / B 蔗糖 / C 酒精</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>电解质在水中(或熔融时)能电离出自由离子;蔗糖、酒精是非电解质。</span>
+    <span class="ans">答:A</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">9</span><span class="qt">同体积下,0.1 mol/L NaCl 与 0.1 mol/L 蔗糖溶液,导电能力怎样?从微观解释。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>导电能力取决于自由离子浓度;NaCl 完全电离出 Na⁺、Cl⁻,蔗糖不电离、几乎无离子。</span>
+    <span class="ans">答:NaCl 溶液导电、蔗糖溶液基本不导电;因为 NaCl 电离出自由离子,蔗糖以分子形式存在、无自由离子。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">10</span><span class="qt">用我们的仪器读"导电强弱",其实读的是溶液电阻的反面。若读数 ∝ 电导(电阻的倒数),浓度升高时电阻怎样变、电导怎样变?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>离子越多 → 电流越易通过 → 电阻越小 → 电导(=1/电阻)越大,读数越高。</span>
+    <span class="ans">答:浓度升高,离子增多,电阻减小、电导增大,读数升高(在稀溶液范围内近似单调)。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">11</span><span class="qt">【建模】测得读数 y 与盐勺数 x 近似满足 <code>y = 40x + 10</code>。某未知盐水读数为 <code>130</code>,估算它相当于几勺盐。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>把模型反过来解:由 y=40x+10,代入 y=130 解 x。</span>
+    <span class="ans">答:130=40x+10 → x=(130−10)/40=<b>3 勺</b>。</span>
+  </div>
+
+  <div class="note">Q3 / Q7 / Q10 串起"校准—控制变量—电导原理"的台阶,从本阶的"数字越大越咸"一路通到高中的电解质与电导;Q11 是把实测点拟合成线性模型再反解,正是手册"看得见的建模"。</div>
+</section>
+</div>
+</body>
+</html>

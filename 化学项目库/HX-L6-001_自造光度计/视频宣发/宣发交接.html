@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宣发交接 · 自造光度计</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#ef9f27;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fdf0d9,#fce6cf);border:2px solid #f1c98a;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-org{background:#ef9f27;}.c-red{background:#d36a5a;}
+  h2{font-size:16px;color:#b5740f;margin:22px 0 10px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:24px;height:24px;background:#ef9f27;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;flex:none;}
+  .hook{background:linear-gradient(120deg,#fff3df,#ffe9d6);border:2px dashed #ef9f27;border-radius:14px;padding:16px 18px;font-size:15.5px;font-weight:700;color:#7a3d12;text-align:center;line-height:1.7;}
+  .hook small{display:block;font-size:12px;color:#ba7517;font-weight:400;margin-top:6px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#fcefdb;color:#7a3d12;font-weight:700;}
+  .tags span{display:inline-block;background:#fdecea;color:#a32d2d;border-radius:8px;padding:3px 11px;margin:4px 6px 0 0;font-size:12.5px;}
+  ul{padding-left:20px;font-size:13.5px;}ul li{margin:4px 0;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <polygon points="20,18 20,62 58,40" fill="#ef9f27"/>
+      <circle cx="62" cy="22" r="6" fill="#f6dcae"/><circle cx="68" cy="40" r="4" fill="#f4a8a8"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L6-001 自造光度计</div>
+      <div class="tt2">宣发交接</div>
+      <div class="chips"><span class="chip c-org">②线下物料</span><span class="chip c-red">成长叙事 · 自造仪器</span></div>
+    </div>
+    <div class="meta">交接 → 视频/宣发<br>知识反转 + 成长叙事 + 素材源</div>
+  </div>
+
+  <h2><span class="n">1</span>知识反转一句话</h2>
+  <div class="hook">
+    "<u>分光光度计</u>——大学实验室里上万块的仪器,被一个高中生<u>用 micro:bit + 一颗 LED 手搓了出来</u>,还测出:<u>那杯更贵的饮料,其实更淡</u>。"
+    <small>反转点:看着像专业实验室设备 → 其实是孩子从 L1 一路玩到 L4、自己造出来的;还顺手戳破了"贵=浓"的错觉</small>
+  </div>
+
+  <h2><span class="n">2</span>3 秒钩子</h2>
+  <ul>
+    <li>首选:孩子端起自造仪器,屏上跳出读数 → 字幕"贵的那杯,其实更淡"——自造仪器测出反转结论。</li>
+    <li>备选:一束光穿过浓溶液,对面读数"掉"下去 → 换成淡溶液,读数弹回来。</li>
+    <li>话题:手搓仪器特写(遮光盒 + LED + 光敏 + micro:bit),"这真是小孩做的?"</li>
+  </ul>
+
+  <h2><span class="n">3</span>关键字幕条</h2>
+  <div class="tags">
+    <span>大学仪器 · 高中生手搓</span><span>micro:bit + 一颗 LED</span><span>光穿浓液变暗</span>
+    <span>越浓 · 读数越低</span><span>标准曲线反推浓度</span><span>贵饮料其实更淡</span><span>从 L1 玩到 L4 挑战者</span>
+  </div>
+
+  <h2><span class="n">4</span>可视化素材源</h2>
+  <table>
+    <tr><th style="width:30%">素材</th><th>拍摄要点</th></tr>
+    <tr><td>光穿浓液读数掉</td><td>固定机位拍屏幕,浓杯放入光路读数下掉、淡杯弹回;光束穿液同框。</td></tr>
+    <tr><td>手搓仪器特写</td><td>微距拍遮光盒内 LED 对光敏、比色杯槽、micro:bit 接线——强调"孩子自己造的"。</td></tr>
+    <tr><td>反转结论字幕</td><td>"贵的那杯其实更淡"出现时,两杯饮料并排 + 各自读数贴杯前,做"贵≠浓"反转。</td></tr>
+    <tr><td>标准曲线 + 反推</td><td>已知浓度点逐个落位连成曲线,未知样读数横移反查浓度,做"侦探破案"感。</td></tr>
+    <tr><td>成长时间轴</td><td>同一个孩子 L1→L4 的项目作品拼接,落到这台自造仪器与作品集。</td></tr>
+  </table>
+
+  <h2><span class="n">5</span>CTA</h2>
+  <ul>
+    <li>"这是同一个孩子——从 L1 看现象,一路玩到 L4 挑战者,最后<b>自己造出一台仪器</b>。"</li>
+    <li>"跟着难度阶梯走完六阶,孩子手里攒下的不是玩具,是一本<b>能讲、能展示的作品集</b>。"</li>
+    <li>"想看孩子能走多远?从第一阶开始,目标是这台自造光度计与高阶挑战。"</li>
+  </ul>
+</section>
+</div>
+</body>
+</html>

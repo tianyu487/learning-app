@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品交接 · 自造光度计</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#3a86b5;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#e3f0f8,#eafaf3);border:2px solid #a9cfe5;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#2c6a90;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#1f4f6e;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-blue{background:#3a86b5;}.c-elec{background:#7a4fae;}
+  h2{font-size:16px;color:#2c6a90;margin:22px 0 10px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:24px;height:24px;background:#3a86b5;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;flex:none;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #d8e6ef;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#e3f0f8;color:#1f4f6e;font-weight:700;}
+  tr:nth-child(even) td{background:#f7fbfd;}
+  .matgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:6px 0;}
+  .item{font-size:13.5px;padding:4px 0;display:flex;align-items:center;}
+  .box{width:15px;height:15px;border:2px solid #6aa3c4;border-radius:4px;margin-right:9px;flex:none;}
+  .warn{background:#fdecea;border:2px dashed #d36a5a;border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  .warn b{color:#a32d2d;}
+  .key{background:#fff6e6;border:2px solid #ef9f27;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .key b{color:#b5740f;}
+  .elec{background:#f3eefb;border:2px solid #7a4fae;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .note{background:#eef5fa;border-left:4px solid #6aa3c4;color:#2c6a90;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  @media(max-width:640px){.matgrid{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="16" y="24" width="48" height="40" rx="4" fill="#dff3ff" stroke="#6aa3c4" stroke-width="2.5"/>
+      <path d="M16 24 L40 12 L64 24" fill="none" stroke="#6aa3c4" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="40" y1="12" x2="40" y2="64" stroke="#a9cfe5" stroke-width="2"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L6-001 自造光度计</div>
+      <div class="tt2">产品交接</div>
+      <div class="chips"><span class="chip c-blue">物料盒子 BOM</span><span class="chip c-elec">电子:micro:bit + 光学</span></div>
+    </div>
+    <div class="meta">交接 → 产品/供应链<br>开放命题盒 · BOM · 电子 · 安全</div>
+  </div>
+
+  <div class="elec">
+    <b>⚡ 自造光学仪器 · micro:bit 复用:</b>本阶是阶梯最高阶,孩子要<b>自己造一台光度计</b>。盒子提供 LED + 光敏电阻 + 遮光盒 + 比色杯等"造仪器的零件",<b>micro:bit 沿用前几阶那块板</b>(无需重买)。这是订阅制"硬件一次买、耗材月月换"的终点——同一块板,从读电极一路升级到读光。
+  </div>
+
+  <h2><span class="n">1</span>物料清单 BOM<small style="font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;">(开放命题盒)</small></h2>
+  <div class="matgrid">
+    <div class="item"><span class="box"></span>micro:bit 主板 ×1(<b>复用前几阶,可不重购</b>)</div>
+    <div class="item"><span class="box"></span>LED ×1~2(单色,如红 / 绿)</div>
+    <div class="item"><span class="box"></span>光敏电阻 ×1 + 配套分压电阻</div>
+    <div class="item"><span class="box"></span>遮光盒 / 暗盒 ×1(<b>关键件</b>)</div>
+    <div class="item"><span class="box"></span>比色杯 / 统一小瓶 ×数个(规格一致)</div>
+    <div class="item"><span class="box"></span>已配标准液 或 配标用色素 / 试剂</div>
+    <div class="item"><span class="box"></span>自选样品(<b>用户自备</b>:饮料 / 水样等)</div>
+    <div class="item"><span class="box"></span>杜邦线 / 面包板</div>
+    <div class="item"><span class="box"></span>记录卡 + 标准曲线卡</div>
+    <div class="item"><span class="box"></span>立项模板卡 + 课题方向清单</div>
+  </div>
+  <div class="note">本盒为<b>开放命题盒</b>:不给固定步骤,给"造仪器的零件 + 立项脚手架"。附"课题方向清单 + 立项模板",学员自选课题、自列样品、自定标准曲线。</div>
+
+  <div class="key">
+    <b>关键质控:遮光是最大误差源。</b>① <b>环境光必须挡掉</b>——光敏只该读 LED 穿过样品的光,漏光就读不准;② <b>比色杯规格一致</b>——杯壁厚度、容量不同,光程就变,读数不可比;③ <b>光路对齐固定</b>——LED、比色杯、光敏三点必须共线且每次位置一致。三者任何一条不达标,读数就不可横比、标准曲线就废。<b>这是本盒成败点</b>,务必在任务卡 + 盒体结构上保证遮光严、杯位准、光路固定。
+  </div>
+
+  <h2><span class="n">2</span>电子元器件清单</h2>
+  <table>
+    <tr><th style="width:24%">项</th><th>说明</th></tr>
+    <tr><td>主控</td><td><b>micro:bit ×1</b>:读光敏电阻的模拟值,显示成数字 / LED 条。<b>跨盒复用</b>,沿用前几阶那块板。</td></tr>
+    <tr><td>LED</td><td>单色发光元件(红 / 绿),作"光源";对准比色杯,光穿过样品后到光敏。</td></tr>
+    <tr><td>光敏电阻</td><td>"接收器":透过的光越强、阻值越小,经分压由 micro:bit 模拟口读出。</td></tr>
+    <tr><td>限流电阻</td><td>给 LED 限流、给光敏做分压;按预置电路连接。</td></tr>
+    <tr><td>预置程序</td><td>附烧录好的 .hex / 扫码即烧版本,读光敏 + 显示;<b>开放:鼓励学员自己改</b>映射、加基准/阈值、做曲线记录。</td></tr>
+  </table>
+  <div class="note">同一块 micro:bit 从 L3 读电极、L5 集成系统,到本阶 L6 读光——务必在说明里强调"板子留好、接着用",支撑硬件一次购、耗材复购的模型。</div>
+
+  <h2><span class="n">3</span>安全与履约</h2>
+  <div class="warn">
+    <b>安全:</b>仅用 micro:bit 低压(3V/USB)供电,<b>严禁接市电</b>;若课题选用<b>高锰酸钾 / 碘液</b>等需用<b>低浓度</b>且<b>成人协助</b>;实验液<b>不入口、不入眼</b>;<b>LED 不直视</b>(尤其亮色 LED);接线与首次烧录由成人协助。
+  </div>
+  <table>
+    <tr><th style="width:24%">项</th><th>建议</th></tr>
+    <tr><td>分装</td><td>micro:bit 防静电袋;LED / 光敏 / 电阻 / 杜邦线分格收纳;遮光盒、比色杯独立防压。</td></tr>
+    <tr><td>开箱即玩</td><td>随盒附五拍脚手架卡 + 标准曲线卡 + 立项模板卡 + 课题方向清单 + 烧录指引,与导师/教研口径一致。</td></tr>
+    <tr><td>合规</td><td>电子件 CE/RoHS;儿童用品安全标识;低压供电与"勿接市电、勿直视 LED、化学试剂成人协助"警示清晰。</td></tr>
+  </table>
+</section>
+</div>
+</body>
+</html>

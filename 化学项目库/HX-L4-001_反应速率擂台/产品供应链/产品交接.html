@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品交接 · 反应速率擂台</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#3a86b5;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#e3f0f8,#eafaf3);border:2px solid #a9cfe5;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#2c6a90;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#1f4f6e;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-blue{background:#3a86b5;}.c-elec{background:#7a4fae;}
+  h2{font-size:16px;color:#2c6a90;margin:22px 0 10px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:24px;height:24px;background:#3a86b5;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;flex:none;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #d8e6ef;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#e3f0f8;color:#1f4f6e;font-weight:700;}
+  tr:nth-child(even) td{background:#f7fbfd;}
+  .matgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:6px 0;}
+  .item{font-size:13.5px;padding:4px 0;display:flex;align-items:center;}
+  .box{width:15px;height:15px;border:2px solid #6aa3c4;border-radius:4px;margin-right:9px;flex:none;}
+  .warn{background:#fdecea;border:2px dashed #d36a5a;border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  .warn b{color:#a32d2d;}
+  .key{background:#fff6e6;border:2px solid #ef9f27;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .key b{color:#b5740f;}
+  .elec{background:#f3eefb;border:2px solid #7a4fae;border-radius:13px;padding:12px 16px;font-size:13px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .note{background:#eef5fa;border-left:4px solid #6aa3c4;color:#2c6a90;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  @media(max-width:640px){.matgrid{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="16" y="24" width="48" height="40" rx="4" fill="#dff3ff" stroke="#6aa3c4" stroke-width="2.5"/>
+      <path d="M16 24 L40 12 L64 24" fill="none" stroke="#6aa3c4" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="40" y1="12" x2="40" y2="64" stroke="#a9cfe5" stroke-width="2"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L4-001 反应速率擂台</div>
+      <div class="tt2">产品交接</div>
+      <div class="chips"><span class="chip c-blue">物料盒子 BOM</span><span class="chip c-elec">电子:micro:bit 复用</span></div>
+    </div>
+    <div class="meta">交接 → 产品/供应链<br>BOM · 电子 · 安全</div>
+  </div>
+
+  <div class="elec">
+    <b>⚡ 电子核心(复用,不重买):</b>本盒的 micro:bit 就是<b>第 3 阶盐水电导率计里那块板</b>,直接搬过来用,只把功能改成<b>测水温(内置温度传感)+ 按键计时</b>。家长买一次主板,第 4–6 阶反复复用——这是订阅制"硬件一次买、耗材月月换"的支点。本盒只需补充泡腾片/耗材 + 记录卡,成本可控。
+  </div>
+
+  <h2><span class="n">1</span>物料清单 BOM</h2>
+  <div class="matgrid">
+    <div class="item"><span class="box"></span>泡腾片(<b>同批同规格,关键</b>)×若干</div>
+    <div class="item"><span class="box"></span>或 小苏打 + 柠檬酸 小包(替代反应)</div>
+    <div class="item"><span class="box"></span>透明杯 ×6</div>
+    <div class="item"><span class="box"></span>保温杯 / 冰 + 热水源(成人备)</div>
+    <div class="item"><span class="box"></span>温度计 或 micro:bit 测温</div>
+    <div class="item"><span class="box"></span>量勺 / 量杯(固定水量)</div>
+    <div class="item"><span class="box"></span>记录卡 + 时间—变量坐标卡</div>
+    <div class="item"><span class="box"></span>micro:bit 主板(<b>复用上一盒,不随盒发</b>)</div>
+    <div class="item"><span class="box"></span>(选学彩蛋)外接 DS18B20 防水温度探头</div>
+    <div class="item"><span class="box"></span>电池盒 + 电池 / USB 供电线(随主板)</div>
+  </div>
+  <div class="note">水(冰/常温/热)与计时秒表由用户自备;果汁/不同饮料、不同品牌泡腾片也可作拓展样品。</div>
+
+  <div class="key">
+    <b>关键质控:泡腾片每颗规格 / 重量必须一致。</b>本盒是"比快慢"的擂台,若片大小、重量不同,快慢比较就不公平、曲线也不准。除片规格外,<b>水量、初始水温</b>也需固定(任务卡注明"先用量杯定水量、先测初温"),并强调"一次只改一个变量"。这是本盒成败点。
+  </div>
+
+  <h2><span class="n">2</span>电子元器件清单</h2>
+  <table>
+    <tr><th style="width:24%">项</th><th>说明</th></tr>
+    <tr><td>主控</td><td><b>micro:bit ×1(复用)</b>:用<b>内置温度传感</b>读水温(贴杯壁/近水面),<b>A/B 按键计时</b>(丢片按一下、反应完成再按一下,屏显秒数)。一次性硬件,跨盒复用。</td></tr>
+    <tr><td>选学温度探头</td><td>外接 <b>DS18B20 防水温度探头</b>(选学彩蛋):比内置传感更准、可直接插入水中,留给进阶学员改程序读取。</td></tr>
+    <tr><td>预置程序</td><td>盒内附烧录好的 .hex 或扫码即烧版本(测温 + 按键计时),降低上手门槛;进阶可让学员自己改阈值/接外探头。</td></tr>
+    <tr><td>供电</td><td>电池盒供电,避免插电直连市电;低压安全。</td></tr>
+  </table>
+  <div class="note">务必在说明里强调"<b>板子留好,这块 micro:bit 下个盒接着用</b>",本盒不重发主板,只补充泡腾片等耗材与记录卡。</div>
+
+  <h2><span class="n">3</span>安全与履约</h2>
+  <div class="warn">
+    <b>安全:</b>热水由<b>成人操作、防烫伤</b>,孩子只负责丢片与计时;泡腾片 / 小苏打 / 柠檬酸均用<b>食用级</b>材料,实验用过的水不作饮用;电子仅用<b>电池 / USB 低压供电,严禁接市电</b>;探头入水部分防水防溶出。
+  </div>
+  <table>
+    <tr><th style="width:24%">项</th><th>建议</th></tr>
+    <tr><td>分装</td><td>泡腾片防潮独立分装(保证同批同规格);小苏打/柠檬酸小包防潮;micro:bit 由用户复用、本盒不含主板。</td></tr>
+    <tr><td>开箱即玩</td><td>随盒附五拍任务卡 + 时间—变量记录卡 + 测温计时烧录指引,与导师/教研口径一致。</td></tr>
+    <tr><td>合规</td><td>食用级材料食品接触认证;电子件(若含外探头)CE/RoHS;儿童用品安全标识;低压供电与"勿接市电、热水成人操作"警示清晰。</td></tr>
+  </table>
+</section>
+</div>
+</body>
+</html>

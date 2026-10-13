@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目卡片 · 智能滴定机器人</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-org{background:#ef9f27;}.c-blue{background:#3a86b5;}.c-gray{background:#9a948a;}.c-elec{background:#7a4fae;}
+  .ladder{display:flex;gap:6px;margin-top:14px;}
+  .ladder .st{flex:1;text-align:center;font-size:11px;color:#9a948a;padding:7px 2px;border-radius:9px;background:#f3eee2;border:1.5px solid #ece3cf;}
+  .ladder .st b{display:block;font-size:13px;color:#b3a89a;}
+  .ladder .st.on{background:#1d9e75;border-color:#178060;color:#eafaf3;}
+  .ladder .st.on b{color:#fff;}
+  h2{font-size:17px;color:#0f6e56;margin:24px 0 12px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:14px;flex:none;}
+  h3{font-size:14.5px;color:#7a3d12;margin:18px 0 8px;border-left:4px solid #ef9f27;padding-left:9px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:#f3eee2;color:#7a3d12;font-weight:700;}
+  tr:nth-child(even) td{background:#fdfbf4;}
+  .kpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0;}
+  .kp{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:12px;padding:10px 12px;font-size:13px;}
+  .kp b{color:#0f6e56;}
+  .kp .lv{float:right;font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;}
+  .callout{border-radius:13px;padding:12px 16px;margin:10px 0;font-size:13.5px;}
+  .open{background:#fdf3e6;border:2px dashed #ef9f27;}.open b{color:#b5740f;}
+  .qa{background:#eafaf3;border:1.5px solid #bfe7d6;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .elec{background:#f3eefb;border-left:4px solid #7a4fae;color:#5a3b86;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .beat{display:flex;gap:12px;margin:8px 0;align-items:stretch;}
+  .beat .num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef9f27;color:#fff;font-weight:800;text-align:center;line-height:30px;}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #eee4cf;border-radius:11px;padding:9px 12px;font-size:13px;}
+  .beat .bt{font-weight:700;color:#7a3d12;}
+  .beat .kptag{display:inline-block;font-size:10.5px;background:#eafaf3;color:#0f6e56;border:1px solid #bfe7d6;border-radius:8px;padding:1px 7px;margin-left:6px;}
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0;}
+  ol.steps li{counter-increment:s;position:relative;padding:7px 0 7px 40px;border-bottom:1px dashed #ece3cf;font-size:13.5px;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:800;font-size:13px;}
+  ul.ev{padding-left:20px;font-size:13.5px;}ul.ev li{margin:3px 0;}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0;}
+  .fig{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:10px 8px;text-align:center;margin:0;}
+  .fig svg{width:100%;height:auto;}
+  .fig .cap{font-size:12.5px;font-weight:700;color:#7a3d12;margin-top:6px;display:block;}
+  .fig .cap .sub{display:block;font-size:10.5px;font-weight:400;color:#9a948a;margin-top:2px;}
+  .deco{position:absolute;opacity:.5;pointer-events:none;}
+  @media(max-width:640px){.figs{grid-template-columns:1fr;}.kpgrid{grid-template-columns:1fr;}.ladder{flex-wrap:wrap;}.ladder .st{min-width:30%;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+<section class="sheet">
+  <svg class="deco" style="top:-10px;right:-6px;width:130px" viewBox="0 0 140 150" aria-hidden="true">
+    <circle cx="40" cy="30" r="6" fill="#f1d79e"/><circle cx="90" cy="20" r="4" fill="#bfe7d6"/>
+    <circle cx="116" cy="48" r="9" fill="#cdb6ec"/><circle cx="70" cy="60" r="3" fill="#a9cfe5"/>
+  </svg>
+  <div class="head">
+    <svg viewBox="0 0 90 100" width="68" height="76" aria-hidden="true">
+      <rect x="20" y="18" width="50" height="34" rx="5" fill="#efe6fb" stroke="#a98fd6" stroke-width="2"/>
+      <circle cx="32" cy="30" r="3.2" fill="#7a4fae"/><circle cx="42" cy="30" r="3.2" fill="#7a4fae"/><circle cx="52" cy="30" r="3.2" fill="#7a4fae"/>
+      <rect x="34" y="40" width="22" height="6" rx="3" fill="#c9b3e8"/>
+      <path d="M45 52 L45 70" stroke="#9a948a" stroke-width="2.5"/>
+      <path d="M40 70 L50 70 L47 82 L43 82 Z" fill="#d36a5a"/>
+      <circle cx="45" cy="86" r="2.5" fill="#7ec9a8"/>
+      <path d="M22 90 L68 90 L62 98 L28 98 Z" fill="#dff3ff" stroke="#9fcbe3" stroke-width="2"/>
+      <path d="M26 92 L64 92 L60 97 L30 97 Z" fill="#cdb6ec"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L5-001</div>
+      <div class="tt2">智能滴定机器人 · 项目卡片</div>
+      <div class="chips">
+        <span class="chip c-green">第 5 阶 · 初中→高中</span>
+        <span class="chip c-org">②线下物料</span>
+        <span class="chip c-blue">L3 → L4</span>
+        <span class="chip c-elec">电子:micro:bit+传感+执行</span>
+      </div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>含六件套教学核</div>
+  </div>
+  <div class="ladder">
+    <div class="st"><b>1</b>看现象</div>
+    <div class="st"><b>2</b>量化控变量</div>
+    <div class="st"><b>3</b>传感建模</div>
+    <div class="st"><b>4</b>多变量迭代</div>
+    <div class="st on"><b>5</b>系统闭环</div>
+    <div class="st"><b>6</b>自造仪器</div>
+  </div>
+
+  <h2><span class="n">★</span>分类标注</h2>
+  <table>
+    <tr><th style="width:28%">字段</th><th>内容</th></tr>
+    <tr><td>项目编号</td><td>HX-L5-001</td></tr>
+    <tr><td>类型</td><td>②线下物料项目,有"自己动手造机器人"话题、需物料盒子</td></tr>
+    <tr><td>难度阶</td><td><b>第 5 阶</b> · 初中→高中 · 首个"感知—判断—执行"系统闭环项目</td></tr>
+    <tr><td>学员定位</td><td>L3 设计者 → L4 挑战者萌芽(能独立设计闭环方案并讲清系统原理)</td></tr>
+    <tr><td>电子含量</td><td><b>micro:bit + 颜色/光传感 + 微型舵机/蠕动泵(滴加执行)</b>:首次把传感器、主板、执行器集成成一个闭环系统,micro:bit 继续复用同一块板</td></tr>
+  </table>
+
+  <div class="elec"><b>⚡ 电子升级 · 系统集成第一课:</b>前面几阶 micro:bit 只"读数"(传感),这一阶它第一次同时管住<b>传感器 + 执行器</b>——颜色传感看液体、程序判断是否到终点、舵机/泵执行滴加或停止。这是"传感器 + 执行器 + 主板"三件协同的系统集成,也是<b>闭环控制的第一课</b>,为第 6 阶自造仪器铺路。</div>
+
+  <h2><span class="n">★</span>点亮 KP</h2>
+  <div class="note">本阶 4 个 KP 从"读数据"走向"用数据自己做决定":认识中和变色与终点,再用"感知—判断—执行"的闭环把滴定自动化。掌握到"能说清终点、能讲明白闭环三环节、能调阈值让机器更稳更准"。</div>
+  <div class="kpgrid">
+    <div class="kp"><span class="lv">认识</span><b>KP1 酸碱中和与指示剂变色</b><br>酸碱中和到点时,紫甘蓝汁等指示剂会变色——颜色是"反应到没到"的信号。</div>
+    <div class="kp"><span class="lv">半定量</span><b>KP2 滴定终点</b><br>"刚好变色、且再滴也不再变"的那一刻,就是终点——滴到这里就该停。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP3 反馈控制·闭环启蒙</b><br>传感看颜色 → 程序判断到没到终点 → 执行滴加或停止,形成一个会自己纠正的闭环。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP4 传感+执行系统集成</b><br>颜色传感 + 舵机/泵 + micro:bit 三件协同,主板既看又动,组成一台机器。</div>
+  </div>
+  <div class="note">移入"上不封顶"、本阶不点亮:中和反应方程式、pH 与浓度、中和滴定计算 n=cV、误差分析、当量点 vs 变色点,留给高中(见习题进阶题)。</div>
+
+  <h2><span class="n">★</span>开放决策点</h2>
+  <div class="callout open">
+    <b>挑战:做一台会自己滴、看到变色就自己停的滴定机器人。</b><br>
+    孩子自选探究方向:<b>用什么执行滴加(舵机压滴管 / 蠕动泵) ｜ 把"该停"的目标颜色阈值定在哪 ｜ 待测液选白醋还是柠檬酸水</b>。
+    要求:<b>先手动滴感受终点 → 再让机器自动滴 → 调阈值让它停得更准更稳</b>,并说清"机器靠什么知道该停"。
+  </div>
+</section>
+
+<section class="sheet">
+  <h2><span class="n">六</span>件套 · 教学内容核</h2>
+
+  <h3>① 驱动问题</h3>
+  <div class="callout qa">"滴定是实验室里讲手感的'绝活',滴多一滴就过头。能不能<b>做一台会自己滴的机器</b>——它一滴一滴往液里滴,<b>看到液体变色就自己停住</b>?它到底靠什么知道该停?"</div>
+  <div class="note">接续主线:承接第 2 阶维 C「滴定启蒙」(手动一滴一滴比多少),这一阶升级为<b>自动定量</b>;指示剂用自制<b>紫甘蓝汁</b>(食用级、安全),不碰强酸强碱。</div>
+
+  <h3>② 探究脉络</h3>
+  <div class="beat"><div class="num">1</div><div class="bd"><span class="bt">好奇钩子</span><span class="kptag">KP1 预告</span><br>一台小机器自己一滴一滴往杯里滴,突然"叮"地停住——这一刻液体正好变了色。<br><i>反直觉:没人按它,它怎么知道该停?3 秒抓注意力。</i></div></div>
+  <div class="beat"><div class="num">2</div><div class="bd"><span class="bt">先动手试错</span><span class="kptag">KP2 缺口</span><br>让孩子<b>自己手动滴</b>:要么手一抖滴过头(过量、颜色滴太深),要么停太早(还没真到点)。很难刚好抓住终点。<br><i>制造"需要一个会自动判断的东西"的缺口。</i></div></div>
+  <div class="beat"><div class="num">3</div><div class="bd"><span class="bt">玩中探究</span><span class="kptag">KP3</span><span class="kptag">KP4</span><br>引入颜色传感 + 程序阈值:传感盯着液体颜色,程序判断"到目标色没有",到了就让舵机/泵停止滴加。做出"看到目标颜色就停泵"的闭环。<br><i>在最想知道答案时引入闭环 + 系统集成。</i></div></div>
+  <div class="beat"><div class="num">4</div><div class="bd"><span class="bt">回现实检验</span><span class="kptag">KP2</span><span class="kptag">KP3</span><br>跑几次,看机器每次停在哪——终点稳不稳?和手动比谁更准?再<b>调阈值</b>优化,让它停得既不过头也不太早。<br><i>多次重复 + 自动 vs 手动对比,现实说了算。</i></div></div>
+  <div class="beat"><div class="num">5</div><div class="bd"><span class="bt">点亮+费曼</span><span class="kptag">全部</span><br>点亮 KP1–4;让孩子讲"机器靠什么知道该停?为什么说它是个闭环——感知、判断、执行各是哪一步?"<br><i>讲明白闭环才算学会。</i></div></div>
+
+  <h3>③ 证据</h3>
+  <table>
+    <tr><th style="width:26%">类型</th><th>内容</th></tr>
+    <tr><td>变色证据</td><td>滴到中和到点,指示剂(紫甘蓝汁)颜色明显变化 → 颜色是"反应到点"的可见信号。</td></tr>
+    <tr><td>闭环证据</td><td>传感读到目标颜色的瞬间,机器自动触发停止动作 → "看见 → 判断 → 动作"确实闭环了。</td></tr>
+    <tr><td>稳定性证据</td><td>同样条件跑多次,机器停下的终点基本一致 → 自动判断是可重复的。</td></tr>
+    <tr><td>对比证据</td><td>把自动停点和手动滴的停点放一起比 → 自动更不容易过头,准度更稳。</td></tr>
+  </table>
+
+  <h3>④ 评价</h3>
+  <ul class="ev">
+    <li>能说出:酸碱中和到点时指示剂会<b>变色</b>;什么是<b>终点</b>(刚好变色且不再变)。</li>
+    <li>能说清:闭环的<b>三环节——感知(看颜色)、判断(到没到)、执行(滴/停)</b>。</li>
+    <li>能动手:<b>调阈值</b>让机器停得更稳、更准。</li>
+    <li><b>L4 萌芽</b>:能独立<b>组装调试</b>整台机器,并讲清"传感 + 执行 + 主板怎么协同成一个系统"(费曼)。</li>
+    <li>导师端三轴记录:点亮 KP 数 / 开放决策是否真由孩子定 / 能否独立讲解闭环与系统原理。</li>
+  </ul>
+
+  <h3>⑤ 分步解答</h3>
+  <ol class="steps">
+    <li>自制指示剂:把紫甘蓝切碎泡热水或榨汁,做出<b>紫甘蓝汁</b>(遇酸碱会变色,食用级安全)。</li>
+    <li>搭支架:把<b>颜色传感</b>对准烧杯、装好<b>滴管</b>,滴管由<b>舵机压</b>或<b>蠕动泵</b>控制滴加。</li>
+    <li>烧程序:micro:bit 不断读颜色,<b>达到设定阈值(目标色)就停泵/停舵机</b>。</li>
+    <li>放待测液:烧杯里放好待测<b>酸液(白醋/柠檬酸水)</b>+ 几滴紫甘蓝汁指示剂。</li>
+    <li>启动自动滴定:机器一滴一滴滴<b>碱液(小苏打水)</b>,到变色点自动停。</li>
+    <li>多次重复:同样条件再跑几次,看每次停下的<b>终点是否一致</b>。</li>
+    <li>与手动对比:再手动滴一遍,比谁停得更准、更不容易过头。</li>
+    <li>记录卡:写下<b>阈值怎么设的、多次终点稳不稳</b>,画"感知—判断—执行"闭环图。</li>
+  </ol>
+
+  <h3>⑥ 示意图</h3>
+  <div class="figs">
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 200" aria-label="滴定机器人结构示意">
+        <defs>
+          <linearGradient id="c1_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <linearGradient id="c1_liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e2f7"/><stop offset="1" stop-color="#c9a8dd"/></linearGradient>
+          <linearGradient id="c1_mb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe6fb"/><stop offset="1" stop-color="#d8c6f0"/></linearGradient>
+        </defs>
+        <line x1="16" y1="188" x2="204" y2="188" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 支架立柱与底座 -->
+        <rect x="26" y="40" width="9" height="148" rx="3" fill="#cbbfa6"/>
+        <rect x="20" y="184" width="60" height="6" rx="3" fill="#b3a89a"/>
+        <!-- 横臂 -->
+        <rect x="30" y="44" width="120" height="8" rx="3" fill="#cbbfa6"/>
+        <!-- 舵机/泵 -->
+        <rect x="96" y="30" width="40" height="26" rx="4" fill="url(#c1_mb)" stroke="#a98fd6" stroke-width="2"/>
+        <text x="116" y="47" font-size="8.5" fill="#5a3b86" text-anchor="middle" font-weight="700">舵机/泵</text>
+        <!-- 滴管 -->
+        <path d="M116 56 L116 96 L112 104 L120 104 Z" fill="#fff" stroke="#9a948a" stroke-width="1.8"/>
+        <circle cx="116" cy="110" r="3" fill="#7a4fae"/>
+        <circle cx="116" cy="120" r="2.2" fill="#9a6fc0" opacity=".7"/>
+        <!-- 烧杯 -->
+        <path d="M96 130 L156 130 L148 180 L104 180 Z" fill="url(#c1_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M100 146 L152 146 L145 178 L107 178 Z" fill="url(#c1_liq)"/>
+        <!-- 颜色传感 -->
+        <rect x="40" y="138" width="38" height="24" rx="4" fill="#fdecea" stroke="#d36a5a" stroke-width="2"/>
+        <circle cx="59" cy="150" r="5" fill="#fff" stroke="#d36a5a" stroke-width="1.5"/>
+        <circle cx="59" cy="150" r="2" fill="#ef9f27"/>
+        <text x="59" y="172" font-size="8" fill="#a32d2d" text-anchor="middle" font-weight="700">颜色传感</text>
+        <!-- 传感对准箭头 -->
+        <path d="M80 150 L98 152" stroke="#d36a5a" stroke-width="1.6" stroke-dasharray="3 2"/>
+        <polygon points="98,152 92,149 93,155" fill="#d36a5a"/>
+      </svg>
+      <figcaption class="cap">图1 机器人结构<span class="sub">支架+滴管+舵机/泵+颜色传感对准烧杯</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 240 200" aria-label="颜色随滴加变化">
+        <rect x="44" y="6" width="152" height="22" rx="11" fill="#f3eefb" stroke="#7a4fae" stroke-width="1.5"/>
+        <text x="120" y="21" font-size="11" font-weight="700" fill="#5a3b86" text-anchor="middle">一滴一滴滴,颜色变到终点</text>
+        <line x1="14" y1="182" x2="226" y2="182" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="c2_g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+        </defs>
+        <!-- 杯1 色A -->
+        <path d="M22 100 L66 100 L61 162 L27 162 Z" fill="url(#c2_g)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M26 124 L62 124 L58 160 L30 160 Z" fill="#e7c0e0"/>
+        <text x="44" y="178" font-size="9.5" font-weight="700" fill="#9a948a" text-anchor="middle">起始色</text>
+        <!-- 杯2 过渡 -->
+        <path d="M98 100 L142 100 L137 162 L103 162 Z" fill="url(#c2_g)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M102 124 L138 124 L134 160 L106 160 Z" fill="#c9b0d8"/>
+        <text x="120" y="178" font-size="9.5" font-weight="700" fill="#9a948a" text-anchor="middle">渐变中</text>
+        <!-- 杯3 终点色 -->
+        <path d="M174 100 L218 100 L213 162 L179 162 Z" fill="url(#c2_g)" stroke="#9fcbe3" stroke-width="2"/>
+        <path d="M178 124 L214 124 L210 160 L182 160 Z" fill="#8aa0d8"/>
+        <g stroke="#f6b73c" stroke-width="2.2" stroke-linecap="round"><line x1="190" y1="112" x2="186" y2="104"/><line x1="206" y1="112" x2="210" y2="104"/></g>
+        <text x="196" y="178" font-size="9.5" font-weight="700" fill="#0f6e56" text-anchor="middle">终点色!停</text>
+        <!-- 箭头 -->
+        <path d="M68 132 L96 132" stroke="#ef9f27" stroke-width="2"/><polygon points="96,132 88,128 88,136" fill="#ef9f27"/>
+        <path d="M144 132 L172 132" stroke="#ef9f27" stroke-width="2"/><polygon points="172,132 164,128 164,136" fill="#ef9f27"/>
+      </svg>
+      <figcaption class="cap">图2 颜色随滴加变化<span class="sub">由起始色渐变到终点色</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 200" aria-label="闭环框图">
+        <!-- 感知 -->
+        <rect x="78" y="14" width="64" height="34" rx="8" fill="#fdecea" stroke="#d36a5a" stroke-width="2"/>
+        <text x="110" y="30" font-size="11" fill="#a32d2d" text-anchor="middle" font-weight="700">感知</text>
+        <text x="110" y="42" font-size="8.5" fill="#a32d2d" text-anchor="middle">看颜色</text>
+        <!-- 判断 -->
+        <rect x="142" y="84" width="64" height="34" rx="8" fill="#f3eefb" stroke="#7a4fae" stroke-width="2"/>
+        <text x="174" y="100" font-size="11" fill="#5a3b86" text-anchor="middle" font-weight="700">判断</text>
+        <text x="174" y="112" font-size="8.5" fill="#5a3b86" text-anchor="middle">到点没</text>
+        <!-- 执行 -->
+        <rect x="78" y="154" width="64" height="34" rx="8" fill="#eafaf3" stroke="#1d9e75" stroke-width="2"/>
+        <text x="110" y="170" font-size="11" fill="#0f6e56" text-anchor="middle" font-weight="700">执行</text>
+        <text x="110" y="182" font-size="8.5" fill="#0f6e56" text-anchor="middle">滴/停</text>
+        <!-- 回到感知 -->
+        <rect x="14" y="84" width="50" height="34" rx="8" fill="#f3eee2" stroke="#cbbfa6" stroke-width="2"/>
+        <text x="39" y="105" font-size="9.5" fill="#7a3d12" text-anchor="middle" font-weight="700">液体</text>
+        <!-- 箭头 感知->判断 -->
+        <path d="M138 44 C162 56 170 66 174 82" fill="none" stroke="#ef9f27" stroke-width="2.2"/><polygon points="174,84 169,76 178,77" fill="#ef9f27"/>
+        <!-- 判断->执行 -->
+        <path d="M160 118 C150 138 134 148 130 152" fill="none" stroke="#ef9f27" stroke-width="2.2"/><polygon points="129,153 137,150 133,158" fill="#ef9f27"/>
+        <!-- 执行->液体 -->
+        <path d="M82 168 C58 160 46 138 41 120" fill="none" stroke="#ef9f27" stroke-width="2.2"/><polygon points="40,118 47,124 38,125" fill="#ef9f27"/>
+        <!-- 液体->感知 -->
+        <path d="M44 84 C50 64 64 54 80 46" fill="none" stroke="#ef9f27" stroke-width="2.2"/><polygon points="81,45 73,46 78,53" fill="#ef9f27"/>
+        <text x="110" y="106" font-size="9" fill="#9a948a" text-anchor="middle">循环</text>
+      </svg>
+      <figcaption class="cap">图3 闭环框图<span class="sub">感知→判断→执行→回到感知</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>

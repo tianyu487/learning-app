@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小科学家 · 学习App</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --brand:#ff8a3d;--brand-d:#f2701a;--brand-l:#ffd9b8;
+    --green:#27c08a;--green-d:#15a472;--green-l:#a6e9d1;
+    --org:#ff9d3d;--org-d:#e8780f;--blue:#4c9af5;--blue-d:#2f7fe0;--purple:#a26be8;--brown:#c98a2e;--pink:#ff7ba6;--yellow:#ffc23d;
+    --ink:#3b3942;--soft:#9c97a4;
+    --cream:#ffffff;--paper:#fbf8f3;--line:#f0e9dd;
+    --mint:#e7f8f1;--peach:#fff0e6;--sky:#e9f3fe;--lilac:#f4edfc;--butter:#fff6e3;--rose:#ffeef3;
+    --r:22px;--sh:0 8px 24px rgba(70,50,30,.07);--sh-s:0 4px 14px rgba(70,50,30,.05);
+  }
+  body{
+    background:radial-gradient(circle at 6% 2%,#ffe6d2 0,transparent 26%),radial-gradient(circle at 94% 1%,#dceefb 0,transparent 22%),radial-gradient(circle at 82% 99%,#e4f7ef 0,transparent 24%),var(--paper);
+    background-attachment:fixed;
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  header,main,footer{position:relative;z-index:1;}
+  /* ---------- 顶栏 ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,253,250,.9);backdrop-filter:blur(10px);border-bottom:1.5px solid #f3e9da;box-shadow:0 4px 18px rgba(70,50,30,.04);}
+  .top{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:11px 18px;}
+  .logo{display:flex;align-items:center;gap:11px;}
+  .logo svg{width:46px;height:46px;flex:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.1));}
+  .logo b{font-size:20px;color:#33313a;font-weight:800;letter-spacing:.5px;}
+  .logo span{font-size:10.5px;color:var(--brand-d);display:block;letter-spacing:1.2px;font-weight:600;}
+  .mode{margin-left:auto;display:flex;background:#fff;border:2px solid #f3e6d4;border-radius:22px;overflow:hidden;box-shadow:var(--sh-s);}
+  .mode button{border:0;background:transparent;padding:7px 15px;font-size:12.5px;cursor:pointer;color:#b3aeb8;font-weight:800;transition:.15s;}
+  .mode button.on{background:var(--brand);color:#fff;}
+  nav{max-width:920px;margin:0 auto;display:flex;gap:5px;padding:0 14px 9px;overflow-x:auto;}
+  nav button{border:0;background:rgba(255,255,255,.7);padding:8px 15px;font-size:13.5px;cursor:pointer;color:#8d879a;font-weight:800;border-radius:15px;white-space:nowrap;transition:.15s;}
+  nav button:hover{background:#fff;color:var(--brand-d);}
+  nav button.on{background:var(--brand);color:#fff;box-shadow:0 5px 12px rgba(255,138,61,.35);transform:translateY(-1px);}
+  /* ---------- 容器 ---------- */
+  main{max-width:920px;margin:0 auto;padding:26px 18px 72px;}
+  .view{display:none;}.view.on{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-7px) rotate(2deg);}}
+  @keyframes twinkle{0%,100%{opacity:.45;transform:scale(.9);}50%{opacity:1;transform:scale(1.12);}}
+  h2.sec{font-size:21px;color:#33313a;margin:8px 0 6px;display:flex;align-items:center;gap:10px;font-weight:800;}
+  h2.sec .n{width:30px;height:30px;background:linear-gradient(135deg,#ffab54,#f2701a);color:#fff;border-radius:11px;text-align:center;line-height:30px;font-size:15px;flex:none;box-shadow:0 4px 10px rgba(255,138,61,.32);transform:rotate(-4deg);}
+  .lead{font-size:13.5px;color:var(--soft);margin-bottom:20px;max-width:660px;line-height:1.7;}
+  .card{background:var(--cream);border-radius:var(--r);box-shadow:var(--sh);padding:24px 26px;margin-bottom:18px;border:1px solid #f3ecdf;position:relative;}
+  /* ---------- 旗帜首页 ---------- */
+  .flag{background:linear-gradient(120deg,#ffa24c 0,#ff6f61 100%);color:#fff;border-radius:28px;padding:32px 32px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:0 14px 34px rgba(255,111,97,.26);}
+  .flag::after{content:"";position:absolute;left:-44px;bottom:-54px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.1);}
+  .flag h1{font-size:26px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.4;position:relative;}
+  .flag p{font-size:14.5px;opacity:.97;max-width:540px;position:relative;}
+  .flag .jtbd{margin-top:16px;background:rgba(255,255,255,.2);border-radius:15px;padding:13px 18px;font-size:13.5px;border-left:3px solid #fff3cf;position:relative;max-width:600px;}
+  .flag .deco{position:absolute;right:-10px;top:-14px;opacity:.18;}
+  .flag .hero-mascot{position:absolute;right:22px;bottom:-8px;width:128px;animation:floaty 4s ease-in-out infinite;z-index:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.14));}
+  @media(max-width:640px){.flag .hero-mascot{width:84px;right:6px;opacity:.92;}.flag p,.flag h1{max-width:none;}}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+  @media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr 1fr;}}
+  @media(max-width:460px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .mini{background:var(--cream);border-radius:18px;box-shadow:var(--sh-s);padding:17px 18px;cursor:pointer;border:1.5px solid #f1eadf;transition:.18s;position:relative;overflow:hidden;}
+  .mini:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(70,50,30,.1);}
+  .mini .t{font-weight:800;color:#33313a;font-size:15.5px;margin-bottom:4px;}
+  .mini .d{font-size:12px;color:var(--soft);line-height:1.55;}
+  .grid3 .mini:nth-child(1){background:linear-gradient(165deg,var(--peach),#fff 70%);}
+  .grid3 .mini:nth-child(2){background:linear-gradient(165deg,var(--butter),#fff 70%);}
+  .grid3 .mini:nth-child(3){background:linear-gradient(165deg,var(--sky),#fff 70%);}
+  .grid3 .mini:nth-child(4){background:linear-gradient(165deg,var(--mint),#fff 70%);}
+  .grid3 .mini:nth-child(5){background:linear-gradient(165deg,var(--lilac),#fff 70%);}
+  .grid3 .mini:nth-child(6){background:linear-gradient(165deg,var(--rose),#fff 70%);}
+  /* ---------- 阶梯 ---------- */
+  .ladder-row{display:flex;align-items:stretch;gap:0;margin-bottom:4px;}
+  .ladder-step{flex:none;width:56px;display:flex;flex-direction:column;align-items:center;}
+  .ladder-step .dot{width:40px;height:40px;border-radius:14px;background:#fff;border:2.5px solid #eee3d3;color:#c3bcc6;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:var(--sh-s);transform:rotate(-5deg);transition:.15s;}
+  .ladder-step.done .dot{background:linear-gradient(135deg,#34d39a,#15a472);border-color:#15a472;color:#fff;transform:rotate(5deg) scale(1.05);}
+  .ladder-step .bar{width:4px;flex:1;background:repeating-linear-gradient(#ebe2d2 0 6px,transparent 6px 12px);margin-top:3px;border-radius:2px;}
+  .ladder-step.done .bar{background:var(--green-l);}
+  .proj{flex:1;background:var(--cream);border-radius:18px;box-shadow:var(--sh-s);padding:15px 17px;cursor:pointer;border:1.5px solid #f1eadf;transition:.18s;margin-bottom:10px;}
+  .proj:hover{border-color:var(--brand-l);transform:translateX(4px);box-shadow:0 10px 22px rgba(70,50,30,.09);}
+  .proj .ph{display:flex;align-items:center;gap:12px;}
+  .proj .emo{font-size:28px;flex:none;width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:var(--peach);border-radius:15px;}
+  .proj .pt{font-weight:800;color:#33313a;font-size:16.5px;}
+  .proj .ps{font-size:11.5px;color:var(--soft);margin-top:3px;}
+  .proj .prog{margin-left:auto;font-size:11.5px;color:var(--green-d);font-weight:800;text-align:center;background:var(--mint);padding:5px 11px;border-radius:13px;white-space:nowrap;}
+  .chip{display:inline-block;font-size:10.5px;color:#fff;border-radius:20px;padding:3px 10px;margin-right:5px;font-weight:700;}
+  .c-green{background:var(--green);}.c-org{background:var(--brand);}.c-blue{background:var(--blue);}.c-purple{background:var(--purple);}.c-brown{background:var(--brown);}.c-gray{background:#b3aeb8;}
+  /* ---------- 项目详情 ---------- */
+  .back{background:#fff;border:1.5px solid #f1eadf;color:var(--brand-d);font-weight:800;cursor:pointer;font-size:13px;margin-bottom:12px;padding:7px 15px;border-radius:14px;box-shadow:var(--sh-s);}
+  .back:hover{border-color:var(--brand-l);}
+  .drive{background:linear-gradient(120deg,#eaf5ff,#eafaf4);border:2px solid #cfeafb;border-radius:16px;padding:14px 18px;font-size:14.5px;margin:12px 0;}
+  .beat{display:flex;gap:12px;margin:10px 0;}
+  .beat .num{flex:none;width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#ffb15c,#f2701a);color:#fff;font-weight:900;text-align:center;line-height:34px;box-shadow:0 3px 8px rgba(255,138,61,.3);transform:rotate(-4deg);}
+  .beat.lit .num{background:linear-gradient(135deg,#34d39a,#15a472);box-shadow:0 3px 8px rgba(39,192,138,.3);}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #f1eadf;border-radius:14px;padding:11px 14px;font-size:13.5px;}
+  .beat .bt{font-weight:800;color:var(--brand-d);font-size:13px;}
+  .beat.lit .bt{color:var(--green-d);}
+  .open{background:linear-gradient(120deg,#fff4e6,#fff0e6);border:2px dashed var(--brand);border-radius:16px;padding:14px 18px;font-size:14px;margin:14px 0;}
+  .open b{color:var(--brand-d);}
+  .kp-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+  @media(max-width:680px){.kp-list{grid-template-columns:1fr;}}
+  .kp-item{background:#fff;border:1.5px solid #f1eadf;border-radius:14px;padding:11px 13px;font-size:12.5px;}
+  .kp-item .kn{font-weight:800;color:#33313a;}
+  .kp-item .ax{font-size:10px;color:#fff;border-radius:8px;padding:1px 7px;margin-left:5px;}
+  .ax-know{background:var(--blue);}.ax-think{background:var(--green);}.ax-logic{background:var(--purple);}
+  .levels{display:flex;gap:6px;margin-top:9px;}
+  .levels button{flex:1;font-size:11px;border:1.5px solid #ece2cf;background:#faf8f3;border-radius:9px;padding:5px 2px;cursor:pointer;color:#b3aeb8;font-weight:800;transition:.12s;}
+  .levels button:hover{border-color:var(--green-l);}
+  .levels button.on{background:linear-gradient(135deg,#34d39a,#15a472);border-color:#15a472;color:#fff;}
+  .btn{display:inline-flex;align-items:center;gap:5px;border:0;border-radius:14px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;color:#fff;text-decoration:none;box-shadow:var(--sh-s);transition:.15s;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(70,50,30,.14);}
+  .btn-g{background:linear-gradient(135deg,#ffab54,#f2701a);}.btn-o{background:linear-gradient(135deg,#34d39a,#15a472);}.btn-b{background:linear-gradient(135deg,#6aabf7,#2f7fe0);}.btn-ghost{background:#fff;color:var(--brand-d);border:2px solid var(--brand);box-shadow:none;}
+  .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0;}
+  /* ---------- 星图 ---------- */
+  .starmap{background:radial-gradient(circle at 25% 12%,#2a2150,#161033 80%);border-radius:24px;padding:24px;position:relative;overflow:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.3),var(--sh);}
+  .starmap::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1px);background-size:30px 30px;opacity:.5;pointer-events:none;}
+  .axisband{margin-bottom:20px;position:relative;}
+  .axisband h4{color:#e7ddfa;font-size:13.5px;margin-bottom:11px;display:flex;align-items:center;gap:8px;font-weight:800;}
+  .stars{display:flex;flex-wrap:wrap;gap:10px;}
+  .star{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:13px;padding:9px 12px;font-size:12px;color:#b3aecb;cursor:pointer;transition:.18s;}
+  .star:hover{border-color:rgba(255,255,255,.3);}
+  .star .s{font-size:16px;filter:grayscale(1) brightness(.6);}
+  .star.lit{color:#fff;border-color:rgba(255,206,120,.55);background:rgba(255,206,120,.1);box-shadow:0 0 16px rgba(255,190,80,.3);}
+  .star.lit .s{filter:none;animation:twinkle 2.6s ease-in-out infinite;}
+  .star small{display:block;font-size:9.5px;opacity:.7;}
+  /* ---- 知识网络星图（按分支→主题铺开） ---- */
+  .sky-head{position:relative;color:#e7ddfa;margin-bottom:16px;}
+  .sky-head .big{font-size:14px;font-weight:800;}
+  .sky-head .sub{font-size:11.5px;color:#a99fce;margin-top:3px;line-height:1.6;}
+  .sky-legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:9px;font-size:10.5px;color:#bcb3da;}
+  .sky-legend span{display:inline-flex;align-items:center;gap:4px;}
+  .lg-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .lg-dot.know{background:#5b9bff;} .lg-dot.think{background:#4cd49a;} .lg-dot.logic{background:#b78bf0;}
+  .brgroup{position:relative;margin-bottom:10px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:rgba(255,255,255,.025);overflow:hidden;}
+  .brhead{width:100%;display:flex;align-items:center;gap:10px;padding:12px 14px;background:none;border:0;cursor:pointer;text-align:left;color:#ece4ff;}
+  .brhead:hover{background:rgba(255,255,255,.04);}
+  .brhead .brid{width:24px;height:24px;flex:0 0 24px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:13px;background:linear-gradient(135deg,#7d6cff,#b06cff);color:#fff;}
+  .brhead .brname{font-weight:800;font-size:13.5px;}
+  .brhead .brmeta{margin-left:auto;font-size:11px;color:#a99fce;display:flex;align-items:center;gap:8px;}
+  .brhead .pill{background:rgba(255,206,120,.16);color:#ffd79a;border-radius:20px;padding:1px 9px;font-weight:700;}
+  .brhead .caret{transition:.18s;display:inline-block;}
+  .brgroup.open .brhead .caret{transform:rotate(90deg);}
+  .brbody{display:none;padding:2px 14px 12px;}
+  .brgroup.open .brbody{display:block;}
+  .topicrow{margin:10px 0 4px;}
+  .tphead{font-size:11.5px;color:#cbbff0;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:8px;}
+  .tphead .tpc{color:#8a82ac;font-weight:600;}
+  .tphead .tpn{margin-left:auto;font-size:10px;color:#8a82ac;font-weight:600;}
+  .star .stg{font-size:8.5px;font-weight:800;border-radius:5px;padding:0 4px;line-height:14px;}
+  .star.ax-know{border-left:3px solid #5b9bff;} .star.ax-think{border-left:3px solid #4cd49a;} .star.ax-logic{border-left:3px solid #b78bf0;}
+  .stg.s初{background:rgba(76,212,154,.18);color:#7ee9bb;} .stg.s高{background:rgba(91,155,255,.18);color:#9cc2ff;} .stg.s本{background:rgba(183,139,240,.2);color:#d3b6ff;}
+  /* ---- 知识网络星河（选项3·银河星臂图） ---- */
+  #starmap.galaxy{padding:14px 12px 16px;}
+  .gx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:10px;position:relative;}
+  .gx-stat{flex:1 1 100%;color:#e7ddfa;font-size:12.5px;font-weight:800;margin-bottom:2px;}
+  .gx-stat small{display:block;font-weight:500;color:#a99fce;font-size:10.5px;margin-top:2px;}
+  .gx-chip{font-size:10.5px;border-radius:20px;padding:3px 9px;cursor:pointer;border:1px solid rgba(255,255,255,.16);color:#cdc3ea;background:rgba(255,255,255,.04);user-select:none;transition:.15s;display:inline-flex;align-items:center;gap:4px;}
+  .gx-chip:hover{border-color:rgba(255,255,255,.4);}
+  .gx-chip .sw{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .gx-chip.on{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.55);font-weight:700;}
+  .gx-grp{display:flex;flex-wrap:wrap;gap:5px;align-items:center;}
+  .gx-lab{font-size:9.5px;color:#8a82ac;margin-right:2px;}
+  .gx-reset{margin-left:auto;font-size:10.5px;color:#cdb6ff;cursor:pointer;border:1px solid rgba(205,182,255,.35);border-radius:20px;padding:3px 10px;}
+  .gx-wrap{position:relative;width:100%;border-radius:16px;overflow:hidden;touch-action:none;}
+  .gx-wrap svg{display:block;width:100%;height:auto;cursor:grab;}
+  .gx-wrap svg.drag{cursor:grabbing;}
+  .gx-node{cursor:pointer;}
+  .gx-node circle{transition:opacity .2s;}
+  @keyframes gxBreath{0%,100%{opacity:1;}50%{opacity:.6;}}
+  .gx-node.lv3 .core{animation:gxBreath 3s ease-in-out infinite;}
+  .gx-edge{transition:opacity .2s,stroke-width .2s;}
+  text.gx-badge{font-weight:800;fill:#fff;opacity:.95;}
+  text.gx-bname{fill:#d9d2f3;opacity:.82;}
+  .gx-faint{opacity:.09 !important;}
+  .gx-edge.hl-pre{stroke:#FFD479 !important;opacity:.95 !important;stroke-width:1.7 !important;stroke-dasharray:none !important;}
+  .gx-edge.hl-suc{stroke:#5fe0d0 !important;opacity:.92 !important;stroke-width:1.6 !important;stroke-dasharray:none !important;}
+  .gx-node.hl-self .core{stroke:#fff;stroke-width:1.6;}
+  .gx-node.hl-pre .core{stroke:#FFD479;stroke-width:1.3;}
+  .gx-node.hl-suc .core{stroke:#5fe0d0;stroke-width:1.3;}
+  .gx-node.hl-thread .core{stroke-width:1.4;}
+  .gx-thline{fill:none;stroke-linejoin:round;stroke-linecap:round;}
+  .gx-sheet{position:relative;margin-top:10px;background:linear-gradient(180deg,#241a4d,#1a1238);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:13px 15px;color:#ece4ff;display:none;}
+  .gx-sheet.show{display:block;}
+  .gx-sheet h5{margin:0 0 4px;font-size:15px;display:flex;align-items:center;gap:8px;}
+  .gx-sheet .meta{font-size:11px;color:#b3a9d6;margin-bottom:8px;line-height:1.7;}
+  .gx-sheet .tg{display:inline-block;font-size:10px;border-radius:8px;padding:1px 7px;margin:0 4px 3px 0;}
+  .gx-sheet .chain{font-size:11px;color:#cabfe8;margin-top:6px;line-height:1.8;}
+  .gx-sheet .gobtn{display:inline-block;margin-top:10px;background:linear-gradient(135deg,#7d6cff,#b06cff);color:#fff;border:0;border-radius:11px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;}
+  .gx-sheet .closex{position:absolute;top:8px;right:13px;color:#9a90c0;cursor:pointer;font-size:20px;line-height:1;}
+  .gx-prj-h{font-size:12px;font-weight:800;color:#cbbff0;margin:11px 0 7px;}
+  .gx-prj{display:flex;flex-direction:column;gap:7px;}
+  .gx-pbtn{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px 11px;cursor:pointer;color:#ece4ff;transition:.15s;}
+  .gx-pbtn:hover{border-color:#b06cff;background:rgba(176,108,255,.14);}
+  .gx-pbtn .emo{font-size:19px;flex:0 0 auto;}
+  .gx-pbtn .pt{flex:1;font-size:13px;font-weight:700;line-height:1.4;}
+  .gx-pbtn .pt small{display:block;font-weight:500;color:#a99fce;font-size:10px;margin-top:1px;}
+  .gx-pbtn .ty{font-size:9.5px;border-radius:7px;padding:2px 7px;font-weight:700;white-space:nowrap;}
+  .gx-pbtn .ty.theme{background:rgba(91,155,255,.18);color:#9cc2ff;} .gx-pbtn .ty.proj{background:rgba(255,170,80,.18);color:#ffca82;}
+  .gx-legend{font-size:10px;color:#8a82ac;margin-top:8px;line-height:1.7;}
+  /* ---------- 三轴仪表盘 ---------- */
+  .axis{margin:16px 0;}
+  .axis .al{display:flex;justify-content:space-between;font-size:13.5px;font-weight:800;margin-bottom:6px;}
+  .axis .track{height:18px;background:#f1ede5;border-radius:12px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.06);}
+  .axis .fill{height:100%;border-radius:12px;transition:width .7s cubic-bezier(.2,.8,.2,1);box-shadow:0 1px 4px rgba(0,0,0,.1);}
+  .f-know{background:linear-gradient(90deg,#8fc4f7,#4c9af5);}
+  .f-think{background:linear-gradient(90deg,#7fe3c0,#27c08a);}
+  .f-logic{background:linear-gradient(90deg,#cdb0f2,#a26be8);}
+  .stagebadge{display:inline-flex;align-items:center;gap:8px;background:#fff3e8;border:1.5px solid #ffd9b8;border-radius:30px;padding:8px 16px;font-weight:800;color:var(--brand-d);font-size:15px;}
+  .pathline{display:flex;gap:8px;margin:16px 0;}
+  .pathline .pn{flex:1;text-align:center;font-size:11px;color:#b3aeb8;background:#fff;border:1.5px solid #f0e9dd;border-radius:14px;padding:10px 4px;transition:.15s;}
+  .pathline .pn.on{background:linear-gradient(135deg,#ffab54,#f2701a);border-color:#f2701a;color:#fff;transform:translateY(-2px);box-shadow:0 5px 12px rgba(255,138,61,.32);}
+  .pathline .pn b{display:block;font-size:14px;margin-bottom:2px;}
+  /* ---------- 作品集 ---------- */
+  .work{background:#fff;border:1.5px solid #f1eadf;border-radius:15px;padding:14px 16px;margin-bottom:11px;border-left:5px solid var(--brand);box-shadow:var(--sh-s);}
+  .work .wt{font-weight:800;color:#33313a;font-size:14.5px;}
+  .work .wd{font-size:13.5px;color:#5e5a62;margin-top:4px;font-style:italic;}
+  .work .wm{font-size:11px;color:#b3aeb8;margin-top:6px;}
+  input[type=text],textarea{width:100%;border:2px solid #ece2cf;border-radius:12px;padding:10px 13px;font-family:inherit;font-size:13.5px;margin:6px 0;background:#fffefb;transition:.15s;}
+  input[type=text]:focus,textarea:focus{outline:0;border-color:var(--brand-l);box-shadow:0 0 0 3px rgba(255,138,61,.13);}
+  textarea{min-height:64px;resize:vertical;}
+  label{font-size:13px;font-weight:800;color:#33313a;}
+  /* ---------- 每日思辨 ---------- */
+  .think-q{background:linear-gradient(125deg,#fff5e8,#ffe9e0);border:2px dashed var(--brand);border-radius:22px;padding:24px;position:relative;overflow:hidden;box-shadow:var(--sh-s);}
+  .think-q .tag{font-size:11px;color:var(--brand-d);font-weight:800;letter-spacing:1.5px;}
+  .think-q .qq{font-size:19px;font-weight:800;color:#33313a;margin:10px 0;line-height:1.55;position:relative;}
+  .think-q .hint{background:#fff;border-radius:14px;padding:13px 16px;font-size:13.5px;color:#5e6b43;margin-top:14px;border-left:4px solid #9bd0a8;display:none;}
+  .think-q .hint.show{display:block;animation:fade .25s;}
+  /* ---------- 家长端 ---------- */
+  .ptip{background:#fbf5ec;border-left:5px solid var(--brand);border-radius:0 12px 12px 0;padding:12px 16px;margin:10px 0;font-size:13.5px;color:#5e503e;}
+  .ptip b{color:var(--brand-d);}
+  .belief{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1.5px solid #f1eadf;border-radius:14px;padding:12px 15px;margin:9px 0;font-size:13.5px;}
+  .belief .bi{font-size:22px;flex:none;}
+  .note{background:#f1f8f3;border-left:4px solid #7fd6b4;color:#46715c;font-size:12.5px;border-radius:0 10px 10px 0;padding:10px 14px;margin:11px 0;}
+  /* ---------- 互动测评 ---------- */
+  .kp-item .lvtag{float:right;font-size:10px;font-weight:800;border-radius:8px;padding:2px 9px;}
+  .lv-ok{background:var(--green-d);color:#fff;}.lv-mid{background:#ffe0b8;color:#9a5a12;}.lv-no{background:#efe9dd;color:#a59c8d;}
+  .kp-item .evid{font-size:11px;color:var(--soft);margin-top:7px;}
+  .qz{background:#fff;border:1.5px solid #f1eadf;border-radius:16px;padding:15px 17px;margin:13px 0;box-shadow:var(--sh-s);}
+  .qz.ok{border-color:#9ee3c9;background:#f4fcf8;}
+  .qzh{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .qzt{font-weight:800;font-size:14.5px;flex:1;min-width:55%;}
+  .qzh .ax{font-size:11px;font-weight:800;border-radius:9px;padding:2px 9px;margin-left:0;}
+  .qzh .ax-know{background:#eaf2fd;color:#3a7fd0;}
+  .qzh .ax-think{background:#e6f6f0;color:#15936a;}
+  .qzh .ax-logic{background:#f1eafb;color:#7a4fae;}
+  .tier{font-size:10.5px;font-weight:800;border-radius:9px;padding:2px 9px;background:#f0ece2;color:#8a8270;}
+  .tier.base{background:#e6f6f0;color:#15936a;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{text-align:left;border:1.5px solid #ece2cf;background:#faf8f3;border-radius:12px;padding:10px 14px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink);transition:.12s;}
+  .opt:hover{border-color:var(--brand-l);}
+  .opt.right{background:linear-gradient(135deg,#34d39a,#15a472);border-color:#15a472;color:#fff;}
+  .opt.wrong{border-color:#f0b3a4;background:#fff3f0;}
+  .why{background:#eef6ff;border-left:4px solid var(--blue);border-radius:0 11px 11px 0;padding:10px 14px;margin-top:10px;font-size:12.5px;color:#2f5f86;}
+  .star.half{color:#d8cba6;border-color:rgba(255,194,75,.28);}
+  /* ---------- 内置任务卡 ---------- */
+  .tk-hero{background:linear-gradient(120deg,#ffa24c,#ff6f61);color:#fff;border-radius:22px;padding:20px 22px;margin-bottom:16px;box-shadow:0 12px 26px rgba(255,111,97,.22);}
+  .tk-hero .lv{font-size:12px;font-weight:700;opacity:.95;letter-spacing:.5px;}
+  .tk-hero h1{font-size:23px;font-weight:800;margin:3px 0 8px;}
+  .tk-hero .q{background:rgba(255,255,255,.2);border-radius:13px;padding:11px 14px;font-size:13.5px;border-left:3px solid #fff3cf;}
+  .tk-mat{display:grid;grid-template-columns:1fr 1fr;gap:7px 16px;}
+  @media(max-width:560px){.tk-mat{grid-template-columns:1fr;}}
+  .tk-mat .it{display:flex;align-items:center;gap:9px;font-size:13.5px;}
+  .tk-mat .bx{width:16px;height:16px;border:2px solid var(--brand);border-radius:5px;flex:none;}
+  .tk-mat small{color:var(--soft);font-size:11px;}
+  .tk-step{display:flex;gap:11px;margin:9px 0;}
+  .tk-step .n{flex:none;width:30px;height:30px;border-radius:11px;background:linear-gradient(135deg,#ffb15c,#f2701a);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 7px rgba(255,138,61,.28);transform:rotate(-4deg);}
+  .tk-step .tx{flex:1;background:#fff8f1;border:1.5px solid #ffe6d0;border-radius:12px;padding:9px 13px;font-size:13.5px;}
+  .tk-step .tx b{color:var(--brand-d);}
+  .tk-recipe{background:#f3fbff;border:1.5px solid #cfe6f5;border-radius:13px;padding:12px 15px;font-size:13px;margin-bottom:12px;}
+  .tk-recipe b{color:#2c6a90;}
+  .tk-recipe table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .tk-recipe td{padding:4px 8px;border-bottom:1px dashed #dcecf5;}
+  .tk-recipe td:last-child{text-align:right;font-weight:800;color:#1f4f6e;white-space:nowrap;}
+  .tk-pick{background:linear-gradient(120deg,#fff4e6,#fff0e6);border:2px dashed var(--brand);border-radius:14px;padding:13px 16px;font-size:13.5px;}
+  .tk-pick b{color:var(--brand-d);}
+  .tk-safe{background:#fff6f4;border:1.5px solid #ffd2c8;border-radius:14px;padding:13px 16px;font-size:13px;}
+  .tk-safe ul{margin:0 0 0 18px;}.tk-safe li{margin:4px 0;}
+  .tk-safe b{color:#e2563a;}
+  .tk-fey{background:linear-gradient(120deg,#eafaf4,#eaf5ff);border:1.5px solid #b7ead4;border-radius:14px;padding:13px 16px;font-size:13.5px;}
+  .tk-fey b{color:var(--green-d);}
+  /* ---------- 实验记录卡 ---------- */
+  .tk-openrec{display:block;text-align:center;margin-top:14px;padding:13px;border-radius:16px;background:linear-gradient(120deg,#ffa24c,#ff6f61);color:#fff;font-weight:800;font-size:15.5px;cursor:pointer;box-shadow:0 6px 14px rgba(255,111,97,.28);}
+  .rc-prompt{font-size:14px;color:var(--brand-d);font-weight:700;margin-bottom:6px;}
+  .rc-sub{font-size:12px;color:var(--soft);}
+  .rc-in{width:100%;border:0;border-bottom:1.8px dashed #e6d8c4;background:transparent;font-family:inherit;font-size:14px;padding:6px 2px;margin:4px 0;}
+  .rc-in:focus{outline:0;border-bottom-color:var(--brand);}
+  .rc-u{display:inline-block;min-width:90px;border:0;border-bottom:1.8px solid var(--brand);background:transparent;font-family:inherit;font-size:14px;text-align:center;padding:2px 4px;}
+  .rc-opts{display:flex;flex-wrap:wrap;gap:9px 18px;margin:8px 0;}
+  .rc-opt{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;cursor:pointer;}
+  .rc-opt input{width:18px;height:18px;accent-color:var(--brand);}
+  .rc-guard{margin-top:10px;font-size:12.5px;color:#b23b22;background:#fff6f4;border:1.5px solid #ffc9bd;border-radius:11px;padding:8px 12px;}
+  .rc-tab{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .rc-tab th,.rc-tab td{border:1.5px solid #f0e3d2;padding:8px;text-align:center;}
+  .rc-tab th{background:#fff5ec;color:var(--brand-d);font-weight:800;}
+  .rc-tab td.lbl{background:#fbf6ee;font-weight:700;text-align:left;color:#5a564f;width:34%;}
+  .rc-tab input{width:100%;border:0;background:transparent;font-family:inherit;font-size:13.5px;text-align:center;}
+  .rc-tab input:focus{outline:0;}
+  .rc-draw{width:100%;min-height:130px;border:2.5px dashed #ffd2b0;border-radius:16px;background:repeating-linear-gradient(0deg,#fffdfb,#fffdfb 27px,#fff6ee 28px);font-family:inherit;font-size:14px;padding:10px 12px;color:var(--ink);resize:vertical;}
+  .rc-find{display:flex;align-items:flex-start;gap:10px;font-size:14px;margin:9px 0;}
+  .rc-find input{width:19px;height:19px;flex:none;margin-top:2px;accent-color:var(--green);}
+  .rc-feyn{background:linear-gradient(120deg,#eafaf4,#eaf5ff);border:2px solid #b7ead4;border-radius:16px;padding:15px 17px;font-size:14px;}
+  .rc-feyn b{color:var(--green-d);}
+  .rc-feyn .chk{display:flex;align-items:center;gap:10px;margin-top:11px;font-weight:800;color:var(--green-d);}
+  .rc-feyn .chk input{width:21px;height:21px;accent-color:var(--green);}
+  @media print{.tk-openrec,.back,.btnrow{display:none!important;}}
+  .hide{display:none!important;}
+  footer{text-align:center;font-size:11px;color:#b3aeb8;padding:24px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="logo">
+      <svg viewBox="0 0 56 56" aria-hidden="true">
+        <circle cx="40" cy="9" r="3" fill="#7fd6b4"/><circle cx="46" cy="14" r="2" fill="#f4a52b"/>
+        <path d="M22 11 h12 v3 h-2 v9 l9 18.5 a4.2 4.2 0 0 1 -3.8 6 h-18.4 a4.2 4.2 0 0 1 -3.8 -6 l9 -18.5 v-9 h-2 z" fill="#eaf6ff" stroke="#16a07a" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M18.6 35 h18.8 l3.6 7.5 a4.2 4.2 0 0 1 -3.8 6 h-18.4 a4.2 4.2 0 0 1 -3.8 -6 z" fill="#7fd6b4"/>
+        <circle cx="23" cy="41" r="2" fill="#0c6b51"/><circle cx="33" cy="41" r="2" fill="#0c6b51"/>
+        <path d="M24 45.5 q4 3 8 0" fill="none" stroke="#0c6b51" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="19" cy="44" r="1.8" fill="#f4a8a8" opacity=".75"/><circle cx="37" cy="44" r="1.8" fill="#f4a8a8" opacity=".75"/>
+      </svg>
+      <div><b>小科学家</b><span>从知识图谱到手搓挑战</span></div>
+    </div>
+    <div class="mode">
+      <button id="m-stu" class="on" onclick="setMode('stu')">学员端</button>
+      <button id="m-par" onclick="setMode('par')">家长端</button>
+      <button id="m-tea" onclick="setMode('tea')">导师视角</button>
+    </div>
+  </div>
+  <nav id="nav"></nav>
+</header>
+
+<main>
+  <!-- 旗帜首页 -->
+  <section class="view on" id="v-home">
+    <div class="flag">
+      <svg class="deco" width="170" height="170" viewBox="0 0 160 160"><circle cx="120" cy="40" r="30" fill="#fff"/><circle cx="60" cy="90" r="18" fill="#fff"/><circle cx="130" cy="110" r="12" fill="#fff"/></svg>
+      <svg class="hero-mascot" viewBox="0 0 120 142" aria-hidden="true">
+        <circle cx="80" cy="14" r="6" fill="#ffe08a"/><circle cx="93" cy="27" r="4" fill="#fff" opacity=".75"/><circle cx="69" cy="6" r="3.6" fill="#7fd6b4"/>
+        <path d="M30 80 q-16 -6 -20 -23" fill="none" stroke="#0c6b51" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="9" cy="54" r="5" fill="#eaf6ff" stroke="#0c6b51" stroke-width="2"/>
+        <path d="M44 24 h32 v6 h-5 v20 l20 41 a8 8 0 0 1 -7.2 11.6 h-47.6 a8 8 0 0 1 -7.2 -11.6 l20 -41 v-20 h-5 z" fill="#eaf6ff" stroke="#0c6b51" stroke-width="3.4" stroke-linejoin="round"/>
+        <path d="M38 78 h44 l12.5 25.6 a8 8 0 0 1 -7.2 11.6 h-47.6 a8 8 0 0 1 -7.2 -11.6 z" fill="#7fd6b4"/>
+        <circle cx="53" cy="96" r="3" fill="#fff" opacity=".55"/><circle cx="69" cy="105" r="2.4" fill="#fff" opacity=".55"/>
+        <circle cx="50" cy="92" r="3.4" fill="#0c4b3a"/><circle cx="70" cy="92" r="3.4" fill="#0c4b3a"/>
+        <circle cx="51.2" cy="90.8" r="1" fill="#fff"/><circle cx="71.2" cy="90.8" r="1" fill="#fff"/>
+        <path d="M52 101 q8 6 16 0" fill="none" stroke="#0c4b3a" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="42" cy="99" r="3.4" fill="#f4a8a8" opacity=".7"/><circle cx="78" cy="99" r="3.4" fill="#f4a8a8" opacity=".7"/>
+      </svg>
+      <h1>👋 嗨，欢迎来到"小科学家"！</h1>
+      <p>在这里，你不用比谁记得多。你要做的，是一件件<b>好玩又有意义的事</b>——自己动手做、边玩边发现秘密，再讲给家人听。准备好了吗？挑一关，开始你的探险吧！</p>
+      <div class="jtbd">🌟 <b>怎么玩：</b>去"闯关地图"挑一关 → 跟着 5 个步骤做 → 做完点亮你的小星星，还能写进作品集！</div>
+    </div>
+
+    <div class="grid3">
+      <div class="mini" onclick="go('ladder')"><div class="t">🪜 闯关地图</div><div class="d">6 关，越往后越好玩，跟着 5 个步骤做</div></div>
+      <div class="mini" onclick="go('star')"><div class="t">✨ 成长星图</div><div class="d">每做完一关就点亮小星星，看着星图变亮</div></div>
+      <div class="mini" onclick="go('grow')"><div class="t">📊 三轴仪表盘</div><div class="d">知识 / 思维 / 逻辑，成长变成三条看得见的线</div></div>
+      <div class="mini" onclick="go('works')"><div class="t">🏆 作品集</div><div class="d">沉淀每一次"我真的做出来了"的证据</div></div>
+      <div class="mini" onclick="go('think')"><div class="t">💭 每日思辨</div><div class="d">每天 5–10 分钟，一道思辨题 / 逻辑小故事</div></div>
+      <div class="mini" onclick="setMode('par')"><div class="t">👨‍👩‍👧 家长端</div><div class="d">怎么陪、怎么问、怎么看懂孩子的成长</div></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec"><span class="n">↑</span>今日一起做</h2>
+      <p class="lead" id="home-status">正在加载你的进度…</p>
+      <div class="btnrow">
+        <button class="btn btn-g" onclick="go('think')">做今天的思辨题</button>
+        <button class="btn btn-ghost" onclick="go('ladder')">继续学习项目</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 项目阶梯 -->
+  <section class="view" id="v-ladder">
+    <h2 class="sec"><span class="n">🪜</span>闯关地图 · 6 关</h2>
+    <p class="lead">从最好玩、一眼就能看到结果的，到自己出题、自己挑战的。每一关都跟着 <b>5 个步骤</b> 一步步做，越往后越厉害。</p>
+    <div id="ladder-list"></div>
+    <div class="card" style="margin-top:10px;">
+      <h2 class="sec" style="font-size:16px;"><span class="n" style="background:var(--brown);">📖</span>名著里的项目</h2>
+      <p class="lead">从经典名著里"长"出来的项目。下面这桩"墨水疑案"，也是第 3 关。</p>
+      <div id="dj-list"></div>
+    </div>
+  </section>
+
+  <!-- 项目详情 -->
+  <section class="view" id="v-project"></section>
+
+  <!-- 互动测评（点亮的唯一证据） -->
+  <section class="view" id="v-quiz"></section>
+
+  <!-- 内置闯关任务卡（内容装进 App，断网也能开） -->
+  <section class="view" id="v-task"></section>
+
+  <!-- 化学课程（按知识图谱全量 81 门，A→H 排序） -->
+  <section class="view" id="v-courses"></section>
+
+  <!-- 星图 -->
+  <section class="view" id="v-star">
+    <h2 class="sec"><span class="n">🌌</span>成长星图 · 化学知识星河（网络版）</h2>
+    <p class="lead">把 <b>324 颗知识星</b>画成一张真正的<b>知识网络星图</b>：中心是化学核，<b>8 大分支</b>像 8 条彩色银河旋臂螺旋发散，每条臂从内到外按 <b>初 → 高 → 本</b> 串起知识星，星与星之间的连线是<b>先修依赖</b>（要学会外圈，得先点亮内圈）。点一颗星看它的"通关前置链"并去测一测；点上方<b>主线</b>药丸，可让贯穿全学科的大思想像星座一样亮起来。</p>
+    <div class="starmap" id="starmap"></div>
+    <div class="note">💡 这是<b>选项3·网络星座版</b>，与 <b>小科学家.html（选项1·分支主题清单版）</b>用同一份数据、同一套"答对才点亮"的规则，方便你对比哪种更好。滚轮/双指可缩放，拖动可平移。</div>
+  </section>
+
+  <!-- 三轴成长 -->
+  <section class="view" id="v-grow">
+    <h2 class="sec"><span class="n">📊</span>三轴成长仪表盘</h2>
+    <p class="lead">把成长从"一句感受"变成三条看得见的线：<b>知识</b>（学科）、<b>思维</b>（科学方法/解题）、<b>逻辑</b>（讲理与推理）。</p>
+    <div class="card" id="dash"></div>
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">🚀</span>你的成长段位</h2>
+      <p class="lead">沿阶梯，从"玩家"一路走到"挑战者"。</p>
+      <div class="pathline" id="pathline"></div>
+      <p class="lead" id="path-desc"></p>
+    </div>
+  </section>
+
+  <!-- 作品集 -->
+  <section class="view" id="v-works">
+    <h2 class="sec"><span class="n">🏆</span>作品集 · 看得见的成长痕迹</h2>
+    <p class="lead">每做完一个项目，留下一句"我做出了什么 + 为什么"，讲给家人听。这是你长大的证据，不是分数条。</p>
+    <div class="card">
+      <label>＋ 添加一条作品</label>
+      <input type="text" id="w-title" placeholder="做出了什么？（如：大象牙膏喷了40cm高）">
+      <textarea id="w-desc" placeholder="用一句话讲清"为什么"——讲给家人听就更棒啦"></textarea>
+      <button class="btn btn-o" onclick="addWork()">收进作品集</button>
+    </div>
+    <div id="works-list"></div>
+  </section>
+
+  <!-- 每日思辨 -->
+  <section class="view" id="v-think">
+    <h2 class="sec"><span class="n">💭</span>每日亲子思辨</h2>
+    <p class="lead">每天 5–10 分钟，一道思辨题或逻辑小故事。和孩子聊，比答对更重要。</p>
+    <div class="think-q" id="think-card"></div>
+    <div class="btnrow">
+      <button class="btn btn-ghost" onclick="toggleHint()">看"怎么聊"提示</button>
+      <button class="btn btn-g" onclick="doneThink()">今天聊过了 ✓</button>
+      <button class="btn btn-o" onclick="nextThink()">换一题</button>
+    </div>
+    <p class="lead" id="streak"></p>
+  </section>
+
+  <!-- 家长端 · 看见孩子的成长 -->
+  <section class="view" id="v-parent">
+    <h2 class="sec"><span class="n">👨‍👩‍👧</span>家长端 · 看见孩子的成长</h2>
+    <p class="lead">不看分数，看证据。这里直接呈现孩子"做成了什么、长出了什么"。</p>
+
+    <div class="flag" style="margin-bottom:16px;">
+      <svg class="deco" width="160" height="160" viewBox="0 0 160 160"><circle cx="120" cy="40" r="30" fill="#fff"/><circle cx="60" cy="90" r="18" fill="#fff"/><circle cx="130" cy="110" r="12" fill="#fff"/></svg>
+      <h1>我们不和孩子比谁记得多。<br>我们和孩子一起，做一件件有意义的事。</h1>
+      <p>AI 时代，值得花十几年长出来的是四样能力：<b>提出好问题、动手把想法变现实、在现实中检验修正、把事情讲清楚</b>。每一个项目，都在练这四样。</p>
+      <div class="jtbd">📌 <b>我们要兑现的：</b>让你能和孩子一起，做一件件有意义的事；并且在这个过程里，你能清楚地看见——孩子真的在成长。</div>
+    </div>
+
+    <div class="card" id="par-hero"></div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">📊</span>三轴成长仪表盘</h2>
+      <p class="lead">把成长从一句感受，变成三条看得见的线：<b>知识</b>（学科底子）· <b>思维</b>（科学方法）· <b>逻辑</b>（讲理与推理）。</p>
+      <div id="par-dash"></div>
+      <div class="note">📈 三条线一起长，才是真正"看得见的成长"——我们不把它换算成总分或百分制。</div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">🚀</span>成长段位</h2>
+      <div class="pathline" id="par-path"></div>
+      <p class="lead" id="par-pathdesc" style="margin:0;"></p>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">🏆</span>孩子的作品集</h2>
+      <div id="par-works"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">💭</span>今天的亲子思辨</h2>
+      <p class="lead">每天 5–10 分钟，和孩子聊一道。比答对更重要的，是聊起来。</p>
+      <div id="par-think"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">📦</span>进度备份（云端账号上线前的过渡）</h2>
+      <p class="lead">现在进度存在这台设备的浏览器里——<b>换设备、清缓存会丢</b>。先用"导出/导入"把进度搬过去；等<b>账号 + 云端</b>上线后，会自动多端同步。</p>
+      <div class="btnrow">
+        <button class="btn btn-b" onclick="exportProgress()">⬇️ 导出进度</button>
+        <label class="btn btn-ghost" style="cursor:pointer;">⬆️ 导入进度<input type="file" accept="application/json,.json" onchange="importProgress(this)" style="display:none;"></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 导师视角 · 带教与备课（与家长端分开） -->
+  <section class="view" id="v-teacher">
+    <h2 class="sec"><span class="n">🧑‍🏫</span>导师视角 · 带教与备课</h2>
+    <p class="lead">给<b>主讲 / 教研 / 备课</b>用：五拍带教法、三条信念，以及六件套原件与分档习题。<b>与学员端、家长端分开。</b></p>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">①</span>用五拍带孩子做项目</h2>
+      <div class="ptip"><b>好奇钩子</b>：先别讲知识，抛一个反直觉现象（"这怎么可能？"），勾住他。</div>
+      <div class="ptip"><b>先动手试错</b>：忍住，让他先乱试、犯错。"咦，为什么不行"正是学习的入口。</div>
+      <div class="ptip"><b>玩中探究</b>：在他最想知道答案时，才引入概念和方法——不要满堂灌。</div>
+      <div class="ptip"><b>回现实检验</b>：让成果接受真实世界检验，引导他观察、记录、解释偏差。</div>
+      <div class="ptip"><b>点亮+费曼</b>：让孩子把"为什么"讲给你听。<b>讲明白，才算真懂。</b></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">②</span>我们的三条信念</h2>
+      <div class="belief"><span class="bi">🎨</span><div><b>设计 ＞ 组装</b>：每个项目都留一个"孩子自己定"的开放决策点。别替他做决定、别替他动手。</div></div>
+      <div class="belief"><span class="bi">🔥</span><div><b>内在动机 ＞ 外在奖励</b>：靠好奇心和成就感驱动，<b>不用积分、排名、糖果</b>制造焦虑。所以这个 App 里没有排行榜。</div></div>
+      <div class="belief"><span class="bi">📈</span><div><b>提分是副产物</b>：把四样能力长出来，分数会作为副产物到来。我们不承诺"包提多少分"，但能力的成长看得见。</div></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" style="font-size:16px;"><span class="n">③</span>六件套原件 · 分档习题</h2>
+      <p class="lead">每个项目的<b>专业版</b>：六件套、探究脉络标注 KP、评价 rubric、习题分档与"上不封顶"。孩子在学员端看到的是简化的"闯关任务卡"。</p>
+      <div id="teacher-cards"></div>
+    </div>
+  </section>
+</main>
+
+<footer>小科学家 · 学习App ｜ 内部样机 · 按《AI 文教内训手册》搭建（五拍 · 点亮星图 · 三轴仪表盘 · 作品集 · 每日思辨 · 双端）</footer>
+
+<script src="chem_courses.js"></script>
+<script src="chem_illust.js"></script>
+<script src="chem_network.js"></script>
+<script src="chem_edges.js"></script>
+<script>
+/* ============ 数据：六份学习资料 + 读经典线 ============ */
+const KP_AX={know:'知识',think:'思维',logic:'逻辑'};
+const PROJECTS=[
+ {id:'HX-L1',stage:1,line:'chem',type:'🧪 动手做',emoji:'🐘',title:'大象牙膏',learner:'玩家',elec:'🧪 不用电子',
+  drive:'有没有办法，让一管"牙膏"在 3 秒内自己喷出来，堆成一座冒着热气的小山？',
+  open:'比一比谁的泡沫喷得最高——你自己挑一样来改（神奇粉多放点？水更温一点？），其他都别动。',
+  beats:['倒进一勺"神奇粉"，"牙膏"3 秒自己喷出来！','先不放神奇粉试试——咦，怎么不喷了？','放进神奇粉，哗地喷涌；摸摸杯子，还热乎乎的','把带火星的小木条凑近泡沫，火又"噗"地烧起来','讲给家人听：为什么加一勺粉，它就喷了？'],
+  kps:[['催化剂','know'],['放热反应','know'],['氧气助燃','know'],['对照法启蒙','think']],
+  task:'../化学项目库/HX-L1-001_大象牙膏/学员端/闯关任务卡.html',
+  card:'../化学项目库/HX-L1-001_大象牙膏/项目导师/项目卡片.html',
+  quiz:'../化学项目库/HX-L1-001_大象牙膏/项目导师/习题.html'},
+
+ {id:'HX-L2',stage:2,line:'chem',type:'🧪 动手做',emoji:'🍊',title:'维C含量大比拼',learner:'玩家',elec:'🧪 不用电子',
+  drive:'广告都说自己维C高。不送实验室，我们能不能自己"数"出哪杯果汁维C最多？',
+  open:'你来当评委——自己挑要比哪几种果汁饮料，还可以试试"加热后维C会不会变少"。',
+  beats:['一滴碘酒滴进淀粉水，唰地变成深蓝色','往蓝色水里滴果汁——蓝色居然褪掉了！','原来维C能"消灭"蓝色；数数几滴果汁能让它褪干净','测好几种果汁排个名，再加热一杯看看会怎样','讲给家人听：为什么数滴数就能比出谁维C高？'],
+  kps:[['氧化还原启蒙','know'],['显色检验启蒙','know'],['数滴数比含量·滴定启蒙','think'],['控制变量','think']],
+  card:'../化学项目库/HX-L2-001_维C含量大比拼/项目导师/项目卡片.html',
+  quiz:'../化学项目库/HX-L2-001_维C含量大比拼/项目导师/习题.html'},
+
+ {id:'HX-L3',stage:3,line:'chem',type:'🧪 动手做',emoji:'🧂',title:'盐水电导率计',learner:'改造者',elec:'🔌 用micro:bit',
+  drive:'纯水几乎不导电，撒把盐就通了电。能不能做一台仪器，让"咸淡"变成屏幕上的数字？',
+  open:'做一把你自己的"咸度尺"，去猜一杯神秘盐水——自己定测哪些水、电极插多深。',
+  beats:['探头插进纯水，屏幕显示 0；撒把盐，数字一下飙上去！','纯水、糖水都试试——怎么都几乎不导电？','原来盐在水里变成会动的小颗粒才导电；盐越多数字越大','先校准好，画一条"盐多少—数字多大"的线，再去猜神秘盐水','讲给家人听：为什么盐水导电、糖水却不导电？'],
+  kps:[['电解质·离子导电','know'],['电导随浓度变化','know'],['传感建模启蒙','think'],['校准与零点','think']],
+  card:'../化学项目库/HX-L3-001_盐水电导率计/项目导师/项目卡片.html',
+  quiz:'../化学项目库/HX-L3-001_盐水电导率计/项目导师/习题.html'},
+
+ {id:'HX-L4',stage:4,line:'chem',type:'🧪 动手做',emoji:'⏱️',title:'反应速率擂台',learner:'设计者',elec:'🔌 用micro:bit',
+  drive:'同样一颗泡腾片，怎么让它快一倍？是水更热、片更碎、还是水更多在帮忙？',
+  open:'配出你的"最快配方"上擂台——每次只改一样（水温/掰不掰碎/放几颗/搅不搅），慢慢试出最快的。',
+  beats:['两杯水各丢一颗泡腾片，一杯热一杯冰——热的冒得飞快！','随便乱改（掰碎、多放、搅一搅），好像都更快，到底哪个最管用？','一次只改一样，用小板子计时，量出每次的快慢','把时间画成柱状图找出最快配方，再挑战一个新组合验证','讲给家人听：为什么热的快？为什么掰碎也快？'],
+  kps:[['影响反应速率的因素','know'],['多变量逐一控制','think'],['速率↔变量建模','think'],['micro:bit 测温计时','think']],
+  card:'../化学项目库/HX-L4-001_反应速率擂台/项目导师/项目卡片.html',
+  quiz:'../化学项目库/HX-L4-001_反应速率擂台/项目导师/习题.html'},
+
+ {id:'HX-L5',stage:5,line:'chem',type:'🤖 做机器人',emoji:'🤖',title:'智能滴定机器人',learner:'设计者',elec:'🤖 做小机器人',
+  drive:'能不能做一台会自己滴、看到液体变色就自己停的滴定机？它靠什么知道该停？',
+  open:'做一台会自己停的小机器人——你自己定它"看到什么颜色就停"、滴多快、测哪种液体。',
+  beats:['一台小机器自己一滴一滴地滴，突然"叮"地停住——液体正好变了色！','自己用手滴滴看——不是滴过头，就是停太早，好难刚好停住','给它装上"眼睛"，看到目标颜色就让它自动停下','多跑几次，看它每次停得准不准；再和你手动的比一比','讲给家人听：机器靠什么知道该停？（看一看 → 想一想 → 动一动）'],
+  kps:[['酸碱中和与指示剂变色','know'],['滴定终点','know'],['反馈控制·闭环','think'],['传感+执行系统集成','think']],
+  card:'../化学项目库/HX-L5-001_智能滴定机器人/项目导师/项目卡片.html',
+  quiz:'../化学项目库/HX-L5-001_智能滴定机器人/项目导师/习题.html'},
+
+ {id:'HX-L6',stage:6,line:'chem',type:'🔦 自造仪器',emoji:'🔦',title:'自造光度计·浓度侦探',learner:'挑战者',elec:'🔦 自造仪器',
+  drive:'颜色越深、透过的光越少——能不能自造一台仪器，用光的强弱"读出"浓度？',
+  open:'这一关你当科学家：自己挑一个想测的问题（哪杯饮料更浓？水有多浑？），自己列材料、自己造仪器、自己定标准线。',
+  beats:['一束光穿过有色水——淡的还很亮，浓的那杯几乎没光透过来','光用眼睛比浓淡，两个人都说不准，怎么办？','自己动手造一台小仪器，用它"读出"光透过了多少','先用几杯已知浓淡画一条线，再去测神秘水、反推它有多浓','讲给家人听：我这台仪器是怎么"看出"浓淡的？'],
+  kps:[['比色法·吸光与浓度','know'],['自制传感仪器','think'],['标准曲线与校准','think'],['完整自主探究立项','think']],
+  card:'../化学项目库/HX-L6-001_自造光度计/项目导师/项目卡片.html',
+  quiz:'../化学项目库/HX-L6-001_自造光度计/项目导师/习题.html'},
+
+ {id:'DJ-L3',stage:3,line:'classic',type:'🔍 推理破案',emoji:'🔍',title:'福尔摩斯·小侦探鉴证科',learner:'改造者',elec:'📖 配故事书',
+  drive:'案发现场留下一张字条。你能不能只用几张滤纸和一杯水，让墨水自己"招供"是哪支笔写的？',
+  open:'换你来出题，设计一桩"墨水疑案"——自己挑几支嫌疑笔、用其中一支写"罪证字条"，让小伙伴来破案。',
+  beats:['一支"黑"笔，点在纸上滴点水——黑色竟裂成蓝、紫、粉好几条！','拿现场字条对着光猜是哪支笔——大家各说各的，谁也说不准','让每支笔在滤纸上"跑"一跑，跑出各自的"墨水指纹"','把现场墨和嫌疑笔一条条对比，找出一模一样的那支，破案！','像侦探一样复盘：我凭哪条线索锁定凶手、又排除了谁？'],
+  kps:[['纸层析·色谱启蒙','know'],['控制变量·对照','think'],['演绎推理·证据链','logic'],['物证同一认定','logic']],
+  card:'../读经典项目库/DJ-L3-001_福尔摩斯小侦探鉴证科/项目导师/项目卡片.html',
+  quiz:'../读经典项目库/DJ-L3-001_福尔摩斯小侦探鉴证科/项目导师/习题.html'}
+];
+
+/* ============ 互动测评题（点亮的唯一证据：答题正确率，不许自评） ============ */
+/* 每题：q 题干；o 选项；a 正确项下标；kp 对应该项目第几个知识点；up=true 进阶题；why 思考方法 */
+const QUIZ={
+ 'HX-L1':[
+  {q:'泡沫猛喷之后，那勺酵母：',o:['变没了','还在、没被用掉','全变成了泡沫'],a:1,kp:0,up:false,why:'催化剂帮忙加快反应，自己几乎不被消耗——捞一捞它还在。'},
+  {q:'带火星的木条凑近泡沫口又烧起来，说明泡沫里主要是：',o:['二氧化碳','氧气','水蒸气'],a:1,kp:2,up:false,why:'让火更旺的是氧气；会灭火的才是二氧化碳。'},
+  {q:'刚喷出来的泡沫，摸杯子外面是：',o:['冰冰的','温温的','没感觉'],a:1,kp:1,up:false,why:'这是放热反应，会放出一点热，所以泡沫是温的。'},
+  {q:'想知道"是不是酵母让它喷"，最公平的做法是：',o:['换个更大的杯子','另做一杯只不放酵母、其他都一样','多倒点双氧水'],a:1,kp:3,up:false,why:'对照——只改"有没有酵母"这一样，其余全固定。'},
+  {q:'像酵母这种"让反应变快、自己几乎不变"的东西，化学里叫：',o:['燃料','催化剂','杂质'],a:1,kp:0,up:true,why:'这就是催化剂的定义。'}
+ ],
+ 'HX-L2':[
+  {q:'淀粉遇到碘，会变成什么颜色？',o:['红色','深蓝色','透明'],a:1,kp:1,up:false,why:'这是碘的"指纹"——遇淀粉显蓝。'},
+  {q:'果汁滴进蓝色碘液、蓝色褪掉，是因为维C有：',o:['酸性','还原性','甜味'],a:1,kp:0,up:false,why:'维C把碘还原成无色，体现还原性。'},
+  {q:'同样多蓝色碘液，A果汁8滴褪色、B果汁20滴褪色，谁维C高？',o:['A果汁','B果汁'],a:0,kp:2,up:false,why:'碘量固定时，用的果汁越少越浓。'},
+  {q:'要"公平"比两种果汁的维C，必须保持一样的是：',o:['果汁的种类','碘液的量','想改啥改啥'],a:1,kp:3,up:false,why:'只让"果汁种类"不同，碘液量等其余全固定。'},
+  {q:'反应 C₆H₈O₆ + I₂ 里，氧化剂是：',o:['维生素C','碘（I₂）'],a:1,kp:0,up:true,why:'碘得电子被还原=氧化剂；维C被氧化=还原剂。'},
+  {q:'滴定用去 0.010 mol/L 碘液 20.0 mL，碘的物质的量 n=cV 约为：',o:['2×10⁻⁴ mol','0.2 mol','2 mol'],a:0,kp:2,up:true,why:'n=0.010×0.0200=2×10⁻⁴ mol（体积换成升）。'}
+ ],
+ 'HX-L3':[
+  {q:'把探头插进下面三杯，读数最大的是：',o:['纯净水','糖水','盐水'],a:2,kp:0,up:false,why:'盐在水里拆成会动的离子才导电。'},
+  {q:'盐水能导电，靠的是水里的：',o:['水分子','自由移动的离子','糖'],a:1,kp:0,up:false,why:'是离子在搬运电。'},
+  {q:'同一杯盐水不停加盐，屏上读数会：',o:['变大','变小','不变'],a:0,kp:1,up:false,why:'盐越多、离子越多、越好导电，读数越大。'},
+  {q:'测之前为什么先把探头插进纯水"归零"？',o:['好玩','去掉本底，让几杯能公平比','没有用'],a:1,kp:3,up:false,why:'先校准归零，不同杯子的读数才可比。'},
+  {q:'把几个"盐量—读数"的点连成一条线，用它猜未知盐水，这叫：',o:['瞎猜','用模型预测','抄答案'],a:1,kp:2,up:false,why:'用数据连成线来预测，就是建模。'},
+  {q:'下列属于电解质、其水溶液能导电的是：',o:['食盐 NaCl','蔗糖','酒精'],a:0,kp:0,up:true,why:'食盐在水中电离出自由离子；蔗糖、酒精不电离。'},
+  {q:'模型 y=40x+10，未知盐水读数 130，相当于几勺盐？',o:['2 勺','3 勺','5 勺'],a:1,kp:1,up:true,why:'130=40x+10 → x=3。'}
+ ],
+ 'HX-L4':[
+  {q:'同样泡腾片、同样水，溶得最快的是：',o:['冰水','常温水','热水'],a:2,kp:0,up:false,why:'温度越高，反应越快。'},
+  {q:'把泡腾片掰碎再丢进水里，会比整颗：',o:['更快','更慢','一样'],a:0,kp:0,up:false,why:'掰碎后表面积大、和水接触多，更快。'},
+  {q:'研究"温度对快慢的影响"，应该：',o:['只改水温、其他都固定','同时改水温和掰不掰碎','随便改'],a:0,kp:1,up:false,why:'一次只改一个变量才公平。'},
+  {q:'把几次"时间—温度"的结果连成一条线，能用来：',o:['预测没试过的温度大概多快','变出新泡腾片','什么也做不了'],a:0,kp:2,up:false,why:'用趋势线预测，就是建模。'},
+  {q:'我们在这个项目里，用 micro:bit 主要做：',o:['测水温和计时','放音乐','拍照片'],a:0,kp:3,up:false,why:'用板子读水温、按键计时，把快慢变成数字。'},
+  {q:'某反应物 2 分钟内浓度从 0.50 降到 0.30 mol/L，平均速率 v=Δc/Δt=',o:['0.10 mol/(L·min)','0.20 mol/(L·min)','0.40 mol/(L·min)'],a:0,kp:2,up:true,why:'v=(0.50−0.30)/2=0.10。'}
+ ],
+ 'HX-L5':[
+  {q:'滴定机器人该停下的"终点"指的是：',o:['第一滴落下时','刚好变色、再滴也不再变那一刻','杯子滴满时'],a:1,kp:1,up:false,why:'颜色刚好变到位、不再变化，就是该停的信号。'},
+  {q:'酸和碱混合发生的反应叫：',o:['燃烧','中和反应','溶解'],a:1,kp:0,up:false,why:'酸碱作用生成盐和水，叫中和反应。'},
+  {q:'紫甘蓝汁在实验里起什么作用？',o:['让水变香','当指示剂，用颜色显示酸碱','增加浓度'],a:1,kp:0,up:false,why:'天然指示剂，用颜色告诉我们酸碱变了没。'},
+  {q:'机器"看颜色 → 判断到没到 → 滴或停"，三步连成一个圈，叫：',o:['闭环','直线','死机'],a:0,kp:2,up:false,why:'感知—判断—执行连成圈，就是闭环。'},
+  {q:'这台机器同时管住了：',o:['只有传感器','传感器 + 主板 + 执行器三件','只有电池'],a:1,kp:3,up:false,why:'三件协同，才组成一台会自己滴自己停的机器。'},
+  {q:'0.1 mol/L NaOH 取 0.020 L，物质的量 n=cV=',o:['0.002 mol','0.02 mol','2 mol'],a:0,kp:0,up:true,why:'n=0.1×0.020=0.002 mol。'},
+  {q:'0.1 mol/L NaOH 用去 25.0 mL 恰好中和 20.0 mL 盐酸（1:1），盐酸浓度约：',o:['0.080 mol/L','0.125 mol/L','0.25 mol/L'],a:1,kp:1,up:true,why:'n(NaOH)=0.0025=n(HCl)；c=0.0025/0.0200=0.125。'}
+ ],
+ 'HX-L6':[
+  {q:'同一种红墨水，A杯滴2滴、B杯滴6滴（水一样多），颜色更深、透光更少的是：',o:['A杯','B杯'],a:1,kp:0,up:false,why:'色素越多越浓、越深，挡光越多。'},
+  {q:'同一种有色水，越浓，光穿过去：',o:['透出来的越多','透出来的越少'],a:1,kp:0,up:false,why:'越浓吸光越多，透出来的越少。'},
+  {q:'为什么把 LED、比色杯、光敏装进一个"遮光盒"？',o:['好看','挡掉环境光，让光敏只收 LED 的光','省电'],a:1,kp:1,up:false,why:'不遮光，房间的光混进来读数就乱了。'},
+  {q:'先用几杯已知浓度画一条"读数—浓度"的线，再去测未知，这条线叫：',o:['标准曲线','随手画的','没用的线'],a:0,kp:2,up:false,why:'标准曲线，用来反推未知样的浓度。'},
+  {q:'朗伯-比尔 A=εbc，ε、b 不变，把浓度 c 变成 2 倍，吸光度 A：',o:['变成 2 倍','不变','变一半'],a:0,kp:0,up:true,why:'A 与 c 成正比。'},
+  {q:'透光率 T=0.01（即 1%），吸光度 A=−lg T 等于：',o:['1','2','0.01'],a:1,kp:0,up:true,why:'A=−lg(0.01)=2。'}
+ ],
+ 'DJ-L3':[
+  {q:'黑笔点在滤纸上滴点水，跑出蓝紫粉几条带，说明黑墨水是：',o:['一种纯颜色','多种颜色的混合物'],a:1,kp:0,up:false,why:'能分成好几条带，说明本来就混着好几种色素。'},
+  {q:'层析能把墨水里不同色素分开，主要因为它们：',o:['颜色不同','随水"跑"的快慢不同','一样重'],a:1,kp:0,up:false,why:'有的更亲水跑得快、爬得高，快慢不同就分开了。'},
+  {q:'几支笔比对，为什么要同一张纸、同一条起跑线、同样的水？',o:['好看','公平：只让笔不同、其余全固定','没必要'],a:1,kp:1,up:false,why:'控制变量，图谱才可比。'},
+  {q:'现场墨"蓝+粉"；1号"只蓝"、2号"蓝+黄"、3号"蓝+粉"，凶器最可能是：',o:['1号笔','2号笔','3号笔'],a:2,kp:2,up:false,why:'3号组合完全对上；1号无粉、2号有黄都被排除。'},
+  {q:'要确认两份墨迹是不是同一支笔，靠层析比的是：',o:['谁先跑完','色带的颜色组合和高低是否完全一致','纸的大小'],a:1,kp:3,up:false,why:'组合与高度都一致，才支持"同一支笔"。'},
+  {q:'比移值 Rf=色斑距离÷溶剂前沿距离。色斑3.0cm、前沿12.0cm，Rf=',o:['0.25','4','0.4'],a:0,kp:0,up:true,why:'Rf=3.0/12.0=0.25。'}
+ ]
+};
+
+/* ============ 内置闯关任务卡内容（装进 App，不依赖外部文件） ============ */
+const TASK={
+ 'HX-L1':{recipe:[['家用 3% 双氧水','约 50 ml（半杯）'],['洗洁精','1 泵 / 1 大勺'],['食用色素','几滴'],['干酵母','1 小包（约 1 茶匙）'],['化酵母的温水','约 40 ml（温，不烫手）']],
+  mat:[['家用双氧水（3%）','大人帮忙'],['干酵母 一小包',''],['洗洁精 一点点',''],['食用色素 几滴',''],['透明杯子 ×2',''],['温水 一点',''],['大托盘 / 盘子','接泡沫'],['手套 + 护目镜',''],['一根木条 + 记录卡','']],
+  steps:['杯子里倒<b>约 50 ml 双氧水</b>，滴几滴<b>颜色</b>，再挤<b>1 泵洗洁精</b>，轻轻晃匀。','用<b>约 40 ml 温水</b>把<b>一小包酵母</b>化开，搅成糊。','把酵母水<b>一次性倒进去</b>——快闪开，看它喷出来！🌋','摸摸杯子外面——是不是<b>热热的</b>？','点根木条吹灭留<b>火星</b>，凑近泡沫口，看会不会<b>又烧起来</b>。🔥','再做一杯<b>不放酵母</b>的，其他都一样，两杯比一比。','在记录卡上<b>画下来</b>，写一句"我改了哪一样"。✏️'],
+  safe:['双氧水请<b>大人帮忙倒</b>，只用家里 3% 的。','戴好<b>护目镜和手套</b>，别让泡沫进眼睛。','泡沫<b>不能吃、不能舔</b>。','旁边放块<b>湿布</b>好擦。'],
+  fey:'用你自己的话讲：为什么加了一勺酵母，它就"噗"地喷出来？那勺酵母后来去哪了？'},
+ 'HX-L2':{recipe:null,
+  mat:[['碘酒 / 碘液','小瓶'],['可溶性淀粉','小包'],['统一滴管 ×4–6',''],['透明小杯 ×6',''],['量勺 / 小量杯',''],['几种果汁/饮料','自己准备'],['维C 泡腾片','进阶对照'],['护目镜 · 手套',''],['记录卡 + 柱状图卡','']],
+  steps:['温水化一点<b>淀粉</b>，滴 1–2 滴<b>碘酒</b>，调成<b>蓝色</b>指示液。','把<b>等量</b>蓝色液倒进几个杯子（每杯碘量一样）。','用滴管往第 1 杯<b>逐滴</b>加果汁，边滴边晃，数到蓝色<b>刚好褪去</b>的滴数。','换下一种果汁重复（<b>同一支滴管、同样晃法</b>）。','滴数越少 = 维C 越高 → 排个名。','进阶：把一种果汁<b>加热</b>几分钟再测，和没加热的比。','画柱状图，写"我固定了什么、只改了哪一样"。'],
+  safe:['碘酒<b>外用</b>，<b>禁止入口、入眼</b>。','实验用过的果汁<b>不要再喝</b>。','碘液会染色，垫好桌布、戴手套护目镜。','由大人协助分装与指导。'],
+  fey:'讲一讲：为什么"数滴数"就能比出谁维C 高？为什么每杯条件都得一样？'},
+ 'HX-L3':{recipe:null,
+  mat:[['micro:bit 主板 ×1','可复用'],['电池盒 / USB 线',''],['鳄鱼夹导线 ×2','接 P1 / 3V'],['不锈钢电极片 ×2',''],['电极固定座','保持间距/深度'],['透明小杯 ×6',''],['食盐 + 白糖','对照'],['量勺 / 蒸馏水','归零用'],['记录卡 + 坐标卡','']],
+  steps:['两根鳄鱼夹分别接 micro:bit 的 <b>P1</b> 和 <b>3V</b>，线头做成两片不碰到的<b>电极</b>。','烧好程序：读 P1 数值，显示成数字 / 亮度条。','电极插入<b>纯水</b>，记下"<b>零读数</b>"。','配 1 勺、2 勺、3 勺<b>盐水</b>（每杯水量一样），各测读数。','画一条<b>"盐量—读数"曲线</b>。','再测一杯<b>神秘盐水</b>，在曲线上反查它有多咸。','记录：电极插多深、怎么归的零。'],
+  safe:['只用<b>电池 / USB 低压（3V）</b>，<b>严禁接市电</b>。','电极用食品级不锈钢，防锈。','实验水样<b>不要喝</b>。','由大人协助接线与第一次烧录。'],
+  fey:'讲一讲：为什么盐水导电、糖水却不导电？屏上的数字代表什么？'},
+ 'HX-L4':{recipe:null,
+  mat:[['泡腾片','同批同规格，关键'],['透明杯 ×6',''],['保温杯 / 冰水热水',''],['micro:bit','测温 + 按键计时'],['量勺 / 量杯',''],['记录卡 + 柱状图卡',''],['(选)防水温度探头','DS18B20']],
+  steps:['定基准：固定<b>水量</b>和<b>泡腾片规格</b>，做一杯"标准杯"。','装电子：micro:bit <b>测水温</b>、<b>按键计时</b>（丢片按一下，反应完再按一下）。','只改<b>水温</b>（冰/常温/温/热），其余不变，各记时间。','只改<b>表面积</b>（整颗 vs 掰碎），各记时间。','再分别改<b>用量 / 搅拌</b>，每次只改一样。','画<b>柱状图</b>，预测一个"最快组合"再实测验证。','记录：我固定了什么、这次只改了哪一样、最快配方是什么。'],
+  safe:['<b>热水由大人操作</b>，小心烫。','材料是食用级，但实验后<b>不要喝</b>。','micro:bit 用电池低压供电。'],
+  fey:'讲一讲：为什么热的快？为什么掰碎也快（表面积大、接触多）？'},
+ 'HX-L5':{recipe:null,
+  mat:[['micro:bit 主板','复用'],['颜色 / 光传感',''],['微型舵机 / 蠕动泵 + 滴管',''],['紫甘蓝','自制指示剂'],['白醋 / 柠檬酸 / 小苏打水','食用级'],['烧杯 / 小瓶 · 支架',''],['电池盒','']],
+  steps:['把<b>紫甘蓝</b>切碎泡热水或榨汁，做出会变色的<b>指示剂</b>。','搭支架：<b>颜色传感</b>对准烧杯，滴管由<b>舵机/泵</b>控制。','烧程序：不停读颜色，<b>到目标色就停</b>。','烧杯里放<b>待测酸液</b>（白醋）+ 几滴紫甘蓝汁。','启动：机器一滴一滴滴<b>碱液</b>，到变色点<b>自动停</b>。','同样条件再跑几次，看每次<b>终点稳不稳</b>；再和手动比一比。','记录：阈值怎么设的、稳不稳，画"看→想→动"闭环图。'],
+  safe:['只用<b>食用级弱酸碱</b>（白醋/小苏打水），不碰强酸强碱。','低压供电、<b>严禁市电</b>；舵机/泵注意<b>夹手</b>。','实验液<b>不入口</b>，大人协助组装。'],
+  fey:'讲一讲：机器靠什么知道该停？它的"看一看 → 想一想 → 动一动"分别是哪一步？'},
+ 'HX-L6':{recipe:null,
+  mat:[['micro:bit 主板','复用'],['LED（单色）',''],['光敏电阻 + 限流电阻',''],['遮光盒 / 暗盒','关键'],['比色杯 ×数个',''],['已知浓度标准液','自配'],['自选样品','自己准备'],['杜邦线 / 面包板',''],['记录卡 + 立项模板','']],
+  steps:['<b>选课题</b>：从清单（饮料浓度 / 浊度 / 稀释 / 褪色）挑一个，或自拟。','<b>列 BOM</b>：写下要用的材料，自己定清单。','搭光度计：遮光盒里 <b>LED 对准光敏</b>，中间留比色杯槽，挡掉环境光。','烧程序读光敏值；放<b>空杯 / 纯溶剂</b>先定"满光"基准。','配一组<b>已知浓度</b>，逐杯测，画成<b>标准曲线</b>。','测自选课题的<b>未知样</b>，在曲线上反推浓度。','写结论 + 误差讨论（遮光/比色杯/对齐）+ 作品集卡。'],
+  safe:['低压供电。','若用高锰酸钾 / 碘液等，<b>低浓度 + 大人协助</b>，不入口入眼。','LED <b>不要直视</b>。'],
+  fey:'讲一讲：我这台仪器是怎么"看出"浓淡的？光是怎么被"喝掉"的？'},
+ 'DJ-L3':{recipe:null,
+  mat:[['滤纸条 / 咖啡滤纸',''],['水性彩笔 ×3–4','嫌疑笔，墨水不同'],['一次性滴管 / 小杯',''],['铅笔','画起跑线'],['办案记录卡 + 案件信封',''],['(选)柠檬汁密写料','']],
+  steps:['裁一条滤纸，距底边约 2 cm 用<b>铅笔</b>画一条起跑线。','在线上点"<b>现场墨</b>"一小点，旁边依次点几支<b>嫌疑笔</b>（隔开、标号）。','杯里加约 1 cm 浅水，把滤纸下端浸入（<b>水别没过墨点</b>），竖直静置。','水往上爬，墨点被拉成<b>色带</b>；水快到顶取出晾干。','<b>比对</b>：现场墨的色带组合 = 哪支笔 → 锁定凶器笔。','写<b>证据链</b>：现场=蓝+粉=3号；排除 1号(只蓝)、2号(蓝+黄)…','办案卡：画各笔图谱 + 写"我靠什么锁定、排除了谁"。'],
+  safe:['必须用<b>水性</b>彩笔（油性签字笔在滤纸上跑不开）。','实验墨水<b>不入口</b>。','柠檬汁密写若要加热显影，<b>大人帮忙</b>，小心烫。','用安全剪刀，大人协助。'],
+  fey:'像侦探一样复盘：黑墨为什么会分开？我凭哪条证据锁定凶手、又排除了谁？'}
+};
+
+/* ============ 实验记录卡内容（先猜→只改一样→两杯比一比→画下来→我发现了→费曼） ============ */
+const RECORD={
+ 'HX-L1':{guess:'还没倒酵母之前，你猜会发生什么？',opts:['酵母放更多','洗洁精放更多','水更温一点','别的'],guard:'双氧水一直是那 50 ml 不动——想喷更高就多放酵母，绝不换更浓的双氧水。',cols:['标准杯','我的杯'],rows:['我改的那一样','喷得多高','谁更高（打✓）'],finds:['加了酵母才猛喷，不加几乎不动','摸杯子外面是热热的','带火星木条凑近又烧亮（是氧气）','喷完那勺酵母还在、没消失']},
+ 'HX-L2':{guess:'你猜哪杯果汁维C 最高？为什么？',opts:['比哪几种果汁/饮料','测加热前 vs 加热后','测鲜榨 vs 久放','别的'],guard:'每杯碘液量、滴管、晃法都一样——只让"果汁种类"不同才公平。',cols:['果汁A','果汁B'],rows:['果汁名','褪色用了几滴','谁维C高（滴数少→高）'],finds:['蓝色=碘+淀粉的"指纹"','滴果汁蓝色褪了（维C 把碘还原）','用的果汁越少 → 维C 越高','加热那杯要更多滴（维C 被破坏）']},
+ 'HX-L3':{guess:'纯水、糖水、盐水，你猜哪个读数最大？',opts:['测自来水/矿泉水/纯净水','电极插更深/更浅','多加几个浓度点定标','别的'],guard:'测每杯前都先用纯水归零、电极插同样深——不然读数不能比。',cols:['这杯','那杯'],rows:['水样 / 盐量','屏上读数','读数大 → 更咸'],finds:['纯水、糖水几乎不导电','盐越多读数越大','归零后不同杯才可比','能用曲线反查神秘盐水']},
+ 'HX-L4':{guess:'怎么让泡腾片冒得最快？先猜一个。',opts:['只改水温','只改掰碎/整颗','只改放几颗','只改搅不搅'],guard:'水量、泡腾片规格固定，一次只改一样——不然不知道是哪样让它快。',cols:['标准杯','我的杯'],rows:['这次改的那一样','用了多少秒','更快 / 更慢'],finds:['热水比冰水快很多','掰碎比整颗快（表面积大）','一次只改一样才比得准','能预测并验证"最快配方"']},
+ 'HX-L5':{guess:'机器要怎样才知道该停？先猜猜。',opts:['改"该停"的目标颜色阈值','改滴加速度','换待测液（白醋/柠檬酸）','别的'],guard:'每滴量、遮光要稳定——不然终点忽早忽晚。',cols:['第1次','第2次'],rows:['这次设的阈值','停在哪（终点）','稳不稳 / 准不准'],finds:['到中和点指示剂变色','机器看到目标色自动停','多次终点基本一致','自动比手动更不容易过头']},
+ 'HX-L6':{guess:'哪杯更浓？先用眼睛猜，再用仪器测。',opts:['测饮料浓度排名','测水的浊度','测稀释倍数','跟踪褪色进程'],guard:'遮光、比色杯、光路对齐都固定——环境光是最大误差。',cols:['样品1','样品2'],rows:['样品 / 浓度','透光读数','越浓 → 读数越低'],finds:['越浓透过的光越少','遮光后读数才稳','用标准曲线能反推未知','贵的不一定更浓']},
+ 'DJ-L3':{guess:'你猜现场字条是哪支笔写的？',opts:['选几支嫌疑笔','用其中一支写"罪证"','加柠檬汁密写暗线','别的'],guard:'同一张纸、同一起跑线、同样的水——只让"笔"不同才公平。',cols:['现场墨','嫌疑笔'],rows:['笔 / 样本','跑出的色带组合','和现场是否一致'],finds:['黑墨裂成蓝紫粉（是混合物）','每支笔色带组合不同（墨水指纹）','现场=某支笔的组合 → 锁定','靠排除法排掉其它笔']},
+};
+function recVal(id,k){return (S.record[id]||{})[k]||'';}
+function recSet(id,k,v){S.record[id]=S.record[id]||{};S.record[id][k]=v;save();}
+function recChk(id,k,el){recSet(id,k,el.checked?1:'');}
+
+/* ============ 每日思辨题库 ============ */
+const THINK=[
+ {q:'三扇门后有一辆车两只羊。你选了1号门，主持人打开3号露出羊，问你换不换到2号？',h:'别急着算。先让孩子凭直觉选，再一起把三种初始情况画出来数一数——换门赢的概率其实是 2/3。重点是"敢质疑直觉"。'},
+ {q:'一根羽毛和一个铁球，从同样高度同时松手，谁先落地？（没有空气时呢？）',h:'先问孩子猜，再问"为什么"。伽利略的反直觉：没有空气阻力时一样快。可以用纸张揉成团 vs 摊开来感受空气的影响。'},
+ {q:'"所有的天鹅都是白的"——要推翻这句话，需要看多少只天鹅？',h:'引导孩子发现：看一万只白天鹅也不能证明它对，但只要一只黑天鹅就能推翻它。这就是"证伪"，比"举例"更有力。'},
+ {q:'他穿红衣服；调皮的同学好像都爱穿红衣服；所以他一定很调皮——这个推理哪里不对？',h:'让孩子找漏洞："爱穿红"和"调皮"没有必然联系，而且穿红的不止他一个。这是以偏概全。'},
+ {q:'田忌赛马：你的三匹马都比对方慢一点，怎么排兵布阵才能赢两局？',h:'用下等马输掉一局，换上等对中等、中等对下等，赢两局。引导孩子体会"局部牺牲换全局胜利"的策略思维。'},
+ {q:'这杯水是半满，还是半空？',h:'没有标准答案。引导孩子发现：同一件事，看的角度不同，说法就不同——但水量是客观的。区分"事实"与"视角"。'},
+ {q:'汉诺塔：把 3 个大小不同的盘子从 A 柱搬到 C 柱（大的不能压小的），最少几步？',h:'让孩子动手摆。3 个盘是 7 步。再问 4 个盘呢？引导发现"每多一个盘、步数翻倍再加一"的递推规律。'},
+ {q:'数一数向日葵、松果上的螺旋，或花瓣的数目——为什么常是 3、5、8、13？',h:'这些是斐波那契数（前两个相加得下一个）。带孩子在身边找它，体会"数学藏在大自然里"。'},
+ {q:'乌鸦往瓶里丢石子就喝到水了。如果瓶里是沙子，还行吗？',h:'引导孩子想"石子占了水的位置把水顶上来"。沙子会渗进缝隙、效果差很多。这是体积与排开的直觉。'},
+ {q:'曹冲称象：没有大秤，怎么称出一头大象的重量？',h:'象上船记水位 → 换成石头到同样水位 → 称石头。让孩子体会"把称不了的，换成能称的"——等量替换。'},
+ {q:'为什么天是蓝的，傍晚却是红的？',h:'不用给标准答案，先让孩子猜。可引到"阳光里有很多颜色，蓝光最容易被空气散开"。保护好奇比记住答案重要。'},
+ {q:'如果你能给全世界的人发一条只有 10 个字的消息，你会发什么？为什么？',h:'没有对错。听孩子的理由，追问"为什么是这条不是那条"，练"提出好问题 + 讲清楚"。'}
+];
+
+/* ============ 状态 ============ */
+const LS='xkx_state_v1';
+let S=load();
+function load(){try{return Object.assign(def(),JSON.parse(localStorage.getItem(LS))||{})}catch(e){return def()}}
+function def(){return{quiz:{},works:[],record:{},think:{streak:0,last:'',idx:0},mode:'stu'}}
+function save(){localStorage.setItem(LS,JSON.stringify(S))}
+function today(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function kpId(p,i){return p.id+'-'+i}
+
+/* ====== 评价引擎：知识点点亮 = 答题正确率自动判定（不许自评） ====== */
+function quizOf(p){return QUIZ[p.id]||[];}
+function qStatus(p,qi){return (S.quiz[p.id]||{})[qi];}            // 'ok' 答对 / 'try' 答过未对
+function quizAttempted(p){return !!(S.quiz[p.id]&&Object.keys(S.quiz[p.id]).length);}
+function kpLevel(p,i){                                            // 0未点亮 1接触 2学会 3会用
+  const qs=quizOf(p),base=[],up=[];
+  qs.forEach((q,qi)=>{if(q.kp!==i)return;(q.up?up:base).push(qi);});
+  const ok=qi=>qStatus(p,qi)==='ok';
+  if(base.length){
+    if(base.every(ok))return up.length?(up.every(ok)?3:2):2;
+    return quizAttempted(p)?1:0;
+  }
+  return quizAttempted(p)?1:0;  // 无对应题目（动手/立项目标）：最多"接触"，更高由导师确认
+}
+function projectPassed(p){const base=quizOf(p).map((q,qi)=>({q,qi})).filter(x=>!x.q.up);return base.length>0&&base.every(x=>qStatus(p,x.qi)==='ok');}
+function isProjDone(p){return projectPassed(p);}
+function projProg(p){return p.kps.filter((_,i)=>kpLevel(p,i)>0).length;}
+function litCount(){let n=0;PROJECTS.forEach(p=>p.kps.forEach((_,i)=>{if(kpLevel(p,i)>0)n++;}));(window.GRAPH_COURSES||[]).forEach(c=>c.kps.forEach((_,i)=>{if(cKpLevel(c,i)>0)n++;}));return n;}
+function allKpTotal(){return PROJECTS.reduce((a,p)=>a+p.kps.length,0)+(window.GRAPH_COURSES||[]).reduce((a,c)=>a+c.kps.length,0);}
+/* 三轴统计：闯关项目 + 全部化学课程，掌握度按"已学内容"算 */
+function allAxisStats(){
+  const ax={know:{v:0,am:0,lit:0},think:{v:0,am:0,lit:0},logic:{v:0,am:0,lit:0}};
+  const acc=(kps,att,lv,p)=>kps.forEach((k,i)=>{const a=ax[k[1]||'know']||ax.know;const l=lv(p,i);a.v+=l;if(att)a.am+=3;if(l>0)a.lit++;});
+  PROJECTS.forEach(p=>acc(p.kps,quizAttempted(p),kpLevel,p));
+  (window.GRAPH_COURSES||[]).forEach(c=>acc(c.kps,cAttempted(c),cKpLevel,c));
+  return ax;
+}
+
+/* ============ 导航 ============ */
+const TABS=[['home','首页'],['ladder','闯关地图'],['courses','化学课程'],['star','成长星图'],['grow','三轴仪表盘'],['works','作品集'],['think','每日思辨']];
+function buildNav(){
+  const nav=document.getElementById('nav');nav.innerHTML='';
+  TABS.forEach(([k,label])=>{const b=document.createElement('button');b.textContent=label;b.id='nav-'+k;b.onclick=()=>go(k);nav.appendChild(b);});
+}
+function go(k){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  const map={home:'v-home',ladder:'v-ladder',courses:'v-courses',star:'v-star',grow:'v-grow',works:'v-works',think:'v-think',parent:'v-parent',project:'v-project'};
+  document.getElementById(map[k]).classList.add('on');
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('on'));
+  const nb=document.getElementById('nav-'+k);if(nb)nb.classList.add('on');
+  if(k==='star')renderStar();if(k==='grow')renderGrow();if(k==='works')renderWorks();if(k==='think')renderThink();if(k==='home')renderHome();if(k==='ladder')renderLadder();if(k==='courses')renderCourses();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function setMode(m){
+  S.mode=m;save();
+  ['stu','par','tea'].forEach(x=>document.getElementById('m-'+x).classList.toggle('on',m===x));
+  document.getElementById('nav').style.display=(m==='stu')?'':'none';  // 家长/导师模式隐藏学员导航
+  if(m==='par'||m==='tea'){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById(m==='par'?'v-parent':'v-teacher').classList.add('on');
+    document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('on'));
+    if(m==='par')renderParent();else renderTeacher();
+    window.scrollTo({top:0,behavior:'smooth'});
+  } else { go('home'); }
+}
+
+/* ============ 首页 ============ */
+function renderHome(){
+  const total=PROJECTS.length, done=PROJECTS.filter(isProjDone).length;
+  const cTotal=(window.GRAPH_COURSES||[]).length, cDoneN=(window.GRAPH_COURSES||[]).filter(cDone).length;
+  const lit=litCount();
+  const allkp=allKpTotal();
+  document.getElementById('home-status').innerHTML=
+    `已通关 <b>${done}/${total}</b> 个闯关项目 · <b>${cDoneN}/${cTotal}</b> 门化学课 ｜ 答题点亮 <b>${lit}/${allkp}</b> 个知识点 ｜ 作品集 <b>${S.works.length}</b> 条`;
+}
+
+/* ============ 阶梯 ============ */
+function renderLadder(){
+  const chem=PROJECTS.filter(p=>p.line==='chem').sort((a,b)=>a.stage-b.stage);
+  const wrap=document.getElementById('ladder-list');wrap.innerHTML='';
+  chem.forEach((p,idx)=>{
+    const done=isProjDone(p);
+    const row=document.createElement('div');row.className='ladder-row';
+    row.innerHTML=`<div class="ladder-step ${done?'done':''}"><div class="dot">${p.stage}</div>${idx<chem.length-1?'<div class="bar"></div>':''}</div>`;
+    const card=document.createElement('div');card.className='proj';card.onclick=()=>openProject(p.id);
+    card.innerHTML=projCardHTML(p);
+    const holder=document.createElement('div');holder.style.flex='1';holder.appendChild(card);
+    row.appendChild(holder);wrap.appendChild(row);
+  });
+  const dj=PROJECTS.filter(p=>p.line==='classic');
+  const dwrap=document.getElementById('dj-list');dwrap.innerHTML='';
+  dj.forEach(p=>{const card=document.createElement('div');card.className='proj';card.onclick=()=>openProject(p.id);card.innerHTML=projCardHTML(p);dwrap.appendChild(card);});
+}
+function projCardHTML(p){
+  const prog=projProg(p),tot=p.kps.length;
+  const elecChip=p.elec.includes('📖')?'c-brown':((p.elec.includes('🔌')||p.elec.includes('🤖')||p.elec.includes('🔦'))?'c-purple':'c-gray');
+  return `<div class="ph"><span class="emo">${p.emoji}</span>
+    <div><div class="pt">${p.title}</div><div class="ps">${p.learner} ｜ <span class="chip c-org">${p.type}</span><span class="chip ${elecChip}">${p.elec}</span></div></div>
+    <div class="prog">${isProjDone(p)?'✓ 已完成':'点亮 '+prog+'/'+tot}</div></div>`;
+}
+
+/* ============ 项目详情 ============ */
+function openProject(id){
+  const p=PROJECTS.find(x=>x.id===id);
+  const v=document.getElementById('v-project');
+  const beatNames=['先看个怪事 👀','自己先试试 ✋','边玩边发现秘密 🔍','回到真实世界验一验 ✅','讲明白给家人听 🗣️'];
+  let beatsHTML=p.beats.map((b,i)=>{
+    const lit=i<4?quizAttempted(p):isProjDone(p);
+    return `<div class="beat ${lit?'lit':''}"><div class="num">${i+1}</div><div class="bd"><span class="bt">${beatNames[i]}</span><br>${b}</div></div>`;
+  }).join('');
+  const okc=arr=>arr.filter(x=>qStatus(p,x.qi)==='ok').length;
+  let kpHTML=p.kps.map((k,i)=>{
+    const lv=kpLevel(p,i);const axc=k[1]==='know'?'ax-know':k[1]==='think'?'ax-think':'ax-logic';
+    const qs=quizOf(p).map((q,qi)=>({q,qi})).filter(x=>x.q.kp===i);
+    const base=qs.filter(x=>!x.q.up),up=qs.filter(x=>x.q.up);
+    const ev=qs.length?`答对 基础 ${okc(base)}/${base.length}`+(up.length?` ｜ 进阶 ${okc(up)}/${up.length}`:'')
+                      :'动手目标 · 做过即"接触"，更高由导师确认';
+    const lvtxt=['未点亮','接触','学会','会用'][lv],lvcls=lv>=2?'lv-ok':lv===1?'lv-mid':'lv-no';
+    return `<div class="kp-item"><span class="kn">${k[0]}</span><span class="ax ${axc}">${KP_AX[k[1]]}</span>
+      <span class="lvtag ${lvcls}">${lvtxt}</span><div class="evid">${ev}</div></div>`;
+  }).join('');
+  const qs=quizOf(p),total=qs.length,ok=qs.filter((_,qi)=>qStatus(p,qi)==='ok').length;
+  v.innerHTML=`
+    <button class="back" onclick="go('ladder')">← 返回阶梯</button>
+    <div class="card">
+      <div class="ph" style="display:flex;align-items:center;gap:12px;"><span style="font-size:34px;">${p.emoji}</span>
+        <div><div style="font-size:21px;font-weight:800;color:#7a3d12;">第 ${p.stage} 关 · ${p.title}</div>
+        <div class="ps" style="font-size:12px;color:#8a857c;margin-top:3px;"><span class="chip c-green">第 ${p.stage} 关</span><span class="chip c-org">${p.type}</span><span class="chip c-blue">适合：${p.learner}</span></div></div>
+      </div>
+      <div class="drive">🎯 <b>今天的大问题：</b>${p.drive}</div>
+      <h2 class="sec" style="font-size:16px;"><span class="n">5</span>跟着做 · 五个步骤</h2>
+      ${beatsHTML}
+      <div class="open">🎨 <b>这一关你自己说了算：</b>${p.open}</div>
+      <h2 class="sec" style="font-size:16px;"><span class="n">★</span>这一关的知识点（答题点亮）</h2>
+      <p class="lead">点亮等级 <b>由答题正确率自动判定</b>：答对基础题 → <b>学会</b>，答对进阶题 → <b>会用</b>。不能手动点。</p>
+      <div class="kp-list">${kpHTML}</div>
+      <div class="btnrow">
+        <button class="btn btn-g" onclick="openTask('${p.id}')">📄 这一关怎么玩</button>
+        <button class="btn btn-o" onclick="openQuiz('${p.id}')">🎯 去测一测（点亮星星）${total?` · ${ok}/${total}`:''}</button>
+      </div>
+      <div class="note">📄 "怎么玩"和题目都<b>装在 App 里</b>，断网、换设备也能开。星星只能靠答对题点亮，不是手动拨——答错没关系，看"💡思考方法"再试。做完去<b>作品集</b>留一句"我做出了什么、为什么"。</div>
+    </div>`;
+  go('project');
+}
+
+/* ====== 互动测评：答题 → 自动点亮 ====== */
+function openQuiz(id){
+  const p=PROJECTS.find(x=>x.id===id),qs=quizOf(p),v=document.getElementById('v-quiz');
+  let html=`<button class="back" onclick="openProject('${id}')">← 返回这一关</button>
+    <h2 class="sec" style="font-size:19px;">🎯 ${p.title} · 测一测</h2>
+    <p class="lead">答对就点亮星星——<b>答对基础题 → 学会，答对进阶题 → 会用</b>。答错没关系，看一眼"💡思考方法"再试一次。</p>`;
+  qs.forEach((q,qi)=>{
+    const st=qStatus(p,qi),axc='ax-'+p.kps[q.kp][1];
+    html+=`<div class="qz ${st==='ok'?'ok':''}" id="qz-${qi}">
+      <div class="qzh"><span class="qzt">${qi+1}. ${q.q}</span><span class="ax ${axc}">${p.kps[q.kp][0]}</span><span class="tier ${q.up?'':'base'}">${q.up?'进阶':'基础'}</span></div>
+      <div class="opts">${q.o.map((o,oi)=>`<button class="opt ${st==='ok'&&oi===q.a?'right':''}" onclick="answerQ('${id}',${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}</div>
+      <div class="why" id="why-${qi}" style="${st?'':'display:none;'}">💡 <b>思考方法：</b>${q.why||''}${st==='ok'?'<br>✓ 答对了，已记入证据。':''}</div>
+    </div>`;
+  });
+  html+=`<div id="qz-result"></div>`;
+  v.innerHTML=html;
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));v.classList.add('on');
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('on'));
+  renderQuizResult(p);window.scrollTo({top:0,behavior:'smooth'});
+}
+function answerQ(id,qi,oi){
+  const p=PROJECTS.find(x=>x.id===id),q=quizOf(p)[qi];
+  S.quiz[p.id]=S.quiz[p.id]||{};
+  if(oi===q.a)S.quiz[p.id][qi]='ok'; else if(S.quiz[p.id][qi]!=='ok')S.quiz[p.id][qi]='try';
+  save();
+  const st=S.quiz[p.id][qi],box=document.getElementById('qz-'+qi);
+  box.classList.toggle('ok',st==='ok');
+  box.querySelectorAll('.opt').forEach((b,bi)=>{b.classList.remove('right','wrong');if(st==='ok'&&bi===q.a)b.classList.add('right');else if(bi===oi&&st!=='ok')b.classList.add('wrong');});
+  const why=document.getElementById('why-'+qi);why.style.display='block';
+  why.innerHTML='💡 <b>思考方法：</b>'+(q.why||'')+(st==='ok'?'<br>✓ 答对了，已记入证据。':'<br>再选选看～');
+  renderQuizResult(p);
+}
+function renderQuizResult(p){
+  const el=document.getElementById('qz-result');if(!el)return;
+  const lit=p.kps.map((k,i)=>({k,i,lv:kpLevel(p,i)})).filter(x=>x.lv>=2);
+  el.innerHTML=`<div class="card" style="margin-top:14px;">
+    <b style="font-size:15px;">${projectPassed(p)?'🎉 基础题全答对，这一关的星星点亮到"学会"啦！':'继续加油——把基础题都答对，就点亮"学会"。'}</b>
+    <div style="margin-top:9px;font-size:13px;">已点亮到 学会/会用：${lit.length?lit.map(x=>`<span class="chip ax-${p.kps[x.i][1]}" style="margin:2px 4px 2px 0;">${x.k[0]} · ${['','接触','学会','会用'][x.lv]}</span>`).join(''):'还没有，答对基础题就会亮'}</div>
+    <div class="btnrow"><button class="btn btn-g" onclick="openProject('${p.id}')">← 回到这一关</button><button class="btn btn-ghost" onclick="go('star')">看成长星图 ✨</button></div>
+  </div>`;
+}
+
+/* ====== 内置任务卡：内容装在 App 里，断网也能开（替代外部相对路径） ====== */
+function showView(vid){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById(vid).classList.add('on');document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('on'));}
+function openTask(id){
+  const p=PROJECTS.find(x=>x.id===id),t=TASK[p.id],v=document.getElementById('v-task');
+  if(!t){v.innerHTML=`<button class="back" onclick="openProject('${id}')">← 返回这一关</button><div class="card">这一关的任务卡正在整理中…</div>`;showView('v-task');return;}
+  const mat=t.mat.map(m=>`<div class="it"><span class="bx"></span>${m[0]}${m[1]?`<small>${m[1]}</small>`:''}</div>`).join('');
+  const recipe=t.recipe?`<div class="tk-recipe"><b>🧪 第一份先按这个量做（记住它，后面比赛要用）</b><table>${t.recipe.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table></div>`:'';
+  const steps=t.steps.map((s,i)=>`<div class="tk-step"><div class="n">${i+1}</div><div class="tx">${s}</div></div>`).join('');
+  const safe=t.safe.map(s=>`<li>${s}</li>`).join('');
+  v.innerHTML=`
+    <button class="back" onclick="openProject('${id}')">← 返回这一关</button>
+    <div class="tk-hero"><div class="lv">${p.type} · 第 ${p.stage} 关 · 闯关任务卡</div><h1>${p.emoji} ${p.title}</h1><div class="q">🎯 <b>大问题：</b>${p.drive}</div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">🧰 你需要准备的东西</h2><div class="tk-mat">${mat}</div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">👣 跟着做（照着一步步来）</h2>${recipe}${steps}
+      ${RECORD[p.id]?`<div class="tk-openrec" onclick="openRecord('${id}')">📝 打开我的实验记录卡 →</div>`:''}</div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">🎨 这一关你自己说了算</h2><div class="tk-pick">${p.open}</div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">⚠️ 安全小提醒</h2><div class="tk-safe"><ul>${safe}</ul></div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">🗣️ 做完，讲给家人听</h2><div class="tk-fey">${t.fey}</div></div>
+    <div class="btnrow">${RECORD[p.id]?`<button class="btn btn-g" onclick="openRecord('${id}')">📝 实验记录卡</button>`:''}<button class="btn btn-o" onclick="openQuiz('${id}')">🎯 去测一测（点亮星星）</button><button class="btn btn-ghost" onclick="openProject('${id}')">← 回到这一关</button></div>`;
+  showView('v-task');window.scrollTo({top:0,behavior:'smooth'});
+}
+/* ====== 实验记录卡：可填写、自动保存、可打印 ====== */
+function openRecord(id){
+  const p=PROJECTS.find(x=>x.id===id),r=RECORD[p.id],v=document.getElementById('v-task');
+  if(!r){openTask(id);return;}
+  const opts=r.opts.map((o,i)=>`<label class="rc-opt"><input type="checkbox" ${recVal(id,'opt'+i)?'checked':''} onchange="recChk('${id}','opt'+${i},this)">${o}</label>`).join('');
+  const rows=r.rows.map((rl,ri)=>`<tr><td class="lbl">${rl}</td><td><input class="rc-cell" value="${esc(recVal(id,'r'+ri+'c0'))}" oninput="recSet('${id}','r'+${ri}+'c0',this.value)"></td><td><input class="rc-cell" value="${esc(recVal(id,'r'+ri+'c1'))}" oninput="recSet('${id}','r'+${ri}+'c1',this.value)"></td></tr>`).join('');
+  const finds=r.finds.map((f,i)=>`<div class="rc-find"><input type="checkbox" ${recVal(id,'find'+i)?'checked':''} onchange="recChk('${id}','find'+${i},this)"><div>${f}</div></div>`).join('');
+  v.innerHTML=`
+    <button class="back" onclick="openTask('${id}')">← 返回任务卡</button>
+    <div class="tk-hero"><div class="lv">${p.type} · 第 ${p.stage} 关 · 我的实验记录卡</div><h1>${p.emoji} ${p.title}</h1>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;margin-top:8px;">
+        <div>我的名字：<input class="rc-u" style="border-bottom-color:#fff;color:#fff;" value="${esc(recVal(id,'name'))}" oninput="recSet('${id}','name',this.value)"></div>
+        <div>日期：<input class="rc-u" style="border-bottom-color:#fff;color:#fff;" value="${esc(recVal(id,'date'))}" oninput="recSet('${id}','date',this.value)"></div>
+      </div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">① 先猜一猜</h2><div class="rc-prompt">${r.guess} <span class="rc-sub">（先猜，再做——这才是科学家干的事）</span></div>
+      <textarea class="rc-in" rows="2" placeholder="写下你的猜想…" oninput="recSet('${id}','guess',this.value)">${esc(recVal(id,'guess'))}</textarea></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">② 我只改了这一样</h2>
+      <div class="rc-prompt">这一关我挑了改（只勾一个）：</div><div class="rc-opts">${opts}</div>
+      <div style="font-size:14px;">我把它 从 <input class="rc-u" value="${esc(recVal(id,'from'))}" oninput="recSet('${id}','from',this.value)"> 改成 <input class="rc-u" value="${esc(recVal(id,'to'))}" oninput="recSet('${id}','to',this.value)">，<b>别的全都没动。</b></div>
+      ${r.guard?`<div class="rc-guard">⛔ ${r.guard}</div>`:''}</div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">③ 两杯比一比</h2><div class="rc-sub" style="margin-bottom:8px;">两杯只差你改的那一样，其他完全一样——这样比才公平。</div>
+      <table class="rc-tab"><tr><th></th><th>${r.cols[0]}</th><th>${r.cols[1]}</th></tr>${rows}</table></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">④ 画下来 / 记下来</h2><div class="rc-sub" style="margin-bottom:8px;">把看到的样子画出来或写下来（打印这张卡可以直接在框里手画）。</div>
+      <textarea class="rc-draw" placeholder="在这里画 / 写…" oninput="recSet('${id}','draw',this.value)">${esc(recVal(id,'draw'))}</textarea></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">⑤ 我发现了（看到就打✓）</h2>${finds}</div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">⑥ 讲给家人听（费曼闯关）</h2>
+      <div class="rc-feyn"><b>用你自己的话讲清楚：</b>${T_fey(p)}<div class="chk"><input type="checkbox" ${recVal(id,'feyn')?'checked':''} onchange="recChk('${id}','feyn',this)">我讲明白了，家人听懂了！🎉</div></div></div>
+    <div class="btnrow"><button class="btn btn-o" onclick="openQuiz('${id}')">🎯 去测一测</button><button class="btn btn-ghost" onclick="window.print()">🖨️ 打印这张卡</button><button class="btn btn-ghost" onclick="openTask('${id}')">← 返回任务卡</button></div>`;
+  showView('v-task');window.scrollTo({top:0,behavior:'smooth'});
+}
+function T_fey(p){return (TASK[p.id]&&TASK[p.id].fey)||'把"为什么"讲明白。';}
+
+/* ====== 进度备份/恢复（云端账号上线前的过渡，数据不锁死在一个浏览器） ====== */
+function exportProgress(){
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(S));
+  a.download='小科学家_进度备份_'+today()+'.json';document.body.appendChild(a);a.click();a.remove();
+}
+function importProgress(inp){
+  const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);S=Object.assign(def(),d);save();alert('进度已恢复 ✓');renderParent();}catch(e){alert('文件读不出来，换一个备份文件试试');}inp.value='';};
+  r.readAsText(f);
+}
+
+/* ============ 星图 ============ */
+/* 知识网络星图：每个网络知识点 → 最佳课程（取等级最高、且能测一测的一门），点亮状态来自答题 */
+function kpNetIndex(){
+  const m={};
+  (window.GRAPH_COURSES||[]).forEach(c=>{
+    const hasQ=i=>cQuizOf(c).some(q=>q.kp===i);
+    c.kps.forEach((k,i)=>{
+      const id=k[0],lv=cKpLevel(c,i),q=hasQ(i);
+      const cand={lv,ax:k[1]||'know',cid:c.id,hasQ:q,theme:!!c.isTheme,order:c.order||0};
+      const cur=m[id];
+      if(!cur||cand.lv>cur.lv
+         ||(cand.lv===cur.lv&&cand.hasQ&&!cur.hasQ)
+         ||(cand.lv===cur.lv&&cand.hasQ===cur.hasQ&&!cand.theme&&cur.theme))m[id]=cand;
+    });
+  });
+  return m;
+}
+function openKp(id){const e=kpNetIndex()[id];if(e)openCourse(e.cid);}
+/* 某知识点涉及到的项目/课程（主题课在前、动手项目在后） */
+function kpCourses(id){return (window.GRAPH_COURSES||[]).filter(c=>c.kps.some(k=>k[0]===id)).sort((a,b)=>(a.isTheme?0:1)-(b.isTheme?0:1));}
+/* ============ 成长星图 · 选项3：银河星臂图（确定性极坐标星座网络） ============ */
+const GX_BCOL={A:'#4FC3F7',B:'#81D4FA',C:'#FF8A65',D:'#4DD0E1',E:'#BA68C8',F:'#AED581',G:'#FFD54F',H:'#F06292'};
+const GX_TCOL={T1:'#FFEB3B',T2:'#00E5FF',T3:'#FF5252',T4:'#69F0AE',T5:'#E040FB',T6:'#FFAB40',T7:'#40C4FF',T8:'#FFFFFF'};
+const GX_O=500,GX_R0=110,GX_RMAX=470;
+function gxStg(s){return s==='初'?0:s==='高'?1:2;}
+let _GX=null;
+function galaxyData(){
+  if(_GX)return _GX;
+  const NET=window.CHEM_NETWORK,E=window.CHEM_EDGES||{prereq:[],characterize:[]},D2R=Math.PI/180;
+  const topicOf={},brOf={};
+  NET.topics.forEach(t=>t.kps.forEach(k=>{topicOf[k]=t.id;brOf[k]=t.branch;}));
+  const indeg={};E.prereq.forEach(([a,b])=>indeg[b]=(indeg[b]||0)+1);
+  const byId={},nodes=[];
+  Object.keys(NET.kpMeta).forEach(id=>{const m=NET.kpMeta[id];
+    const nd={id,name:m.n,stage:m.s||'',threads:m.t||[],branch:brOf[id]||'',topic:topicOf[id]||'',indeg:indeg[id]||0,x:GX_O,y:GX_O};
+    nodes.push(nd);byId[id]=nd;});
+  const bIdx={};NET.branches.forEach((b,i)=>bIdx[b.id]=i);
+  NET.branches.forEach(b=>{
+    const k=bIdx[b.id],theta_k=-90+k*45;
+    const topics=NET.topics.filter(t=>t.branch===b.id).map(t=>{
+      const avg=t.kps.reduce((a,id)=>a+gxStg(NET.kpMeta[id].s),0)/Math.max(1,t.kps.length);return{t,avg};
+    }).sort((p,q)=>p.avg-q.avg||(p.t.id<q.t.id?-1:1));
+    const Mk=topics.length;
+    topics.forEach((ts,m)=>{
+      const r_topic=GX_R0+(GX_RMAX-GX_R0)*(m+0.5)/Mk;
+      const twist=r=>26*(r-GX_R0)/(GX_RMAX-GX_R0);
+      const kps=ts.t.kps.slice().sort((x,y)=>gxStg(NET.kpMeta[x].s)-gxStg(NET.kpMeta[y].s)||(x<y?-1:1));
+      const n=kps.length,base=theta_k+twist(r_topic),halfSpread=n>12?20:15;
+      kps.forEach((id,j)=>{
+        const spread=n===1?0:(j/(n-1)-0.5)*2*halfSpread;
+        const dr=((j%3)-1)*9, dd=Math.max(-10,Math.min(10,(gxStg(NET.kpMeta[id].s)-1)*4));
+        const r_j=r_topic+dd+dr, th=base+spread+twist(r_j)-twist(r_topic);
+        const nd=byId[id];
+        nd.ax=GX_O+r_j*Math.cos(th*D2R);nd.ay=GX_O+r_j*Math.sin(th*D2R);
+        nd.x=nd.ax;nd.y=nd.ay;nd.rt=r_topic;
+      });
+    });
+  });
+  // 受夹紧的局部反重叠（确定性，60 次）
+  const minD=17,Rc=10,cell=22;
+  for(let it=0;it<60;it++){
+    const grid={};
+    nodes.forEach((nn,i)=>{const cx=Math.floor(nn.x/cell),cy=Math.floor(nn.y/cell);(grid[cx+','+cy]=grid[cx+','+cy]||[]).push(i);});
+    nodes.forEach((nn,i)=>{const cx=Math.floor(nn.x/cell),cy=Math.floor(nn.y/cell);
+      for(let gx=cx-1;gx<=cx+1;gx++)for(let gy=cy-1;gy<=cy+1;gy++){const arr=grid[gx+','+gy];if(!arr)continue;
+        for(const jj of arr){if(jj<=i)continue;const mm=nodes[jj];
+          let dx=nn.x-mm.x,dy=nn.y-mm.y,d=Math.hypot(dx,dy)||0.01;
+          if(d<minD){const p=(minD-d)/2,ux=dx/d,uy=dy/d;nn.x+=ux*p;nn.y+=uy*p;mm.x-=ux*p;mm.y-=uy*p;}}}
+    });
+    nodes.forEach(nn=>{let dx=nn.x-nn.ax,dy=nn.y-nn.ay,d=Math.hypot(dx,dy);if(d>Rc){nn.x=nn.ax+dx/d*Rc;nn.y=nn.ay+dy/d*Rc;}});
+  }
+  const pre={},suc={};
+  E.prereq.forEach(([a,b])=>{if(byId[a]&&byId[b]){(suc[a]=suc[a]||[]).push(b);(pre[b]=pre[b]||[]).push(a);}});
+  nodes.forEach(nn=>{nn.x=Math.round(nn.x*10)/10;nn.y=Math.round(nn.y*10)/10;
+    let base=nn.stage==='本'?4.8:nn.stage==='高'?4.0:3.2;base+=Math.min(2,Math.sqrt(nn.indeg)*0.6);if(nn.threads.length)base*=1.12;
+    nn.r=Math.round(base*10)/10;});
+  _GX={nodes,byId,pre,suc,E};
+  return _GX;
+}
+function gxPath(a,b){const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,cx=mx+(GX_O-mx)*0.18,cy=my+(GX_O-my)*0.18;
+  return `M${a.x} ${a.y}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${b.x} ${b.y}`;}
+function gxClosure(adj,id){const seen=new Set();const q=[id];while(q.length){const x=q.pop();(adj[x]||[]).forEach(y=>{if(!seen.has(y)){seen.add(y);q.push(y);}});}return seen;}
+const GX={sel:null,nEls:null,eEls:null,thLayer:null,svg:null,vb:null};
+function renderStar(){
+  const sm=document.getElementById('starmap');const NET=window.CHEM_NETWORK,E=window.CHEM_EDGES;
+  if(!NET||!E){sm.classList.remove('galaxy');sm.innerHTML='<div class="note" style="background:#fff3;color:#fff;">网络数据没加载——请确认 <b>chem_network.js</b> 与 <b>chem_edges.js</b> 和本文件在同一文件夹。</div>';return;}
+  sm.classList.add('galaxy');
+  const G=galaxyData(),idx=kpNetIndex();
+  G.nodes.forEach(n=>{n.lv=idx[n.id]?idx[n.id].lv:0;});
+  let total=G.nodes.length,litN=G.nodes.filter(n=>n.lv>=1).length,learnN=G.nodes.filter(n=>n.lv>=2).length;
+  const litPct=Math.round(learnN/total*100);
+  // 工具条：主线芯片 + 分支芯片
+  const thCount={};NET.threads.forEach(t=>thCount[t.id]=0);G.nodes.forEach(n=>n.threads.forEach(t=>{if(thCount[t]!=null)thCount[t]++;}));
+  const thChips=NET.threads.map(t=>`<span class="gx-chip" data-th="${t.id}" title="${esc(t.redline)}"><i class="sw" style="background:${GX_TCOL[t.id]}"></i>${t.id} ${esc(t.name)}·${thCount[t.id]}</span>`).join('');
+  const brChips=NET.branches.map(b=>`<span class="gx-chip" data-br="${b.id}"><i class="sw" style="background:${GX_BCOL[b.id]}"></i>${b.id} ${esc(b.name.slice(0,4))}</span>`).join('');
+  const bar=`<div class="gx-bar">
+    <div class="gx-stat">🌌 已点亮 ${litN}/${total} 颗知识星 · 学会 ${learnN} 颗（${litPct}%）
+      <small>中心=化学核，8 条银河旋臂＝8 大分支；同一条臂从内到外＝初→高→本，连线＝先修依赖。点星看前置链，点主线让大思想亮成星座。</small></div>
+    <div class="gx-grp"><span class="gx-lab">主线</span>${thChips}</div>
+    <div class="gx-grp"><span class="gx-lab">分支</span>${brChips}<span class="gx-reset" id="gx-reset">↺ 看全图</span></div>
+  </div>`;
+  // SVG
+  const svg=gxBuildSVG(G,NET);
+  const sheet=`<div class="gx-sheet" id="gx-sheet"></div>`;
+  const legend=`<div class="gx-legend">⭐ 星越大＝越多知识要靠它打底（基础星）；越亮＝你越学会了。金线＝它的"前置/要先学"，青线＝学会它能"解锁"什么。虚线＝跨学科关联。</div>`;
+  sm.innerHTML=bar+`<div class="gx-wrap" id="gx-wrap">${svg}</div>`+sheet+legend;
+  gxBind();
+}
+function gxBuildSVG(G,NET){
+  const byId=G.byId, E=G.E;
+  // 边（底层）
+  let edges='';
+  E.prereq.forEach(([a,b])=>{const na=byId[a],nb=byId[b];if(!na||!nb)return;
+    const cross=na.branch!==nb.branch;
+    const col=cross?'#B0BEC5':GX_BCOL[na.branch];
+    const op=cross?0.12:0.30,w=cross?0.6:0.8,dash=cross?'stroke-dasharray="2 3" ':'';
+    edges+=`<path class="gx-edge" data-a="${a}" data-b="${b}" d="${gxPath(na,nb)}" fill="none" stroke="${col}" ${dash}stroke-width="${w}" opacity="${op}"/>`;});
+  (E.characterize||[]).forEach(([a,b])=>{const na=byId[a],nb=byId[b];if(!na||!nb)return;
+    edges+=`<path class="gx-edge gx-char" data-a="${a}" data-b="${b}" d="${gxPath(na,nb)}" fill="none" stroke="#26C6DA" stroke-dasharray="1 4" stroke-width="0.8" opacity="0.5"/>`;});
+  // 中心核 + 进度弧
+  const litPctN=G.nodes.filter(n=>n.lv>=2).length/G.nodes.length;
+  const C=2*Math.PI*54;
+  const core=`<g>
+    <circle cx="${GX_O}" cy="${GX_O}" r="58" fill="url(#gxNeb)"/>
+    <circle cx="${GX_O}" cy="${GX_O}" r="46" fill="#160f31" stroke="#6a5acd" stroke-width="1.4"/>
+    <circle cx="${GX_O}" cy="${GX_O}" r="54" fill="none" stroke="#2c2550" stroke-width="4"/>
+    <circle cx="${GX_O}" cy="${GX_O}" r="54" fill="none" stroke="#ffd479" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(litPctN*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${GX_O} ${GX_O})"/>
+    <text x="${GX_O}" y="${GX_O-4}" text-anchor="middle" font-size="22" fill="#fff">⚛</text>
+    <text x="${GX_O}" y="${GX_O+15}" text-anchor="middle" font-size="11" fill="#cbbff0" font-weight="700">化学</text></g>`;
+  // 节点
+  let nodes='';
+  G.nodes.forEach(n=>{
+    const col=GX_BCOL[n.branch]||'#9aa';const lv=n.lv;
+    const op=lv>=3?1:lv===2?0.9:lv===1?0.55:0.28;const rEff=(lv===0?n.r*0.85:n.r).toFixed(1);
+    const fil=lv>=2?' filter="url(#gxGlow)"':'';
+    nodes+=`<g class="gx-node lv${lv}" data-id="${n.id}" transform="translate(${n.x} ${n.y})">`+
+      `<circle class="hit" r="${(n.r+7).toFixed(1)}" fill="rgba(0,0,0,0)"/>`+
+      `<circle class="core" r="${rEff}" fill="${col}" fill-opacity="${op}"${fil}/></g>`;
+  });
+  // 分支徽章（臂外端）
+  let badges='';
+  NET.branches.forEach((b,k)=>{const th=(-90+k*45)*Math.PI/180,bx=GX_O+496*Math.cos(th),by=GX_O+496*Math.sin(th);
+    const cs=Math.cos(th),anchor=cs>0.25?'start':cs<-0.25?'end':'middle';
+    badges+=`<g class="gx-bg" data-br="${b.id}" style="cursor:pointer"><circle cx="${bx.toFixed(0)}" cy="${by.toFixed(0)}" r="11" fill="${GX_BCOL[b.id]}" fill-opacity="0.9"/>`+
+      `<text x="${bx.toFixed(0)}" y="${(by+4).toFixed(0)}" text-anchor="middle" font-size="13" class="gx-badge" style="fill:#1a1033">${b.id}</text>`+
+      `<text x="${(bx+(cs>0.25?15:cs<-0.25?-15:0)).toFixed(0)}" y="${(by+(Math.sin(th)>0.5?20:Math.sin(th)<-0.5?-13:4)).toFixed(0)}" text-anchor="${anchor}" font-size="9.5" class="gx-bname">${esc(b.name.slice(0,6))}</text></g>`;});
+  const defs=`<defs>
+    <filter id="gxGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <radialGradient id="gxNeb"><stop offset="0%" stop-color="#3a2d6b" stop-opacity="0.55"/><stop offset="100%" stop-color="#3a2d6b" stop-opacity="0"/></radialGradient></defs>`;
+  return `<svg id="gx-svg" viewBox="-40 -30 1080 1080" preserveAspectRatio="xMidYMid meet">${defs}<g id="gx-edges">${edges}</g>${core}<g id="gx-th"></g><g id="gx-nodes">${nodes}</g><g id="gx-badges">${badges}</g></svg>`;
+}
+function gxBind(){
+  const svg=document.getElementById('gx-svg');if(!svg)return;
+  GX.svg=svg;GX.thLayer=document.getElementById('gx-th');
+  GX.nEls=[...svg.querySelectorAll('.gx-node')];GX.eEls=[...svg.querySelectorAll('.gx-edge')];
+  GX.sel=null;GX.vb={x:-40,y:-30,w:1080,h:1080};
+  // 交互：节点 / 徽章 / 芯片
+  svg.querySelectorAll('.gx-node').forEach(el=>el.addEventListener('click',ev=>{ev.stopPropagation();gxSelectNode(el.dataset.id);}));
+  svg.querySelectorAll('.gx-bg').forEach(el=>el.addEventListener('click',ev=>{ev.stopPropagation();gxToggleBranch(el.dataset.br);}));
+  document.querySelectorAll('#starmap .gx-chip[data-th]').forEach(c=>c.addEventListener('click',()=>gxToggleThread(c.dataset.th)));
+  document.querySelectorAll('#starmap .gx-chip[data-br]').forEach(c=>c.addEventListener('click',()=>gxToggleBranch(c.dataset.br)));
+  document.getElementById('gx-reset').addEventListener('click',gxReset);
+  // 缩放 / 平移
+  let drag=null;
+  const setVB=()=>svg.setAttribute('viewBox',`${GX.vb.x} ${GX.vb.y} ${GX.vb.w} ${GX.vb.h}`);
+  const ptSvg=(cx,cy)=>{const r=svg.getBoundingClientRect();return{x:GX.vb.x+(cx-r.left)/r.width*GX.vb.w,y:GX.vb.y+(cy-r.top)/r.height*GX.vb.h};};
+  svg.addEventListener('wheel',e=>{e.preventDefault();const f=e.deltaY<0?0.85:1.18;const p=ptSvg(e.clientX,e.clientY);
+    let nw=GX.vb.w*f,nh=GX.vb.h*f;nw=Math.max(360,Math.min(1600,nw));nh=nw;
+    GX.vb.x=p.x-(p.x-GX.vb.x)*(nw/GX.vb.w);GX.vb.y=p.y-(p.y-GX.vb.y)*(nh/GX.vb.h);GX.vb.w=nw;GX.vb.h=nh;setVB();},{passive:false});
+  let cap=false;
+  svg.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,vx:GX.vb.x,vy:GX.vb.y,moved:0,id:e.pointerId};cap=false;});
+  svg.addEventListener('pointermove',e=>{if(!drag)return;const r=svg.getBoundingClientRect();
+    drag.moved=Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y);
+    if(drag.moved>8){ // 只有真正拖动时才捕获指针 + 平移（否则会吞掉点击星星的事件）
+      if(!cap){try{svg.setPointerCapture(drag.id);}catch(_){}cap=true;svg.classList.add('drag');}
+      const dx=(e.clientX-drag.x)/r.width*GX.vb.w,dy=(e.clientY-drag.y)/r.height*GX.vb.h;
+      GX.vb.x=drag.vx-dx;GX.vb.y=drag.vy-dy;setVB();}});
+  const endDrag=e=>{if(!drag)return;const wasDrag=drag.moved>8;if(cap){try{svg.releasePointerCapture(drag.id);}catch(_){}}
+    drag=null;cap=false;svg.classList.remove('drag');
+    if(!wasDrag&&e.target===svg)gxReset();};
+  svg.addEventListener('pointerup',endDrag);svg.addEventListener('pointercancel',endDrag);
+}
+function gxClearHL(){GX.nEls.forEach(el=>el.classList.remove('gx-faint','hl-self','hl-pre','hl-suc','hl-thread'));
+  GX.eEls.forEach(el=>el.classList.remove('gx-faint','hl-pre','hl-suc'));if(GX.thLayer)GX.thLayer.innerHTML='';
+  document.querySelectorAll('#starmap .gx-chip').forEach(c=>c.classList.remove('on'));
+  const sh=document.getElementById('gx-sheet');if(sh)sh.classList.remove('show');}
+function gxReset(){GX.sel=null;gxClearHL();}
+function gxSelectNode(id){const G=galaxyData(),NET=window.CHEM_NETWORK;GX.sel={type:'node',key:id};gxClearHL();
+  const pre=gxClosure(G.pre,id),suc=gxClosure(G.suc,id),keep=new Set([id,...pre,...suc]);
+  GX.nEls.forEach(el=>{const nid=el.dataset.id;
+    if(nid===id)el.classList.add('hl-self');
+    else if(pre.has(nid))el.classList.add('hl-pre');
+    else if(suc.has(nid))el.classList.add('hl-suc');
+    else el.classList.add('gx-faint');});
+  GX.eEls.forEach(el=>{const a=el.dataset.a,b=el.dataset.b;
+    if((a===id||pre.has(a))&&(b===id||pre.has(b)))el.classList.add('hl-pre');
+    else if((a===id||suc.has(a))&&(b===id||suc.has(b)))el.classList.add('hl-suc');
+    else el.classList.add('gx-faint');});
+  // 信息卡
+  const n=G.byId[id],t=NET.topics.find(x=>x.id===n.topic)||{name:''},br=NET.branches.find(x=>x.id===n.branch)||{name:''};
+  const lvTxt=['未点亮','接触','学会','会用'][n.lv];
+  const thNames=n.threads.map(x=>{const h=NET.threads.find(h=>h.id===x);return h?`<span class="tg" style="background:${GX_TCOL[x]}22;color:${GX_TCOL[x]}">${h.name}</span>`:'';}).join('');
+  const preNames=[...pre].slice(0,8).map(x=>esc(G.byId[x].name)).join('、')||'（无，它是入门基础星）';
+  const sucNames=[...suc].slice(0,8).map(x=>esc(G.byId[x].name)).join('、')||'（暂无下游）';
+  const courses=kpCourses(id);
+  const prj=courses.map(c=>`<button class="gx-pbtn" onclick="openCourse('${c.id}')">
+      <span class="emo">${c.emoji||'📘'}</span>
+      <span class="pt">${esc(c.title)}<small>${esc(c.stageLabel||c.grade||'')} ｜ 知识点×${c.kps.length}</small></span>
+      <span class="ty ${c.isTheme?'theme':'proj'}">${c.isTheme?'📘 主题课':'🛠 动手项目'}</span></button>`).join('');
+  const sh=document.getElementById('gx-sheet');
+  sh.innerHTML=`<span class="closex" onclick="gxReset()">×</span>
+    <h5><span style="color:${GX_BCOL[n.branch]}">●</span>${esc(n.name)}</h5>
+    <div class="meta">${n.branch} ${esc(br.name)} · ${n.topic} ${esc(t.name)} · ${n.stage}学段 · <b style="color:#ffd479">${lvTxt}</b></div>
+    ${thNames?`<div style="margin-bottom:6px;">${thNames}</div>`:''}
+    <div class="chain">🟡 <b>要先点亮</b>（前置）：${preNames}</div>
+    <div class="chain">🟢 <b>能解锁</b>（后继）：${sucNames}</div>
+    <div class="gx-prj-h">📚 涉及到的项目 / 课程（${courses.length}）</div>
+    <div class="gx-prj">${prj||'<span class="chain">暂未关联课程</span>'}</div>`;
+  sh.classList.add('show');sh.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function gxToggleThread(tid){if(GX.sel&&GX.sel.type==='thread'&&GX.sel.key===tid){gxReset();return;}
+  const G=galaxyData(),NET=window.CHEM_NETWORK;GX.sel={type:'thread',key:tid};gxClearHL();
+  document.querySelector(`#starmap .gx-chip[data-th="${tid}"]`).classList.add('on');
+  const set=new Set(G.nodes.filter(n=>n.threads.includes(tid)).map(n=>n.id));
+  GX.nEls.forEach(el=>{if(set.has(el.dataset.id))el.classList.add('hl-thread');else el.classList.add('gx-faint');});
+  GX.eEls.forEach(el=>el.classList.add('gx-faint'));
+  // 主线星座连线
+  const seq=G.nodes.filter(n=>set.has(n.id)).sort((a,b)=>a.branch<b.branch?-1:a.branch>b.branch?1:gxStg(a.stage)-gxStg(b.stage)||(a.id<b.id?-1:1));
+  if(seq.length>1){const pts=seq.map(n=>`${n.x},${n.y}`).join(' ');
+    GX.thLayer.innerHTML=`<polyline class="gx-thline" points="${pts}" stroke="${GX_TCOL[tid]}" stroke-width="1.5" opacity="0.92" filter="url(#gxGlow)"/>`;}}
+function gxToggleBranch(bid){if(GX.sel&&GX.sel.type==='branch'&&GX.sel.key===bid){gxReset();return;}
+  const G=galaxyData();GX.sel={type:'branch',key:bid};gxClearHL();
+  document.querySelector(`#starmap .gx-chip[data-br="${bid}"]`).classList.add('on');
+  GX.nEls.forEach(el=>{if(G.byId[el.dataset.id].branch===bid)el.classList.add('hl-self');else el.classList.add('gx-faint');});
+  GX.eEls.forEach(el=>{const a=G.byId[el.dataset.a],b=G.byId[el.dataset.b];if(a&&b&&a.branch===bid&&b.branch===bid)el.classList.remove('gx-faint');else el.classList.add('gx-faint');});}
+
+/* ============ 三轴仪表盘 ============ */
+function renderGrow(){
+  const ax=allAxisStats();
+  const row=(key,label,cls)=>{const o=ax[key];const pct=o.am?Math.round(o.v/o.am*100):0;
+    return `<div class="axis"><div class="al"><span>${label}</span><span>已点亮 ${o.lit} 个 · 掌握度 ${pct}%</span></div><div class="track"><div class="fill ${cls}" style="width:${pct}%"></div></div></div>`;};
+  document.getElementById('dash').innerHTML=
+    row('know','🔵 知识轴（学科知识）','f-know')+
+    row('think','🟢 思维轴（科学方法 / 解题）','f-think')+
+    row('logic','🟣 逻辑轴（讲理 / 推理）','f-logic')+
+    `<div class="note">📈 三条线汇总了<b>闯关项目 + 全部化学课程</b>的答题证据：答对基础题=学会、进阶题=会用。"掌握度"= 已学内容里答对的比例，全自动判定、不是手动拨。</div>`;
+  // 段位
+  renderPath();
+}
+function renderPath(){
+  const done=PROJECTS.filter(p=>p.line==='chem'&&isProjDone(p)).length;
+  const migr=PROJECTS.some(p=>p.kps.some((_,i)=>kpLevel(p,i)>=3));
+  let level=0;// 0 未启程
+  if(done>=1)level=1;if(done>=2)level=2;if(done>=4)level=3;if(done>=6||migr&&done>=5)level=4;
+  const stages=[['L1','玩家'],['L2','改造者'],['L3','设计者'],['L4','挑战者']];
+  const desc=['做完第一个项目，你就是『玩家』啦！','『玩家』：能自己做完一个项目，还能讲清楚为什么。','『改造者』：敢自己动手改，会问"要是换一下会怎样？"','『设计者』：能自己拿主意，带着把一个项目做出来。','『挑战者』：能自己出题、自己做出来，还能讲给大家听。'][level];
+  document.getElementById('pathline').innerHTML=stages.map((s,i)=>`<div class="pn ${i<level?'on':''}"><b>${s[0]}</b>${s[1]}</div>`).join('');
+  document.getElementById('path-desc').textContent=desc;
+}
+
+/* ============ 作品集 ============ */
+function addWork(){
+  const t=document.getElementById('w-title').value.trim(),d=document.getElementById('w-desc').value.trim();
+  if(!t){alert('先写一句"做出了什么"吧～');return;}
+  S.works.unshift({t,d,date:today()});save();
+  document.getElementById('w-title').value='';document.getElementById('w-desc').value='';renderWorks();
+}
+function renderWorks(){
+  const w=document.getElementById('works-list');
+  if(!S.works.length){w.innerHTML='<div class="note">还没有作品。每完成一个项目，回来留一条"成果 + 一句讲解"。</div>';return;}
+  w.innerHTML=S.works.map((x,i)=>`<div class="work"><div class="wt">🏆 ${esc(x.t)}</div>${x.d?`<div class="wd">"${esc(x.d)}"</div>`:''}<div class="wm">${x.date} ｜ <a href="#" onclick="delWork(${i});return false;" style="color:#a99;">删除</a></div></div>`).join('');
+}
+function delWork(i){if(confirm('删除这条作品？')){S.works.splice(i,1);save();renderWorks();}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ============ 每日思辨 ============ */
+function renderThink(){
+  // 按日期挑题（每天固定一题）
+  const d=new Date();const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
+  if(S.think.last!==today()&&S.think.idx===undefined)S.think.idx=doy%THINK.length;
+  if(S.think.fixed!==today()){S.think.idx=doy%THINK.length;S.think.fixed=today();save();}
+  const t=THINK[S.think.idx%THINK.length];
+  document.getElementById('think-card').innerHTML=
+    `<div class="tag">今日思辨 · 第 ${(S.think.idx%THINK.length)+1} 题</div><div class="qq">${t.q}</div><div class="hint" id="think-hint">👨‍👩‍👧 <b>怎么聊：</b>${t.h}</div>`;
+  document.getElementById('streak').innerHTML=`🔥 已连续思辨 <b>${S.think.streak}</b> 天 ${S.think.last===today()?'· 今天已完成 ✓':''}`;
+}
+function toggleHint(){document.getElementById('think-hint').classList.toggle('show');}
+function nextThink(){S.think.idx=(S.think.idx+1)%THINK.length;save();renderThink();document.getElementById('think-hint')&&0;}
+function doneThink(){
+  if(S.think.last===today()){alert('今天已经聊过啦，明天见 😊');return;}
+  const y=new Date(Date.now()-864e5);const yk=y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+  S.think.streak=(S.think.last===yk)?S.think.streak+1:1;
+  S.think.last=today();save();renderThink();
+  alert('记下啦！连续思辨 '+S.think.streak+' 天 🔥\n（这是习惯，不是任务——聊得开心最重要）');
+}
+
+/* ============ 家长端 · 看见孩子的成长（内嵌，不跳转） ============ */
+function renderParent(){
+  const done=PROJECTS.filter(isProjDone).length;
+  const lit=litCount();
+  const lastWork=S.works[0];
+  document.getElementById('par-hero').innerHTML=
+    `<div style="font-size:13px;color:var(--soft);">用"做成的事"开头，不用分数</div>
+     <div style="font-size:18px;font-weight:800;margin:6px 0 12px;color:#33313a;">已做成 <span style="color:var(--green-d)">${done}</span> 件 · 点亮 <span style="color:var(--brand-d)">${lit}</span> 颗星 · 作品 <span style="color:var(--blue-d)">${S.works.length}</span> 条</div>
+     ${lastWork?`<div class="work" style="margin:0;"><div class="wt">🏆 最新作品：${esc(lastWork.t)}</div>${lastWork.d?`<div class="wd">"${esc(lastWork.d)}"</div>`:''}</div>`:'<div class="note" style="margin:0;">孩子还没有作品。陪他做完第一个项目，这里会出现"做成的事"。</div>'}`;
+  // 三轴（闯关项目 + 全部化学课程，全部来自答题正确率）
+  const ax=allAxisStats();
+  const row=(key,label,cls)=>{const o=ax[key];const pct=o.am?Math.round(o.v/o.am*100):0;
+    return `<div class="axis"><div class="al"><span>${label}</span><span style="color:var(--soft);font-weight:700;">已点亮 ${o.lit} · 掌握度 ${pct}%</span></div><div class="track"><div class="fill ${cls}" style="width:${pct}%"></div></div></div>`;};
+  document.getElementById('par-dash').innerHTML=
+    row('know','🔵 知识（学科）','f-know')+row('think','🟢 思维（科学方法）','f-think')+row('logic','🟣 逻辑（讲理 / 推理）','f-logic')+
+    `<div class="note" style="margin-top:4px;">这三条<b>不是孩子自己拨的</b>——汇总了闯关项目与全部化学课程里他<b>答对的题</b>：答对基础题=学会，答对进阶题=会用。</div>`;
+  // 段位
+  const doneC=PROJECTS.filter(p=>p.line==='chem'&&isProjDone(p)).length;let level=0;if(doneC>=1)level=1;if(doneC>=2)level=2;if(doneC>=4)level=3;if(doneC>=6)level=4;
+  const stages=[['L1','玩家'],['L2','改造者'],['L3','设计者'],['L4','挑战者']];
+  document.getElementById('par-path').innerHTML=stages.map((s,i)=>`<div class="pn ${i<level?'on':''}"><b>${s[0]}</b>${s[1]}</div>`).join('');
+  document.getElementById('par-pathdesc').textContent=['陪他做完第一个项目，就成为『玩家』。','『玩家』：能独立完成一个项目并讲清为什么。','『改造者』：敢自己动手改、会问"如果换一下会怎样"。','『设计者』：能自己拿主意、主导一个项目。','『挑战者』：能独立立项 → 交付 → 公开讲解。'][level];
+  // 作品集（家长只读）
+  const w=document.getElementById('par-works');
+  w.innerHTML=S.works.length?S.works.map(x=>`<div class="work"><div class="wt">🏆 ${esc(x.t)}</div>${x.d?`<div class="wd">"${esc(x.d)}"</div>`:''}<div class="wm">${x.date}</div></div>`).join(''):'<div class="note" style="margin:0;">还没有作品。每完成一个项目，孩子会在这里留下"成果 + 一句讲解"。</div>';
+  // 今日思辨（内嵌，不跳转）
+  const d=new Date();const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);const t=THINK[doy%THINK.length];
+  document.getElementById('par-think').innerHTML=
+    `<div class="think-q" style="padding:18px;"><div class="tag">今日思辨 · 第 ${(doy%THINK.length)+1} 题</div><div class="qq" style="font-size:16px;">${t.q}</div><div class="hint show" style="margin-top:10px;">👨‍👩‍👧 <b>怎么聊：</b>${t.h}</div></div>`;
+}
+
+/* ============ 导师备课视角 ============ */
+function renderTeacher(){
+  const el=document.getElementById('teacher-cards');if(!el)return;
+  el.innerHTML=PROJECTS.slice().sort((a,b)=>a.stage-b.stage||a.line.localeCompare(b.line)).map(p=>
+    `<div class="work" style="border-left-color:var(--brand);">
+      <div class="wt">${p.emoji} 第${p.stage}关 · ${p.title}</div>
+      <div class="btnrow" style="margin:9px 0 0;">
+        <a class="btn btn-ghost" href="${p.card}" target="_blank">📄 六件套项目卡片</a>
+        <a class="btn btn-b" href="${p.quiz}" target="_blank">✏️ 习题（分档/判分）</a>
+      </div>
+    </div>`).join('');
+}
+
+/* ============ 启动 ============ */
+buildNav();renderTeacher();
+if(S.mode==='par'||S.mode==='tea')setMode(S.mode);else{renderHome();renderLadder();go('home');}
+
+/* ==================== 化学课程（来自知识图谱，81 门，A→H 排序） ==================== */
+function cFind(id){return (window.GRAPH_COURSES||[]).find(x=>x.id===id);}
+function illustOf(id){return (window.ILLUST||{})[id]||null;}
+function diffBadge(d){if(!d)return "";var c=d<=3?"#27c08a":d<=6?"#4c9af5":d<=8?"#ff8a3d":"#e0623a";return '<span style="display:inline-block;font-size:10.5px;font-weight:800;color:#fff;background:'+c+';border-radius:9px;padding:1px 8px;">难度 '+d+'/10</span>';}
+function cQuizOf(c){return (window.GRAPH_QUIZ||{})[c.id]||[];}
+function cQStatus(c,qi){return (S.quiz[c.id]||{})[qi];}
+function cAttempted(c){return !!(S.quiz[c.id]&&Object.keys(S.quiz[c.id]).length);}
+function cKpLevel(c,i){
+  const qs=cQuizOf(c),base=[],up=[];
+  qs.forEach((q,qi)=>{if(q.kp!==i)return;(q.up?up:base).push(qi);});
+  const ok=qi=>cQStatus(c,qi)==='ok';
+  if(base.length){if(base.every(ok))return up.length?(up.every(ok)?3:2):2;return cAttempted(c)?1:0;}
+  return cAttempted(c)?1:0;
+}
+function cDone(c){const b=cQuizOf(c).map((q,qi)=>({q,qi})).filter(x=>!x.q.up);return b.length>0&&b.every(x=>cQStatus(c,x.qi)==='ok');}
+const BR_NAME={A:'物质的微观结构',B:'物质的宏观世界',C:'化学反应原理',D:'水溶液与电化学',E:'元素与无机化学',F:'有机化学',G:'分析化学与现代表征',H:'材料与应用化学'};
+function renderCourses(){
+  const v=document.getElementById('v-courses');const CS=window.GRAPH_COURSES||[];
+  if(!CS.length){v.innerHTML='<h2 class="sec">🧪 化学课程</h2><div class="note">课程数据没加载——请确认 <b>chem_courses.js</b> 和 index.html 在同一个文件夹里。</div>';return;}
+  const done=CS.filter(cDone).length;
+  let h=`<h2 class="sec">🧪 化学课程 · 知识图谱全图</h2>
+   <p class="lead">共 <b>${CS.length}</b> 门课，按 <b>A 微观结构 → H 材料应用</b> 八大单元、每单元内按主题排成一条闯关路径。📘 先学主题课、🙌 再做动手项目；每门课点"测一测"答题点亮。已学 <b>${done}/${CS.length}</b>。</p>`;
+  ['A','B','C','D','E','F','G','H'].forEach(b=>{
+    const arr=CS.filter(c=>c.branch===b).sort((x,y)=>x.order-y.order);if(!arr.length)return;
+    h+=`<h2 class="sec" style="font-size:16px;margin-top:22px;"><span class="n">${b}</span>${esc(BR_NAME[b]||arr[0].branchName)}</h2>`;
+    arr.forEach((c,idx)=>{
+      const dn=cDone(c),last=idx===arr.length-1;
+      const hook=c.hook?`<div style="font-size:11.5px;color:#c47a12;margin-top:2px;">🔥 ${esc(c.hook.slice(0,38))}…</div>`:'';
+      h+=`<div class="ladder-row">
+        <div class="ladder-step ${dn?'done':''}"><div class="dot">${idx+1}</div>${last?'':'<div class="bar"></div>'}</div>
+        <div style="flex:1;"><div class="proj" onclick="openCourse('${c.id}')">
+          <div class="ph"><span class="emo">${c.emoji||'📘'}</span>
+          <div style="flex:1;"><div class="pt">${esc(c.title)}</div>${hook}
+          <div class="ps">${diffBadge(c.diff)} ${c.isTheme?'📘 主题课':'🙌 动手项目'} ｜ ${esc(c.stageLabel||c.grade||'')} ｜ 知识点×${c.kps.length}</div></div>
+          <div class="prog">${dn?'✓ 已学':(cAttempted(c)?'继续':'测一测')}</div></div>
+        </div></div></div>`;
+    });
+  });
+  v.innerHTML=h;window.scrollTo({top:0,behavior:'smooth'});
+}
+function openCourse(id){
+  const c=cFind(id);if(!c)return;const v=document.getElementById('v-courses');
+  const steps=(c.steps||[]).map((s,i)=>{
+    const tags=(s.kps||[]).map(k=>`<span style="display:inline-block;font-size:10px;background:#eef2ff;color:#3a7fd0;border-radius:8px;padding:1px 7px;margin:3px 4px 0 0;">${esc(k)}</span>`).join('');
+    return `<div class="beat"><div class="num">${i+1}</div><div class="bd"><span class="bt">${esc(s.ask)}</span><br><span style="color:#9c97a4;font-size:12px;">为什么这样想：${esc(s.why)}</span><br>${tags}</div></div>`;
+  }).join('');
+  const kpHTML=c.kps.map((k,i)=>{
+    const lv=cKpLevel(c,i),axc='ax-'+(k[1]||'know');
+    const qs=cQuizOf(c).map((q,qi)=>({q,qi})).filter(x=>x.q.kp===i);
+    const base=qs.filter(x=>!x.q.up),up=qs.filter(x=>x.q.up),okN=a=>a.filter(x=>cQStatus(c,x.qi)==='ok').length;
+    const ev=qs.length?`答对 基础 ${okN(base)}/${base.length}`+(up.length?` ｜ 进阶 ${okN(up)}/${up.length}`:''):'本课暂无客观题，结合正文与图谱理解';
+    const lvtxt=['未点亮','接触','学会','会用'][lv],lvcls=lv>=2?'lv-ok':lv===1?'lv-mid':'lv-no';
+    return `<div class="kp-item"><span class="kn">${esc(k[0])}</span><span class="ax ${axc}">${k[1]==='think'?'思维':'知识'}</span><span class="lvtag ${lvcls}">${lvtxt}</span><div class="evid">${ev}</div></div>`;
+  }).join('');
+  const kpImg=(illustOf(c.id)||{}).kp||{};
+  const kpTeach=(c.kpInfo||[]).map(k=>{
+    const col=k.ax==='think'?'#15936a':k.ax==='logic'?'#7a4fae':'#2f7fe0';
+    return `<div class="kp-item" style="border-left:3px solid ${col};">
+      <b style="color:${col};font-size:13.5px;">${esc(k.n)}</b>
+      ${k.df?`<div class="evid" style="font-size:12.5px;color:#5a564f;margin-top:5px;">${esc(k.df)}</div>`:''}
+      ${(k.pts&&k.pts.length)?`<ul style="margin:6px 0 0 18px;font-size:12px;color:#6a655e;line-height:1.7;">${k.pts.map(p=>`<li>${esc(p)}</li>`).join('')}</ul>`:''}
+      ${k.fml?`<div style="font-size:12px;color:#2c6a90;margin-top:5px;">📐 ${esc(k.fml)}</div>`:''}
+      ${k.eg?`<div style="font-size:12px;color:#9a6b0f;margin-top:4px;">🔎 例：${esc(k.eg)}</div>`:''}
+      ${kpImg[k.n]?'<div style="margin-top:9px;text-align:center;"><div style="max-width:340px;margin:0 auto;">'+kpImg[k.n].svg+'</div>'+(kpImg[k.n].caption?'<div style="font-size:11px;color:#9c97a4;margin-top:4px;">▲ '+esc(kpImg[k.n].caption)+'</div>':'')+'</div>':''}
+    </div>`;}).join('');
+  const rep=c.rep||{};
+  const PLACE=/主题综合|见各知识点|见本主题|把微观结构与宏观性质对应起来/;
+  const repTxt=(rep.macro||'')+(rep.micro||'')+(rep.symbol||'');
+  const hasRep=!c.isTheme && repTxt && !PLACE.test(repTxt);
+  const phenoOk=c.phenomenon && !/主题综合梳理/.test(c.phenomenon);
+  const qn=cQuizOf(c).length;
+  v.innerHTML=`
+    <button class="back" onclick="renderCourses()">← 返回化学课程</button>
+    <div class="card">
+      <div class="ph" style="display:flex;align-items:center;gap:12px;"><span style="font-size:32px;">${c.emoji||'📘'}</span>
+        <div><div style="font-size:20px;font-weight:800;color:#33313a;">${esc(c.title)}</div>
+        <div class="ps" style="font-size:12px;color:#8a857c;margin-top:3px;"><span class="chip c-green">${esc(BR_NAME[c.branch]||c.branch)}</span><span class="chip c-org">${esc(c.category||'')}</span><span class="chip c-blue">${esc(c.stageLabel||c.grade||'')}</span> ${diffBadge(c.diff)}</div></div>
+      </div>
+      ${c.prereq&&c.prereq.length?`<div class="note">🔗 先修：${c.prereq.map(esc).join(' · ')}</div>`:''}
+      ${c.hook?`<div class="drive" style="background:linear-gradient(120deg,#fff4e6,#fff0e6);border:2px solid #ffd9b8;font-size:15px;">🔥 <b style="color:#e8780f;">现象引爆：</b>${esc(c.hook)}</div>`:''}
+      ${c.drive&&c.drive!==c.hook?`<div class="drive">🎯 <b>驱动问题：</b>${esc(c.drive)}</div>`:''}
+      ${(function(){var il=illustOf(c.id);return il&&il.hero?'<div class="card" style="text-align:center;padding:14px;"><div style="max-width:430px;margin:0 auto;">'+il.hero+'</div>'+(il.heroCaption?'<div style="font-size:12px;color:#9c97a4;margin-top:6px;">▲ '+esc(il.heroCaption)+'</div>':'')+'</div>':'';})()}
+      ${steps?`<h2 class="sec" style="font-size:16px;"><span class="n">脉</span>探究脉络</h2>${steps}`:''}
+      ${phenoOk?`<div class="note">👀 现象：${esc(c.phenomenon)}</div>`:''}
+      ${kpTeach?`<h2 class="sec" style="font-size:16px;"><span class="n">📖</span>这一关要懂的知识</h2><p class="lead">每个知识点都配了定义、要点和例子——先看懂，再去测一测。</p><div class="kp-list">${kpTeach}</div>`:''}
+      ${hasRep?`<h2 class="sec" style="font-size:16px;"><span class="n">三</span>三重表征</h2><div class="kp-list"><div class="kp-item"><span class="kn">宏观</span><div class="evid">${esc(rep.macro||'')}</div></div><div class="kp-item"><span class="kn">微观</span><div class="evid">${esc(rep.micro||'')}</div></div><div class="kp-item"><span class="kn">符号</span><div class="evid">${esc(rep.symbol||'')}</div></div></div>`:''}
+      <h2 class="sec" style="font-size:16px;"><span class="n">★</span>点亮知识点（答题点亮）</h2>
+      <p class="lead">点亮等级由答题正确率自动判定：答对基础题→学会，答对进阶题→会用。</p>
+      <div class="kp-list">${kpHTML}</div>
+      <div class="btnrow">
+        ${(c.materials&&c.materials.length)?`<button class="btn btn-g" onclick="openCTask('${c.id}')">🙌 动手任务卡（照着做）</button><button class="btn btn-ghost" onclick="openCRecord('${c.id}')">📝 实验记录卡</button>`:''}
+        ${qn?`<button class="btn btn-o" onclick="openCQuiz('${c.id}')">🎯 去测一测（点亮知识点）· ${qn} 题</button>`:'<span class="note" style="margin:0;">本课是概念课——上面的"📖 这一关要懂的知识"已把它讲透，看懂后去测一测。</span>'}
+      </div>
+    </div>`;
+  showView('v-courses');window.scrollTo({top:0,behavior:'smooth'});
+}
+function openCRecord(id){
+  const c=cFind(id);if(!c)return;const v=document.getElementById('v-courses');
+  const finds=(c.kpInfo||[]).map((k,i)=>`<div class="rc-find"><input type="checkbox" ${recVal(id,'find'+i)?'checked':''} onchange="recChk('${id}','find'+${i},this)"><div>我搞懂了：<b>${esc(k.n)}</b></div></div>`).join('');
+  v.innerHTML=`
+    <button class="back" onclick="openCourse('${id}')">← 返回这门课</button>
+    <div class="tk-hero"><div class="lv">${esc(BR_NAME[c.branch]||'')} · 实验记录卡</div><h1>${c.emoji||'📘'} ${esc(c.title)}</h1>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;margin-top:8px;">
+        <div>我的名字：<input class="rc-u" style="border-bottom-color:#fff;color:#fff;" value="${esc(recVal(id,'name'))}" oninput="recSet('${id}','name',this.value)"></div>
+        <div>日期：<input class="rc-u" style="border-bottom-color:#fff;color:#fff;" value="${esc(recVal(id,'date'))}" oninput="recSet('${id}','date',this.value)"></div>
+      </div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">① 先猜一猜</h2><div class="rc-prompt">${esc(c.hook||c.drive)}</div><div class="rc-sub" style="margin-bottom:4px;">还没动手前，你猜会怎样？</div>
+      <textarea class="rc-in" rows="2" placeholder="写下你的猜想…" oninput="recSet('${id}','guess',this.value)">${esc(recVal(id,'guess'))}</textarea></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">② 这次我来定</h2><div class="rc-prompt">${esc(c.open||'你自己决定要试/改什么')}</div>
+      <textarea class="rc-in" rows="2" placeholder="我决定改 / 测的是…（其他都不动）" oninput="recSet('${id}','plan',this.value)">${esc(recVal(id,'plan'))}</textarea></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;">③ 我观察到 / 记下来</h2><div class="rc-sub" style="margin-bottom:8px;">看到的现象、数据，画下来或写下来（打印可手画）。</div>
+      <textarea class="rc-draw" placeholder="在这里画 / 写…" oninput="recSet('${id}','draw',this.value)">${esc(recVal(id,'draw'))}</textarea></div>
+    ${finds?`<div class="card"><h2 class="sec" style="font-size:16px;">④ 我学到了（搞懂就打✓）</h2>${finds}</div>`:''}
+    <div class="card"><h2 class="sec" style="font-size:16px;">⑤ 讲给家人听</h2><div class="rc-feyn"><b>用你自己的话讲清楚：</b>${esc(c.drive||'为什么会这样？')}<div class="chk"><input type="checkbox" ${recVal(id,'feyn')?'checked':''} onchange="recChk('${id}','feyn',this)">我讲明白了，家人听懂了！🎉</div></div></div>
+    <div class="btnrow"><button class="btn btn-o" onclick="openCQuiz('${id}')">🎯 去测一测</button><button class="btn btn-ghost" onclick="window.print()">🖨️ 打印</button><button class="btn btn-ghost" onclick="openCourse('${id}')">← 返回</button></div>`;
+  showView('v-courses');window.scrollTo({top:0,behavior:'smooth'});
+}
+function openCQuiz(id){
+  const c=cFind(id),qs=cQuizOf(c),v=document.getElementById('v-courses');
+  let h=`<button class="back" onclick="openCourse('${id}')">← 返回这门课</button>
+    <h2 class="sec" style="font-size:19px;">🎯 ${esc(c.title)} · 测一测</h2>
+    <p class="lead">答对就点亮——答对基础题→学会，答对进阶题→会用。答错没关系，看一眼"💡解析"再试一次。</p>`;
+  qs.forEach((q,qi)=>{
+    const st=cQStatus(c,qi),axc='ax-'+((c.kps[q.kp]||[])[1]||'know');
+    h+=`<div class="qz ${st==='ok'?'ok':''}" id="cqz-${qi}">
+      <div class="qzh"><span class="qzt">${qi+1}. ${esc(q.q)}</span><span class="ax ${axc}">${esc((c.kps[q.kp]||[''])[0])}</span><span class="tier ${q.up?'':'base'}">${q.up?'进阶':'基础'}</span></div>
+      <div class="opts">${q.o.map((o,oi)=>`<button class="opt ${st==='ok'&&oi===q.a?'right':''}" onclick="answerCQ('${id}',${qi},${oi})">${String.fromCharCode(65+oi)}. ${esc(o)}</button>`).join('')}</div>
+      <div class="why" id="cwhy-${qi}" style="${st?'':'display:none;'}">💡 <b>解析：</b>${esc(q.why)}${st==='ok'?'<br>✓ 答对了，已记入证据。':''}</div></div>`;
+  });
+  h+=`<div id="cqz-result"></div>`;v.innerHTML=h;cResult(c);showView('v-courses');window.scrollTo({top:0,behavior:'smooth'});
+}
+function answerCQ(id,qi,oi){
+  const c=cFind(id),q=cQuizOf(c)[qi];S.quiz[c.id]=S.quiz[c.id]||{};
+  if(oi===q.a)S.quiz[c.id][qi]='ok';else if(S.quiz[c.id][qi]!=='ok')S.quiz[c.id][qi]='try';
+  save();
+  const st=S.quiz[c.id][qi],box=document.getElementById('cqz-'+qi);
+  box.classList.toggle('ok',st==='ok');
+  box.querySelectorAll('.opt').forEach((b,bi)=>{b.classList.remove('right','wrong');if(st==='ok'&&bi===q.a)b.classList.add('right');else if(bi===oi&&st!=='ok')b.classList.add('wrong');});
+  const why=document.getElementById('cwhy-'+qi);why.style.display='block';
+  why.innerHTML='💡 <b>解析：</b>'+esc(q.why)+(st==='ok'?'<br>✓ 答对了，已记入证据。':'<br>再选选看～');
+  cResult(c);
+}
+function openCTask(id){
+  const c=cFind(id);if(!c)return;const v=document.getElementById('v-courses');
+  const mats=(c.materials||[]).map(m=>`<div class="kp-item" style="display:flex;align-items:center;gap:9px;"><span style="width:15px;height:15px;border:2px solid var(--brand);border-radius:5px;display:inline-block;flex:none;"></span><span>${esc(m)}</span></div>`).join('');
+  const steps=(c.steps||[]).map((s,i)=>`<div class="beat"><div class="num">${i+1}</div><div class="bd"><span class="bt">${esc(s.ask)}</span><br><span style="color:#9c97a4;font-size:12px;">动手提示：${esc(s.why)}</span></div></div>`).join('');
+  const sf=c.safety||{};const haz=(sf.hazard&&sf.hazard.length)?sf.hazard.join('、'):'';const lvl=sf.level||'';
+  v.innerHTML=`
+    <button class="back" onclick="openCourse('${id}')">← 返回这门课</button>
+    <h2 class="sec">🙌 ${esc(c.title)} · 动手任务卡</h2>
+    ${c.hook?`<div class="drive" style="background:linear-gradient(120deg,#fff4e6,#fff0e6);border:2px solid #ffd9b8;font-size:15px;">🔥 <b style="color:#e8780f;">现象引爆：</b>${esc(c.hook)}</div>`:''}
+    <div class="card"><h2 class="sec" style="font-size:16px;"><span class="n">🧰</span>你需要准备的东西</h2><div class="kp-list">${mats||'<div class="evid">见课程正文</div>'}</div></div>
+    <div class="card"><h2 class="sec" style="font-size:16px;"><span class="n">👣</span>动手探究（一步一步来）</h2>${steps||'<div class="note">按探究脉络逐步进行。</div>'}</div>
+    ${(haz||lvl)?`<div class="card"><h2 class="sec" style="font-size:16px;"><span class="n">⚠️</span>安全提示</h2><div class="note" style="background:#fff6f4;border-left-color:#e2563a;color:#b23b22;">${haz?('注意：'+esc(haz)+'。'):''}${lvl?(' 风险等级：'+esc(lvl)+'。'):''} 涉及加热 / 腐蚀 / 用电的步骤，请大人在旁协助。</div></div>`:''}
+    <div class="card"><h2 class="sec" style="font-size:16px;"><span class="n">🗣️</span>做完讲给家人听</h2><div class="note" style="background:#eafaf4;border-left-color:var(--green);color:var(--green-d);">用你自己的话讲清楚：刚才看到了什么现象？为什么会这样？能讲明白，才算真学会。</div></div>
+    <div class="btnrow"><button class="btn btn-o" onclick="openCQuiz('${id}')">🎯 去测一测</button><button class="btn btn-ghost" onclick="openCourse('${id}')">← 回到这门课</button></div>`;
+  showView('v-courses');window.scrollTo({top:0,behavior:'smooth'});
+}
+function cResult(c){const el=document.getElementById('cqz-result');if(!el)return;
+  const lit=c.kps.map((k,i)=>({k,i,lv:cKpLevel(c,i)})).filter(x=>x.lv>=2);
+  el.innerHTML=`<div class="card" style="margin-top:14px;"><b style="font-size:15px;">${cDone(c)?'🎉 基础题全答对，这门课点亮到"学会"！':'继续加油——把基础题都答对，就点亮"学会"。'}</b>
+   <div style="margin-top:9px;font-size:13px;">已点亮：${lit.length?lit.map(x=>`<span class="chip ${'ax-'+(x.k[1]||'know')}" style="margin:2px 4px 2px 0;">${esc(x.k[0])} · ${['','接触','学会','会用'][x.lv]}</span>`).join(''):'还没有，答对基础题就会亮'}</div>
+   <div class="btnrow"><button class="btn btn-g" onclick="openCourse('${c.id}')">← 回到这门课</button></div></div>`;
+}
+</script>
+</body>
+</html>

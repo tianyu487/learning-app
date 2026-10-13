@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题 · 分子海绵 MOF 前沿创新题集</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:880px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:24px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}.c-gold{background:#d4a017;}
+  .seg{font-size:14px;font-weight:800;color:#0f6e56;margin:22px 0 4px;padding-bottom:5px;border-bottom:2px solid #cfe7dc;}
+  .seg small{font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;}
+  .q{border:1.5px solid #eee4cf;border-radius:14px;padding:13px 16px;margin:12px 0;background:#fff;}
+  .q .qh{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap;}
+  .q .qn{width:28px;height:28px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;flex:none;}
+  .q .qt{font-size:14px;font-weight:700;color:#322f2a;flex:1;min-width:60%;}
+  .badge{font-size:10.5px;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap;}
+  .b-base{background:#69a85a;}.b-mid{background:#ef9f27;}.b-hard{background:#d36a5a;}
+  .b-s{background:#1d9e75;}.b-cz{background:#3a86b5;}.b-gz{background:#7a4fae;}
+  .b-auto{background:#7a8a99;}.b-man{background:#b3a89a;}
+  .b-intel{background:#d4a017;}
+  .stem{font-size:13.5px;margin:4px 0;white-space:pre-line;}
+  .opts{font-size:13.5px;margin:4px 0;color:#3a3a33;}
+  .think{display:block;background:#eafaf3;border-left:4px solid #1d9e75;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;color:#0f6e56;font-size:12.5px;}
+  .think b{color:#0f6e56;}
+  .ans{display:inline-block;background:#fdecea;color:#a32d2d;font-weight:700;border-radius:8px;padding:2px 10px;margin-top:2px;font-size:12.5px;}
+  .src{font-size:10.5px;color:#9a948a;margin-top:5px;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:14px 0 0;}
+  code{background:#f3eee2;border-radius:5px;padding:1px 6px;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="14" y="12" width="52" height="56" rx="8" fill="#fff" stroke="#f1d79e" stroke-width="2.5"/>
+      <line x1="24" y1="28" x2="56" y2="28" stroke="#1d9e75" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#3a86b5" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="52" x2="44" y2="52" stroke="#7a4fae" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L6-002 分子海绵 MOF</div>
+      <div class="tt2">前沿创新题集</div>
+      <div class="chips"><span class="chip c-green">16 题 · 每题含思考方法</span><span class="chip c-blue">本阶 → 初中 → 高中</span><span class="chip c-gold">2025–26 科技情境</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>分档可裁剪使用</div>
+  </div>
+
+  <div class="note">标签：绿=本阶(高中入门/定性)、蓝=初中考点、紫=高中考点、<span style="color:#9a6b0f;font-weight:700;">🏆前沿</span>=信息给予题(取自 2025–26 真实科技进展，权威可溯源)。每题配"思考方法"。中高考"信息给予 / 科技情境题"正是用这种素材。</div>
+
+  <div class="seg">A · 本阶题<small>多孔吸附 · 比表面积 · 配位入门（定性）</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">1</span><span class="qt">一小包变色硅胶放进潮湿空气里，由蓝慢慢变粉，主要是因为它：</span>
+      <span class="badge b-s">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A 发生了燃烧　B 多孔结构把水分子<b>吸附</b>进孔道　C 整体溶解了</div>
+    <span class="think"><b>思考方法：</b>多孔材料内部布满纳米孔道，把水分子"装"进孔里——这是吸附，不是燃烧或溶解。</span>
+    <span class="ans">答：B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">2</span><span class="qt">同样大小，下列材料"抓取"分子能力通常最强的是：</span>
+      <span class="badge b-s">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A 一块致密玻璃　B 多孔的活性炭　C 一块铁</div>
+    <span class="think"><b>思考方法：</b>多孔 = 比表面积大 = 内部吸附位点多，所以抓得多。</span>
+    <span class="ans">答：B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">3</span><span class="qt">MOF 被称为"分子海绵"，"一克材料铺开接近一个足球场"形容的是它的：</span>
+      <span class="badge b-s">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A 质量很大　B <b>比表面积</b>很大　C 颜色很深</div>
+    <span class="think"><b>思考方法：</b>"铺开的总面积"说的就是比表面积——多孔让它大得惊人。</span>
+    <span class="ans">答：B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">4</span><span class="qt">变色硅胶吸饱水后，加热烘一烘又变回蓝色、能重复用。这说明它的吸附是：</span>
+      <span class="badge b-s">本阶</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A 不可逆的化学反应　B 作用较弱、可脱附再生的（<b>物理吸附</b>）　C 永久不可逆的</div>
+    <span class="think"><b>思考方法：</b>能加热放出、反复用 → 作用弱、可逆 = 物理吸附。这正是 MOF 抓 CO₂ 便于循环的关键。</span>
+    <span class="ans">答：B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">5</span><span class="qt">MOF 靠金属离子（节点）与有机配体（连接杆）之间的"配位键"搭起来。关于配位键，下列说法正确的是：</span>
+      <span class="badge b-s">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法：</b>配位键 = 共用电子对<b>由一方（配体）单独提供</b>、另一方（金属）提供空轨道——它是共价键的一种特殊情形。</span>
+    <span class="ans">参考：配位键是"共用电子对由一方提供"的特殊共价键；配体上的孤对电子配入金属离子的空轨道。它把节点与连接杆连成多孔网络。</span>
+  </div>
+
+  <div class="seg">B · 初中考点<small>吸附与分离 · 碳中和常识 · 实验探究</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">6</span><span class="qt">下列做法主要利用了"吸附"性质的是：</span>
+      <span class="badge b-cz">初中</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A 用活性炭给水<b>除色除味</b>　B 用磁铁吸铁屑　C 蒸发结晶得到食盐</div>
+    <span class="think"><b>思考方法：</b>活性炭多孔，把色素、异味分子"吸住"——是吸附；磁铁吸铁是磁性，蒸发结晶是状态变化。</span>
+    <span class="ans">答：A</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">7</span><span class="qt">"碳捕集"指把工厂烟气里的 CO₂ 收集起来。下列说法正确的是：</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A CO₂ 对气候没有影响　B 捕集 CO₂ 有助于减缓温室效应、迈向<b>碳中和</b>　C CO₂ 能助燃</div>
+    <span class="think"><b>思考方法：</b>CO₂ 是主要温室气体；把它从烟气里抓住、再利用或封存，正是碳中和的思路。CO₂ 不助燃（反而灭火）。</span>
+    <span class="ans">答：B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">8</span><span class="qt">【实验探究】给你<b>等质量</b>的变色硅胶、棉花、沙子，想比较"谁吸水又快又多"。请设计一个公平的实验，写出做法与判据。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法：</b>控制变量——同样质量、同样潮湿环境、同样时间，只比材料不同；用电子秤称"吸水前后质量差"作判据。</span>
+    <span class="ans">参考：三份等质量样品放进同一个潮湿密封容器、同样时间取出，分别称吸水前后质量。质量增加越多、越快 = 吸水能力越强；其余条件全部固定才公平。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">9</span><span class="qt">干燥剂硅胶、活性炭、新型 MOF 都靠"多孔"工作。它们共同的关键结构特点是什么？为什么这让它们很能"抓"东西？</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法：</b>共同点是内部有大量微小孔道 → 比表面积极大 → 能接触/容纳的分子位点多。</span>
+    <span class="ans">参考：内部布满大量微小孔道，比表面积很大；表面（含孔道内壁）能与分子接触的位点极多，所以吸附量大。</span>
+  </div>
+
+  <div class="seg">C · 高中考点 · 🏆前沿信息给予题<small>取自 2025–26 真实科技进展 · 配位 / 吸附 / 氧化还原 / 键能 / 蛋白质</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">10</span><span class="qt">【🏆 2025 诺贝尔化学奖 · MOF】</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-intel">🏆前沿</span><span class="badge b-auto">可判分</span></div>
+    <div class="stem">金属—有机框架(MOF)由金属离子(团簇)与多齿有机配体通过<b>配位键自组装</b>成三维多孔网络，对 CO₂ 以<b>物理吸附</b>为主。下列说法正确的是：
+① MOF 中金属与配体之间是配位键，属于共价键的一种特例
+② 由于以物理吸附储存 CO₂，脱附通常无需很高温度，便于循环再生
+③ 比表面积越大、孔道内与 CO₂ 作用的位点越多，单位质量吸附量通常越高
+④ 将 MOF 压成完全致密无孔的块体，其储气能力基本丧失</div>
+    <div class="opts">A ①③④　B ①②③　C ②③④　D ①②③④</div>
+    <span class="think"><b>思考方法：</b>逐条判：①配位键=共用电子对由一方提供的特殊共价键 ✔；②物理吸附弱→易脱附再生 ✔；③吸附量随比表面积/位点升高 ✔；④多孔是储气前提，致密无孔则丧失 ✔。四条全对。</span>
+    <span class="ans">答：D（①②③④）</span>
+    <div class="src">来源：NobelPrize.org · 2025 诺贝尔化学奖新闻稿</div>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">11</span><span class="qt">【🏆 2026 钙离子电池 · 港科大】</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-intel">🏆前沿</span><span class="badge b-auto">可判分</span></div>
+    <div class="stem">钙离子电池以 Ca²⁺ 为载流子。已知法拉第常数 F≈96500 C/mol。下列分析正确的是：
+① 输运相同物质的量的载流子时，1 mol Ca²⁺ 比 1 mol Li⁺ 多转移 1 倍电荷（2F 与 1F）
+② 钙在地壳中丰度远高于锂，原料成本潜在更低
+③ Ca²⁺ 带 2 价、与电极作用强，在固体中迁移往往更困难，是技术难点
+④ 钙离子电池工作时正负极均无化合价变化，不属于氧化还原</div>
+    <div class="opts">A ①②③　B ①②④　C ①③④　D ②③④</div>
+    <span class="think"><b>思考方法：</b>①Ca²⁺带2价、1 mol 转移 2F，是 Li⁺ 的两倍 ✔；②钙丰度高、潜在更便宜 ✔；③二价离子静电作用强、固体中迁移慢，正是瓶颈 ✔；④错——电池工作必有电极上的氧化还原（化合价变化）。</span>
+    <span class="ans">答：A（①②③）</span>
+    <div class="src">来源：CAS Insights · 2026 趋势（HKUST 进展）</div>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">12</span><span class="qt">【🏆 2026 碳化钨替代铂催化剂】</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-intel">🏆前沿</span><span class="badge b-auto">可判分</span></div>
+    <div class="stem">用储量丰富的碳化钨(WC)替代稀缺的铂(Pt)作催化剂。下列分析正确的是：
+① 催化剂通过提供活化能更低的路径加快反应，但不改变 ΔH 与平衡常数 K
+② 因催化剂降低了活化能，使用后该可逆反应的平衡转化率随之提高
+③ 用 WC 替代 Pt 的核心意义在成本与资源可持续，而非改变热力学
+④ 对可逆反应，催化剂同等程度地加快正、逆反应速率</div>
+    <div class="opts">A ①③④　B ①②③　C ②③④　D ①②④</div>
+    <span class="think"><b>思考方法：</b>催化剂只改变路径与速率、<b>不移动平衡</b>。①✔；②错（转化率不变）；③替代价值在成本/资源 ✔；④催化剂对正逆等同加速 ✔。</span>
+    <span class="ans">答：A（①③④）</span>
+    <div class="src">来源：CAS Insights · 2026 趋势</div>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">13</span><span class="qt">【🏆 2026 紫外光降解 PFAS"永久化学物"】</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-intel">🏆前沿</span><span class="badge b-auto">可判分</span></div>
+    <div class="stem">强紫外光(&lt;300 nm)在水中产生氢自由基 H· 逐步夺取 PFAS 上的氟。已知键能(kJ/mol)：C–F≈485、C–H≈414、C–O≈360、C–C≈347。某全氟羧酸经 5 h 降解率 49.1%、脱氟率 21.2%。下列分析正确的是：
+① C–F 键能在所列键中最大，是 PFAS 极难自然降解的关键原因
+② 脱氟率明显低于降解率，说明部分分子骨架已断裂但仍残留有机氟
+③ H· 在反应中既生成又消耗、引发链式夺氟，属自由基机理
+④ 因 C–F 键能大，紫外光提供的能量原理上一定无法断裂它</div>
+    <div class="opts">A ①②③　B ①③④　C ②③④　D ①②④</div>
+    <span class="think"><b>思考方法：</b>①C–F 键能最大、最稳定 ✔；②降解率&gt;脱氟率→骨架断了但氟未除尽、残留有机氟 ✔；③H· 链式自由基机理 ✔；④错——足够能量的短波紫外恰能断键，正是本法依据。</span>
+    <span class="ans">答：A（①②③）</span>
+    <div class="src">来源：Environmental Science &amp; Technology, 2026（奥胡斯大学）</div>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">14</span><span class="qt">【🏆 2026 蜘蛛丝强韧之谜】</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-intel">🏆前沿</span><span class="badge b-auto">可判分</span></div>
+    <div class="stem">蜘蛛丝(蛋白质纤维)的强韧源于丝蛋白链间"天然胶水"式的相互作用。下列分析正确的是：
+① 维持蛋白质二级结构(如 β-折叠)的主要作用力是肽链间的氢键
+② 蛋白质一级结构指氨基酸的排列顺序，氨基酸之间由肽键连接
+③ 丝蛋白链间作用属分子间作用力，单个弱于共价键但数量众多，宏观表现为强韧
+④ 蜘蛛丝的高强度主要来自蛋白质链中的金属键</div>
+    <div class="opts">A ①②③　B ①②④　C ①③④　D ②③④</div>
+    <span class="think"><b>思考方法：</b>①β-折叠等二级结构靠氢键 ✔；②一级结构=氨基酸序列、肽键相连 ✔；③链间是分子间作用力、单弱而众多、宏观强韧 ✔；④错——蛋白质里没有金属键。</span>
+    <span class="ans">答：A（①②③）</span>
+    <div class="src">来源：CAS Insights · 2026 趋势</div>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">15</span><span class="qt">【🏆 计算 · MOF 捕集量】某 MOF 对 CO₂ 的饱和吸附量为 <code>4.4 mmol/g</code>。求 <code>1.0 g</code> 该 MOF 最多能吸附 CO₂ 多少克？（M(CO₂)=44 g/mol）</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-intel">🏆前沿</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法：</b>先把 mmol 换成 mol，再 m=nM。n=4.4 mmol=4.4×10⁻³ mol。</span>
+    <span class="ans">答：m = nM = 4.4×10⁻³ × 44 = <b>0.194 g ≈ 0.19 g</b>（即每克 MOF 约抓 0.19 g CO₂）。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">16</span><span class="qt">MOF 对 CO₂ 以物理吸附为主。下列关于<b>物理吸附</b>与<b>化学吸附</b>的比较，正确的是：</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-auto">可判分</span></div>
+    <div class="opts">A 物理吸附作用强、很难脱附　B 物理吸附作用弱、放热少、易脱附再生；化学吸附作用强、常需较高温度脱附　C 两者完全相同，没有区别</div>
+    <span class="think"><b>思考方法：</b>物理吸附靠较弱的分子间作用、可逆易再生；化学吸附形成较强的化学键、更牢、脱附更难。MOF 选物理吸附，正是图它"好放、好循环"。</span>
+    <span class="ans">答：B</span>
+  </div>
+
+  <div class="note">题源说明：第 10–14 题为 2025–26 真实科技进展改编的"信息给予 / 科技情境"综合选择题，均可溯源（诺奖新闻稿、CAS 2026 趋势、ES&amp;T 2026 等）。第 1–9 题为同一前沿主线下的初/高入门台阶；第 15–16 题把"比表面积—吸附量—物理/化学吸附"从定性接到定量与原理。<b>共同主线：结构（多孔/配位）决定性质（吸附/储能）、能量决定方向、催化只改速率不改平衡。</b></div>
+</section>
+</div>
+</body>
+</html>

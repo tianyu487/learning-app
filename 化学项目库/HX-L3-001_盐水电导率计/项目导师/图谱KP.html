@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图谱 KP 条目 · 盐水电导率计</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}
+  .nodes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+  .node{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:13px 14px;}
+  .node .nm{font-weight:800;color:#7a3d12;font-size:14px;}
+  .node .lv{font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;margin-left:6px;}
+  .node .edge{display:block;margin-top:7px;font-size:12.5px;color:#7a7268;}
+  .node .edge.pre{border-left:3px solid #69a85a;padding-left:8px;}
+  .node .edge.post{border-left:3px solid #ef9f27;padding-left:8px;}
+  .node .ev{display:block;margin-top:7px;font-size:12px;color:#3a86b5;border-left:3px solid #a9cfe5;padding-left:8px;}
+  .warn{border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  @media(max-width:640px){.nodes{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 90 80" width="64" height="58" aria-hidden="true">
+      <line x1="20" y1="20" x2="50" y2="40" stroke="#cbbfa6" stroke-width="2"/>
+      <line x1="20" y1="60" x2="50" y2="40" stroke="#cbbfa6" stroke-width="2"/>
+      <line x1="50" y1="40" x2="78" y2="28" stroke="#cbbfa6" stroke-width="2"/>
+      <circle cx="20" cy="20" r="9" fill="#bfe7d6"/><circle cx="20" cy="60" r="9" fill="#bfe7d6"/>
+      <circle cx="50" cy="40" r="11" fill="#1d9e75"/><circle cx="78" cy="28" r="8" fill="#cdb6ec"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L3-001 盐水电导率计</div>
+      <div class="tt2">图谱 KP 条目</div>
+      <div class="chips"><span class="chip c-green">4 节点 · 已并入图谱</span><span class="chip c-blue">校验通过 ✓</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师 / 教研内用<br>已并入 209 点完整图谱</div>
+  </div>
+
+  <div class="warn" style="background:#eafaf3;border:2px solid #1d9e75;">
+    <b>校验结果:已通过。</b>本阶 4 个 KP 已并入完整化学知识图谱(共 209 个知识点),自校验通过、0 孤点、0 环。本阶首次开出"溶液导电/电解质"分支,并把第 1–2 阶的科学方法主线延伸到"传感建模 + 校准"。
+  </div>
+
+  <div class="nodes">
+    <div class="node">
+      <span class="nm">溶液导电·离子启蒙</span><span class="lv">小学 · 认识</span>
+      <span class="edge">分支 J「溶液与电」(本阶新开)</span>
+      <span class="edge pre">前置:无(启蒙根节点)</span>
+      <span class="edge post">后继:电解质与非电解质 → 电离 → 离子浓度</span>
+      <span class="ev">点亮 ← 盐水导电、糖水不导电对比</span>
+    </div>
+    <div class="node">
+      <span class="nm">电导随浓度变化·半定量</span><span class="lv">小学 · 半定量</span>
+      <span class="edge">分支 J「溶液与电」</span>
+      <span class="edge pre">前置:溶液导电·离子启蒙</span>
+      <span class="edge post">后继:电导率与浓度关系 → 电阻/欧姆定律(跨物理)</span>
+      <span class="ev">点亮 ← 浓度梯度读数递增</span>
+    </div>
+    <div class="node">
+      <span class="nm">传感建模·启蒙</span><span class="lv">小升初 · 方法</span>
+      <span class="edge">分支 I「科学方法」</span>
+      <span class="edge pre">前置:半定量比较·滴定启蒙(承接第 2 阶)</span>
+      <span class="edge post">后继:数据拟合与预测 → 传感器采集(贯穿 4–6 阶)</span>
+      <span class="ev">点亮 ← 浓度—读数曲线预测未知</span>
+    </div>
+    <div class="node">
+      <span class="nm">校准与零点·方法</span><span class="lv">小升初 · 方法</span>
+      <span class="edge">分支 I「科学方法」</span>
+      <span class="edge pre">前置:控制变量(承接第 2 阶)</span>
+      <span class="edge post">后继:仪器误差与读数 → 误差分析(高中)</span>
+      <span class="ev">点亮 ← 纯水归零 + 已知盐水定标</span>
+    </div>
+  </div>
+
+  <div class="warn" style="background:#fdf3e6;border:2px dashed #ef9f27;">
+    <b>主线说明:</b>① 科学方法主线再进一步——"对照法(L1)→控制变量(L2)→校准/建模(L3)";② "溶液导电·离子启蒙"是本阶新开的电化学分支根节点,向上通往初中"电解质与非电解质"、高中"电离与离子浓度",并与<b>物理</b>的"电阻/欧姆定律"形成一条跨学科边(mathDeps/物理依赖),为第 4 阶起的传感采集打底。
+  </div>
+</section>
+</div>
+</body>
+</html>

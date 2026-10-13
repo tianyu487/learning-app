@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题 · 反应速率擂台</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}
+  .seg{font-size:14px;font-weight:800;color:#0f6e56;margin:22px 0 4px;padding-bottom:5px;border-bottom:2px solid #cfe7dc;}
+  .seg small{font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;}
+  .q{border:1.5px solid #eee4cf;border-radius:14px;padding:13px 16px;margin:12px 0;background:#fff;}
+  .q .qh{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap;}
+  .q .qn{width:28px;height:28px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;flex:none;}
+  .q .qt{font-size:14px;font-weight:700;color:#322f2a;flex:1;min-width:60%;}
+  .badge{font-size:10.5px;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap;}
+  .b-base{background:#69a85a;}.b-mid{background:#ef9f27;}.b-hard{background:#d36a5a;}
+  .b-s3{background:#1d9e75;}.b-cz{background:#3a86b5;}.b-gz{background:#7a4fae;}
+  .b-auto{background:#7a8a99;}.b-man{background:#b3a89a;}
+  .think{display:block;background:#eafaf3;border-left:4px solid #1d9e75;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;color:#0f6e56;font-size:12.5px;}
+  .think b{color:#0f6e56;}
+  .ans{display:inline-block;background:#fdecea;color:#a32d2d;font-weight:700;border-radius:8px;padding:2px 10px;margin-top:2px;font-size:12.5px;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:14px 0 0;}
+  code{background:#f3eee2;border-radius:5px;padding:1px 6px;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="14" y="12" width="52" height="56" rx="8" fill="#fff" stroke="#f1d79e" stroke-width="2.5"/>
+      <line x1="24" y1="28" x2="56" y2="28" stroke="#1d9e75" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#3a86b5" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="52" x2="44" y2="52" stroke="#7a4fae" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L4-001 反应速率擂台</div>
+      <div class="tt2">习题</div>
+      <div class="chips"><span class="chip c-green">12 题 · 每题含思考方法</span><span class="chip c-blue">本阶 → 初中 → 高中</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>分档可裁剪使用</div>
+  </div>
+
+  <div class="note">标签:绿=本阶(初中入门)、蓝=初中考点、紫=高中考点;后附难度与是否可判分。进阶题用于"上不封顶",按学员水平选用。</div>
+
+  <div class="seg">A · 本阶题<small>影响因素 · 控制变量找最快 · 读柱状图</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">1</span><span class="qt">同样一颗泡腾片、同样多的水,放进下面哪杯溶得最快?A 冰水 / B 常温水 / C 热水</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>温度越高,反应越快——热水里片溶得最快。</span>
+    <span class="ans">答:C</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">2</span><span class="qt">把一颗泡腾片掰碎再丢进水里,会比整颗快还是慢?为什么?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>掰碎后碎块和水的接触面(表面积)更大,反应更快。</span>
+    <span class="ans">参考:更快;掰碎后表面积变大,和水接触多,溶得更快。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">3</span><span class="qt">擂台比快慢前,为什么每次都要用同样的水量、同规格(同重量)的泡腾片?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>要"公平":只让想研究的那个变量不一样,其余全固定——这就是控制变量。</span>
+    <span class="ans">参考:固定水量和片的规格,几次时间才能横比,否则不知道是哪个因素让它变快。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">4</span><span class="qt">你要研究"温度对快慢的影响",这一轮里哪些该固定、哪一样该改?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>一次只改一个变量。研究温度,就只改水温,水量、片、是否掰碎、搅不搅都固定。</span>
+    <span class="ans">参考:只改水温;水量、泡腾片规格、是否掰碎、搅拌与否都固定不变。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">5</span><span class="qt">柱状图里画了冰/常温/温/热四杯的"溶完时间",柱子越来越矮。这说明温度和时间是什么关系?最快的是哪杯?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>柱子高=时间长。柱子随温度升高越来越矮 → 温度越高,时间越短(越快)。</span>
+    <span class="ans">参考:温度越高时间越短;最快的是热水那杯(柱子最矮)。</span>
+  </div>
+
+  <div class="seg">B · 初中考点<small>影响反应速率的因素 · 表面积 · 催化剂</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">6</span><span class="qt">下列做法中,能加快泡腾片(或小苏打+柠檬酸)反应速率的是?A 用更冷的水 / B 把片掰碎 / C 减少水量到几乎没有</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>升温、增大表面积、增大浓度、搅拌都加快;掰碎=增大表面积。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">7</span><span class="qt">把固体药品由块状研成粉末,反应明显变快。从微观角度解释"为什么表面积变大就更快"。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>反应发生在固体和液体的接触面上;表面积越大,同一时间能接触、反应的粒子越多。</span>
+    <span class="ans">参考:研成粉末后接触面积大增,单位时间内参与反应的粒子更多,所以速率更快。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">8</span><span class="qt">【实验探究】两组实验都用同样的片和水,A 组比 B 组快很多。除了温度,还可能是哪些原因?请至少说两条,并说怎么排除。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>控制变量——温度、是否掰碎(表面积)、用量/浓度、是否搅拌都会影响,要逐一固定再比。</span>
+    <span class="ans">参考:是否掰碎、用量(浓度)、是否搅拌等都可能;排除法是把这些全固定,只留要研究的那一项不同再比。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">9</span><span class="qt">化学里有一种物质,加进去能加快反应、自己却几乎不被消耗,反应前后质量不变。它叫什么?(填名称)</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>"加快反应、自身质量和性质反应前后基本不变"——这是催化剂的定义。</span>
+    <span class="ans">答:催化剂</span>
+  </div>
+
+  <div class="seg">C · 高中考点<small>速率定义 · 碰撞理论 · 活化能 · 温度估算</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">10</span><span class="qt">化学反应速率常用 <code>v=Δc/Δt</code> 表示。某反应物 2 分钟内浓度从 <code>0.50 mol/L</code> 降到 <code>0.30 mol/L</code>,求这段时间的平均反应速率(以该反应物计)。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>v=Δc/Δt=浓度变化量÷时间。Δc=0.50−0.30=0.20 mol/L,Δt=2 min。</span>
+    <span class="ans">答:v=0.20/2=<b>0.10 mol/(L·min)</b>。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">11</span><span class="qt">用碰撞理论定性解释:为什么升高温度、增大浓度都能加快反应速率?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>反应靠分子有效碰撞。升温使分子动能增大、有效碰撞比例升高;增大浓度使单位体积内分子更多、碰撞频率升高。</span>
+    <span class="ans">参考:升温→分子能量更高、达到活化能(能反应)的有效碰撞增多;增大浓度→分子更密、单位时间碰撞次数增多;两者都使有效碰撞增多,故速率加快。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">12</span><span class="qt">经验上"温度每升高约 10 ℃,反应速率约快 2~4 倍"。若取 2 倍估算,温度从 20 ℃ 升到 50 ℃,速率约变为原来的几倍?(并说一句活化能与此有什么关系)</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>升高 30 ℃ = 3 个"10 ℃",每个约 ×2,故约 2³=8 倍。活化能是反应要跨过的"能量门槛",升温让更多分子越过它。</span>
+    <span class="ans">答:约 <b>2³=8 倍</b>;升温使更多分子的能量超过<b>活化能</b>(能量门槛),有效碰撞增多所以更快。</span>
+  </div>
+
+  <div class="note">Q3 / Q4 / Q8 串起"控制变量—多变量逐一比"的方法台阶;Q1/Q5/Q6/Q7 把"温度、表面积"的定性结论从本阶接到初中;Q10–Q12 是"上不封顶"——速率定义 v=Δc/Δt、碰撞理论、活化能与温度估算,正是手册留给初高中的延伸。</div>
+</section>
+</div>
+</body>
+</html>

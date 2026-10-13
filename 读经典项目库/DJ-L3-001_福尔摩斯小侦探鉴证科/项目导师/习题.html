@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题 · 福尔摩斯小侦探鉴证科</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}
+  .seg{font-size:14px;font-weight:800;color:#0f6e56;margin:22px 0 4px;padding-bottom:5px;border-bottom:2px solid #cfe7dc;}
+  .seg small{font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;}
+  .q{border:1.5px solid #eee4cf;border-radius:14px;padding:13px 16px;margin:12px 0;background:#fff;}
+  .q .qh{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap;}
+  .q .qn{width:28px;height:28px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;flex:none;}
+  .q .qt{font-size:14px;font-weight:700;color:#322f2a;flex:1;min-width:60%;}
+  .badge{font-size:10.5px;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap;}
+  .b-base{background:#69a85a;}.b-mid{background:#ef9f27;}.b-hard{background:#d36a5a;}
+  .b-s3{background:#1d9e75;}.b-cz{background:#3a86b5;}.b-gz{background:#7a4fae;}
+  .b-auto{background:#7a8a99;}.b-man{background:#b3a89a;}
+  .think{display:block;background:#eafaf3;border-left:4px solid #1d9e75;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;color:#0f6e56;font-size:12.5px;}
+  .think b{color:#0f6e56;}
+  .ans{display:inline-block;background:#fdecea;color:#a32d2d;font-weight:700;border-radius:8px;padding:2px 10px;margin-top:2px;font-size:12.5px;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:14px 0 0;}
+  code{background:#f3eee2;border-radius:5px;padding:1px 6px;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="14" y="12" width="52" height="56" rx="8" fill="#fff" stroke="#f1d79e" stroke-width="2.5"/>
+      <line x1="24" y1="28" x2="56" y2="28" stroke="#1d9e75" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#7a4fae" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="52" x2="44" y2="52" stroke="#d36a5a" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">读经典难度阶梯 · DJ-L3-001 小侦探鉴证科</div>
+      <div class="tt2">习题</div>
+      <div class="chips"><span class="chip c-green">12 题 · 每题含思考方法</span><span class="chip c-blue">本阶 → 初中 → 高中</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>分档可裁剪使用</div>
+  </div>
+
+  <div class="note">标签:绿=本阶(小升初)、蓝=初中考点、紫=高中考点;化学(层析/分离)与逻辑学(推理)交织。进阶题用于"上不封顶",按学员水平选用。</div>
+
+  <div class="seg">A · 本阶题<small>层析破案 · 控制变量 · 证据链</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">1</span><span class="qt">把一支黑色水笔点在滤纸上、滴水后跑出蓝、紫、粉几条带。这说明黑墨水是?A 一种纯颜色 / B 多种颜色的混合物</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>能被分成好几条不同颜色的带,说明里面本来就混着好几种色素。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">2</span><span class="qt">几支嫌疑笔比对时,为什么要点在"同一张纸、同一条起跑线、用同样的水"上?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>要"公平":只让"笔不一样"这一项不同,纸、水、起点全固定——这就是控制变量,图谱才能横比。</span>
+    <span class="ans">参考:固定纸、水、起跑线,几支笔的图谱才可比;否则色带跑得高低不同,分不清是笔的差别还是条件的差别。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">3</span><span class="qt">现场墨跑出"蓝+粉";1 号笔"只蓝",2 号"蓝+黄",3 号"蓝+粉"。凶器最可能是哪支?请写出你怎么排除另外两支。</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>证据链 = 比组合 + 排除。现场有粉,1 号没粉先排除;2 号多个黄、现场没黄也排除;只剩 3 号"蓝+粉"完全对上。</span>
+    <span class="ans">答:3 号。1 号无粉、2 号有黄(现场没黄),都与现场组合不符被排除,3 号"蓝+粉"与现场一致。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">4</span><span class="qt">起跑线为什么要用"铅笔"画,而不是用墨水笔画?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>想想哪种线"不会跟着水跑"。铅笔是石墨,不溶于水、不会被水带着爬,图谱才不会被弄乱。</span>
+    <span class="ans">参考:铅笔(石墨)不溶于水、不会随水上爬,不会污染色带;墨水线会自己跑开,干扰判读。</span>
+  </div>
+
+  <div class="seg">B · 初中考点<small>混合物分离 · 物质检验 · 逻辑谬误</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">5</span><span class="qt">下列属于"分离/提纯混合物"的方法的是(多选)?A 过滤 / B 纸层析(色谱) / C 蒸发结晶 / D 燃烧</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>分离是"把混在一起的东西分开、成分不变";燃烧会生成新物质,不是分离。</span>
+    <span class="ans">答:A、B、C(燃烧 D 不是分离)。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">6</span><span class="qt">层析能把墨水里不同色素分开,主要是因为这些色素?A 颜色不同 / B 随水在纸上"跑"的快慢不同 / C 质量都相等</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>有的色素更"亲水"跑得快、爬得高,有的更"恋纸"跑得慢,快慢不同就分到了不同高度。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">7</span><span class="qt">【推理】"凶手一定用蓝墨水。这支笔是蓝墨水,所以凶手就是用这支笔的人。"这个推理可靠吗?为什么?</span>
+      <span class="badge b-cz">初中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>"用蓝墨水"的笔不止这一支。从"凶手用蓝墨水"推不出"就是这支蓝笔"——这是以偏概全/范围放大。</span>
+    <span class="ans">参考:不可靠。蓝墨水的笔有很多支,符合"蓝墨水"只是必要条件、不是唯一证据;还需层析组合、其它物证才能锁定。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">8</span><span class="qt">【实验探究】要确认两份墨迹是不是"同一支笔"写的,你怎么用纸层析做"同一认定"?写出做法和判据。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>同条件下做两份的层析,比色带的"颜色种类 + 高低位置"是否完全一致。</span>
+    <span class="ans">参考:把两份墨在同纸、同水、同起跑线点样层析;若色带的颜色组合与各自高度都完全一致,则支持"同一支笔";有一条对不上即可否定。</span>
+  </div>
+
+  <div class="seg">C · 高中考点<small>比移值 Rf · 充分/必要条件 · 三段论</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">9</span><span class="qt">比移值 <code>Rf = 色斑移动距离 ÷ 溶剂前沿移动距离</code>。某色斑移动 <code>3.0 cm</code>,溶剂前沿移动 <code>12.0 cm</code>,求 Rf。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>直接代入 Rf=色斑距离÷前沿距离,结果是 0~1 之间的小数。</span>
+    <span class="ans">答:Rf = 3.0 / 12.0 = <b>0.25</b>。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">10</span><span class="qt">同一条件下,某成分的 Rf 只与它本身(及纸、溶剂)有关。两份样品里各有一条色带 Rf 都 = 0.25,能否就此断定"是同一种物质"?还需补什么证据?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>Rf 相同是"同一物质"的必要不充分条件——不同物质可能凑巧 Rf 相近。要多条带都一致、或换一种溶剂体系再验。</span>
+    <span class="ans">参考:不能。Rf 相同只是必要条件,可能是巧合;需比对全部色带是否都一致,并换不同展开剂(溶剂)再测,多重一致才更可信。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">11</span><span class="qt">用"充分条件 / 必要条件"分析:"是同一支笔"与"层析图谱完全相同"是什么关系?图谱相同能<b>必然</b>推出同一支笔吗?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>同一支笔 → 图谱必然相同(必要条件成立);但反过来,图谱相同不一定同一支笔(同款墨水的两支笔也会相同)。</span>
+    <span class="ans">参考:"图谱相同"是"同一支笔"的必要条件、不是充分条件。图谱相同推不出必然同一支笔(可能是同款墨水的不同笔);要锁定还需更多独立证据。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">12</span><span class="qt">【三段论】大前提:"凡用 3 号墨写的字,层析都含蓝+粉";小前提:"现场字迹层析含蓝+粉"。能否必然推出"现场字迹是 3 号墨"?这属于哪种逻辑情形?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>由"3号→含蓝粉"和"现场含蓝粉",想推回"现场是3号",是"肯定后件"——逻辑上不成立(别的墨也可能含蓝粉)。</span>
+    <span class="ans">答:不能必然推出。这是"肯定后件"谬误:含蓝+粉的不一定只有3号墨,只能说现场"可能"是3号、需排除其它含蓝粉的来源。</span>
+  </div>
+
+  <div class="note">Q2/Q4/Q8 串起"控制变量—同一认定"的鉴证方法;Q3/Q7/Q11/Q12 把"证据链—排除法—充分必要条件—肯定后件谬误"从破案直通逻辑学;Q5/Q6/Q9/Q10 把"混合物分离—层析—Rf值"从化学定性接到定量,正是手册的"上不封顶"。</div>
+</section>
+</div>
+</body>
+</html>

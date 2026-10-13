@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目卡片 · 分子海绵 MOF 与碳捕集</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:24px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;margin-bottom:3px;}
+  .c-green{background:#1d9e75;}.c-org{background:#ef9f27;}.c-blue{background:#3a86b5;}.c-gray{background:#9a948a;}.c-gold{background:#d4a017;}.c-pur{background:#7a4fae;}
+  .ladder{display:flex;gap:6px;margin-top:14px;}
+  .ladder .st{flex:1;text-align:center;font-size:11px;color:#9a948a;padding:7px 2px;border-radius:9px;background:#f3eee2;border:1.5px solid #ece3cf;}
+  .ladder .st b{display:block;font-size:13px;color:#b3a89a;}
+  .ladder .st.on{background:#1d9e75;border-color:#178060;color:#eafaf3;}
+  .ladder .st.on b{color:#fff;}
+  h2{font-size:17px;color:#0f6e56;margin:24px 0 12px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:14px;flex:none;}
+  h3{font-size:14.5px;color:#7a3d12;margin:18px 0 8px;border-left:4px solid #ef9f27;padding-left:9px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:#f3eee2;color:#7a3d12;font-weight:700;}
+  tr:nth-child(even) td{background:#fdfbf4;}
+  .kpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0;}
+  .kp{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:12px;padding:10px 12px;font-size:13px;}
+  .kp b{color:#0f6e56;}
+  .kp .lv{float:right;font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;}
+  .callout{border-radius:13px;padding:12px 16px;margin:10px 0;font-size:13.5px;}
+  .open{background:#fdf3e6;border:2px dashed #ef9f27;}.open b{color:#b5740f;}
+  .qa{background:#eafaf3;border:1.5px solid #bfe7d6;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .nobel{background:#fdf6e3;border-left:4px solid #d4a017;color:#7a5b12;font-size:12.5px;border-radius:0 8px 8px 0;padding:10px 13px;margin:8px 0;}
+  .nobel b{color:#9a6b0f;}
+  .beat{display:flex;gap:12px;margin:8px 0;align-items:stretch;}
+  .beat .num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef9f27;color:#fff;font-weight:800;text-align:center;line-height:30px;}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #eee4cf;border-radius:11px;padding:9px 12px;font-size:13px;}
+  .beat .bt{font-weight:700;color:#7a3d12;}
+  .beat .kptag{display:inline-block;font-size:10.5px;background:#eafaf3;color:#0f6e56;border:1px solid #bfe7d6;border-radius:8px;padding:1px 7px;margin-left:6px;}
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0;}
+  ol.steps li{counter-increment:s;position:relative;padding:7px 0 7px 40px;border-bottom:1px dashed #ece3cf;font-size:13.5px;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:800;font-size:13px;}
+  ul.ev{padding-left:20px;font-size:13.5px;}ul.ev li{margin:3px 0;}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0;}
+  .fig{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:10px 8px;text-align:center;margin:0;}
+  .fig svg{width:100%;height:auto;}
+  .fig .cap{font-size:12.5px;font-weight:700;color:#7a3d12;margin-top:6px;display:block;}
+  .fig .cap .sub{display:block;font-size:10.5px;font-weight:400;color:#9a948a;margin-top:2px;}
+  .deco{position:absolute;opacity:.5;pointer-events:none;}
+  @media(max-width:640px){.figs{grid-template-columns:1fr;}.kpgrid{grid-template-columns:1fr;}.ladder{flex-wrap:wrap;}.ladder .st{min-width:30%;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+<section class="sheet">
+  <svg class="deco" style="top:-10px;right:-6px;width:130px" viewBox="0 0 140 150" aria-hidden="true">
+    <circle cx="40" cy="30" r="6" fill="#f1d79e"/><circle cx="90" cy="20" r="4" fill="#bfe7d6"/>
+    <circle cx="116" cy="48" r="9" fill="#e8cf8a"/><circle cx="70" cy="60" r="3" fill="#a9cfe5"/>
+  </svg>
+  <div class="head">
+    <svg viewBox="0 0 92 100" width="70" height="76" aria-hidden="true">
+      <!-- MOF 多孔骨架小图标：节点+连接杆 -->
+      <g stroke="#7a4fae" stroke-width="2.4">
+        <line x1="24" y1="26" x2="56" y2="26"/><line x1="56" y1="26" x2="56" y2="58"/><line x1="24" y1="26" x2="24" y2="58"/><line x1="24" y1="58" x2="56" y2="58"/>
+        <line x1="56" y1="26" x2="76" y2="40"/><line x1="56" y1="58" x2="76" y2="72"/><line x1="76" y1="40" x2="76" y2="72"/><line x1="24" y1="58" x2="44" y2="72"/><line x1="44" y1="72" x2="76" y2="72"/>
+      </g>
+      <g fill="#5a3b86"><circle cx="24" cy="26" r="5"/><circle cx="56" cy="26" r="5"/><circle cx="24" cy="58" r="5"/><circle cx="56" cy="58" r="5"/><circle cx="76" cy="40" r="5"/><circle cx="76" cy="72" r="5"/><circle cx="44" cy="72" r="5"/></g>
+      <circle cx="44" cy="44" r="5.5" fill="#3a86b5"/><text x="44" y="47.5" font-size="7" fill="#fff" text-anchor="middle" font-weight="700">CO₂</text>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L6-002 · 🏆 2025 诺贝尔化学奖</div>
+      <div class="tt2">分子海绵 MOF · 与碳捕集</div>
+      <div class="chips">
+        <span class="chip c-green">第 6 阶 · 高中及以上</span>
+        <span class="chip c-org">跨学科 · 前沿信息+演示</span>
+        <span class="chip c-blue">L4 挑战者</span>
+        <span class="chip c-gold">2025 诺奖情境</span>
+      </div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>含六件套教学核</div>
+  </div>
+  <div class="ladder">
+    <div class="st"><b>1</b>看现象</div>
+    <div class="st"><b>2</b>量化控变量</div>
+    <div class="st"><b>3</b>传感建模</div>
+    <div class="st"><b>4</b>多变量迭代</div>
+    <div class="st"><b>5</b>系统跨学科</div>
+    <div class="st on"><b>6</b>开放/前沿</div>
+  </div>
+
+  <div class="nobel"><b>🏆 锚定前沿：</b>2025 年诺贝尔化学奖授予 Kitagawa、Robson、Yaghi，表彰其"发展了<b>金属—有机框架 MOF</b>"——金属离子作"节点"、有机配体作"连接杆"，靠<b>配位键自组装</b>成布满纳米孔道的晶态多孔材料，比表面积可达数千 m²/g（一克铺开接近一个足球场），能从沙漠空气抓水、从烟气选择性<b>捕集 CO₂</b>。这是中高考最爱的"信息给予 / 科技情境"素材，权威性拉满。</div>
+
+  <h2><span class="n">★</span>分类标注</h2>
+  <table>
+    <tr><th style="width:28%">字段</th><th>内容</th></tr>
+    <tr><td>项目编号</td><td>HX-L6-002</td></tr>
+    <tr><td>类型</td><td>跨学科 · 前沿信息题 + 可做的多孔吸附演示（轻物料）</td></tr>
+    <tr><td>难度阶</td><td><b>第 6 阶</b> · 高中及以上 · 前沿情境 / 开放</td></tr>
+    <tr><td>学员定位</td><td><b>L4 挑战者</b>：读懂前沿信息、迁移到碳中和、独立讲清原理</td></tr>
+    <tr><td>跨学科</td><td>化学（E9 配位 / H 材料 / H7 碳中和 / C5 吸附与速率）× 能源环境议题</td></tr>
+    <tr><td>电子含量</td><td>无（核心是"诺奖资料卡 + 创新题集" + 称重对比演示，主体是内容）</td></tr>
+  </table>
+
+  <h2><span class="n">★</span>点亮 KP（取自化学知识图谱）</h2>
+  <div class="note">锚定真实图谱节点（E/H/C/A 分支）。绿=认识，紫=方法。本阶达到"读懂前沿信息并解释、迁移到碳捕集"。</div>
+  <div class="kpgrid">
+    <div class="kp"><span class="lv">认识</span><b>KP1 配位键（E9 / A3）</b><br>金属离子提供空轨道、配体上的孤对电子配位上去——配位键是"共用电子对由一方提供"的特殊共价键。</div>
+    <div class="kp"><span class="lv">认识</span><b>KP2 多孔与比表面积·吸附（C5/G）</b><br>内部布满纳米孔道→比表面积极大→吸附位点多→单位质量吸附量大。</div>
+    <div class="kp"><span class="lv lv" style="background:#7a4fae;">方法</span><b>KP3 物理吸附 vs 化学吸附</b><br>物理吸附作用弱、放热少、易脱附再生；化学吸附强、常需较高温脱附。MOF 抓 CO₂ 以物理吸附为主，故易循环。</div>
+    <div class="kp"><span class="lv">认识</span><b>KP4 自组装·超分子（H4）</b><br>"节点 + 连接杆"像搭积木自组装成周期性三维网络；改金属或配体即可定制孔径——可设计性是 MOF 的灵魂。</div>
+  </div>
+  <div class="note">移入"上不封顶"：晶胞与配位数计算（A6）、配合物组成与命名（E9）、碳中和工业与绿色化学（H7）、催化不改变 ΔH/K（C5）——见习题高中档。</div>
+
+  <h2><span class="n">★</span>开放决策点</h2>
+  <div class="callout open">
+    <b>挑战：自己设计一个"多孔抓取力"对比实验，并预测 MOF 会怎样。</b><br>
+    学员自选：<b>用哪些材料比吸附（变色硅胶 / 活性炭 / 棉花 / 沙子）｜ 比吸水还是比吸色/吸味 ｜ 怎么定量（称重 / 比色）</b>，并思辨"<b>如果把 MOF 的孔径调大或调小、换一种金属节点，会怎样？</b>"（呼应 MOF 的可设计性）。
+  </div>
+</section>
+
+<section class="sheet">
+  <h2><span class="n">六</span>件套 · 教学内容核</h2>
+
+  <h3>① 驱动问题</h3>
+  <div class="callout qa">"2025 年诺贝尔化学奖颁给了'分子海绵'<b>MOF</b>——一克材料铺开<b>接近一个足球场</b>，能从沙漠空气里抓水、从烟道气里抓 CO₂。它凭什么这么能'抓'？我们能不能用身边的多孔材料，<b>亲手称出</b>这种抓取的力量，再读懂这项诺奖背后的化学？"</div>
+
+  <h3>② 探究脉络</h3>
+  <div class="beat"><div class="num">1</div><div class="bd"><span class="bt">好奇钩子</span><span class="kptag">KP2 预告</span><br>亮出 2025 诺奖新闻；把一小包<b>变色硅胶</b>丢进潮湿罐子 → 蓝色慢慢变粉（悄悄吸饱了水）。"一小勺粉末，凭什么吸这么多？"<br><i>反直觉 + 诺奖权威，抓注意力。</i></div></div>
+  <div class="beat"><div class="num">2</div><div class="bd"><span class="bt">先动手试错</span><span class="kptag">KP2 缺口</span><br>等质量的<b>棉花 / 沙子 vs 活性炭 / 硅胶</b>，放同样潮湿环境，称吸水前后质量 → 多孔的猛得多。"明明都不大，凭什么差这么多？"<br><i>制造"看不见的内部"的缺口。</i></div></div>
+  <div class="beat"><div class="num">3</div><div class="bd"><span class="bt">玩中探究</span><span class="kptag">KP2</span><span class="kptag">KP4</span><br>引入<b>比表面积</b>——多孔=内部布满纳米孔道，一克铺开近一个足球场；再引入 MOF=金属<b>节点</b>+有机<b>连接杆</b>靠<b>配位键</b>自组装成的<b>可设计</b>多孔晶体。<br><i>在最想知道答案时引入配位 + 自组装 + 比表面积。</i></div></div>
+  <div class="beat"><div class="num">4</div><div class="bd"><span class="bt">回现实检验</span><span class="kptag">KP3</span><span class="kptag">KP1</span><br>用吸附做点真事：活性炭<b>除色 / 除味</b>；把吸饱水的硅胶<b>加热脱附</b>又变蓝、能重复用（→ 物理吸附、可再生）。联系 MOF <b>抓 CO₂ → 碳中和</b>。<br><i>定量 + 可逆 = 真实检验，现实当裁判。</i></div></div>
+  <div class="beat"><div class="num">5</div><div class="bd"><span class="bt">点亮+费曼</span><span class="kptag">全部</span><br>点亮 KP1–4；让学员讲："MOF 为什么能抓 CO₂、又容易放出来再用？为什么说它'可以设计'？这和碳中和有什么关系？"<br><i>能把一道诺奖信息题讲明白，才算学会。</i></div></div>
+
+  <h3>③ 证据</h3>
+  <table>
+    <tr><th style="width:26%">类型</th><th>内容</th></tr>
+    <tr><td>对比证据</td><td>等质量的多孔材料（活性炭/硅胶）比致密材料（沙/棉）吸水、吸色多得多 → 吸附靠的是<b>多孔（比表面积）</b>。</td></tr>
+    <tr><td>定量证据</td><td>称吸附前后质量差 / 比色前后深浅 → 把"抓取力"变成可比的数。</td></tr>
+    <tr><td>可逆证据</td><td>吸饱的硅胶加热又变蓝、能重复用 → <b>物理吸附</b>作用弱、可脱附再生（呼应 MOF 易循环）。</td></tr>
+    <tr><td>可设计证据（信息）</td><td>改金属节点或有机配体即可定制孔径与亲和性 → MOF 的"可设计性"，与普通多孔材料的关键区别。</td></tr>
+  </table>
+
+  <h3>④ 评价</h3>
+  <ul class="ev">
+    <li>能说出：<b>配位键</b>是共用电子对由一方提供的特殊共价键；MOF 靠它把"节点+连接杆"自组装成多孔网络。</li>
+    <li>能解释：为什么<b>多孔 / 比表面积大</b>就吸得多；<b>物理吸附</b>与化学吸附的差别。</li>
+    <li>能迁移：把"多孔吸附"迁移到 <b>MOF 捕集 CO₂ → 碳中和</b>。</li>
+    <li><b>L4 挑战者达标</b>：能独立读懂一道 MOF / 钙电池 / PFAS 等<b>前沿信息给予题</b>并讲清推理（费曼）。</li>
+    <li>导师端三轴记录：点亮 KP 数 / 对照实验是否真由学员设计 / 能否独立讲清前沿信息题。</li>
+  </ul>
+
+  <h3>⑤ 分步解答</h3>
+  <ol class="steps">
+    <li>演示：<b>变色硅胶</b>放进潮湿密封罐，观察由蓝变粉（吸水）。</li>
+    <li>对比：等质量<b>活性炭 / 硅胶 vs 棉花 / 沙子</b>，同样潮湿环境放同样时间，<b>电子秤</b>称吸水前后质量差。</li>
+    <li>除色 / 除味：把<b>活性炭</b>放进有色或有味的水里，看颜色变浅、味道变淡。</li>
+    <li>再生：把吸饱水的硅胶<b>加热烘干</b>→ 又变蓝，能重复用（物理吸附、可脱附）。</li>
+    <li>读<b>诺奖资料卡</b>：MOF=金属节点+有机连接杆靠配位键自组装、多孔、可设计、抓 CO₂。</li>
+    <li>做一道<b>信息给予计算题</b>（如：4.4 mmol/g 的 MOF，1 g 最多吸 CO₂ 多少克）。</li>
+    <li>记录卡：写"多孔为什么吸得多 / MOF 如何帮碳中和 / 它和活性炭的关键区别"。</li>
+  </ol>
+
+  <h3>⑥ 示意图</h3>
+  <div class="figs">
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="MOF 节点连接杆多孔骨架">
+        <defs><radialGradient id="m1_n" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#cdb6ec"/><stop offset="1" stop-color="#6b4aa0"/></radialGradient></defs>
+        <text x="110" y="16" font-size="10.5" font-weight="700" fill="#5a3b86" text-anchor="middle">节点（金属） + 连接杆（配体）</text>
+        <g stroke="#a98fd6" stroke-width="3">
+          <line x1="40" y1="50" x2="100" y2="50"/><line x1="100" y1="50" x2="160" y2="50"/>
+          <line x1="40" y1="110" x2="100" y2="110"/><line x1="100" y1="110" x2="160" y2="110"/>
+          <line x1="40" y1="170" x2="100" y2="170"/><line x1="100" y1="170" x2="160" y2="170"/>
+          <line x1="40" y1="50" x2="40" y2="110"/><line x1="40" y1="110" x2="40" y2="170"/>
+          <line x1="100" y1="50" x2="100" y2="110"/><line x1="100" y1="110" x2="100" y2="170"/>
+          <line x1="160" y1="50" x2="160" y2="110"/><line x1="160" y1="110" x2="160" y2="170"/>
+        </g>
+        <g fill="url(#m1_n)" stroke="#5a3b86" stroke-width="1.2">
+          <circle cx="40" cy="50" r="8"/><circle cx="100" cy="50" r="8"/><circle cx="160" cy="50" r="8"/>
+          <circle cx="40" cy="110" r="8"/><circle cx="100" cy="110" r="8"/><circle cx="160" cy="110" r="8"/>
+          <circle cx="40" cy="170" r="8"/><circle cx="100" cy="170" r="8"/><circle cx="160" cy="170" r="8"/>
+        </g>
+        <circle cx="70" cy="80" r="9" fill="#eafaf3" stroke="#3a86b5" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <circle cx="130" cy="140" r="9" fill="#eafaf3" stroke="#3a86b5" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <text x="70" y="83" font-size="7.5" fill="#2c6a90" text-anchor="middle">孔</text><text x="130" y="143" font-size="7.5" fill="#2c6a90" text-anchor="middle">孔</text>
+      </svg>
+      <figcaption class="cap">图1 自组装多孔骨架<span class="sub">配位键把节点+连接杆搭成网</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="多孔吸附对比致密">
+        <text x="110" y="15" font-size="10.5" font-weight="700" fill="#b5740f" text-anchor="middle">多孔抓得多，致密抓不住</text>
+        <!-- 多孔块 -->
+        <rect x="22" y="40" width="80" height="80" rx="8" fill="#efe6fb" stroke="#a98fd6" stroke-width="2"/>
+        <g fill="#fff" stroke="#cdb6ec"><circle cx="38" cy="56" r="6"/><circle cx="58" cy="62" r="7"/><circle cx="80" cy="54" r="5"/><circle cx="44" cy="84" r="7"/><circle cx="70" cy="86" r="6"/><circle cx="88" cy="80" r="5"/><circle cx="36" cy="106" r="5"/><circle cx="64" cy="108" r="6"/></g>
+        <g fill="#3a86b5"><circle cx="38" cy="56" r="2.4"/><circle cx="58" cy="62" r="2.4"/><circle cx="44" cy="84" r="2.4"/><circle cx="70" cy="86" r="2.4"/><circle cx="64" cy="108" r="2.4"/></g>
+        <text x="62" y="136" font-size="10" font-weight="700" fill="#5a3b86" text-anchor="middle">多孔 · 抓满分子</text>
+        <!-- 致密块 -->
+        <rect x="124" y="40" width="74" height="80" rx="8" fill="#e6dcc8" stroke="#b3a17a" stroke-width="2"/>
+        <g fill="#9a948a"><circle cx="146" cy="58" r="2.2"/><circle cx="176" cy="62" r="2.2"/><circle cx="160" cy="100" r="2.2"/></g>
+        <text x="161" y="136" font-size="10" font-weight="700" fill="#8a7a55" text-anchor="middle">致密 · 抓不住</text>
+        <text x="110" y="166" font-size="10" fill="#7a3d12" text-anchor="middle">比表面积越大 → 吸附位点越多 → 吸得越多</text>
+      </svg>
+      <figcaption class="cap">图2 多孔 vs 致密<span class="sub">比表面积决定吸附量</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="物理吸附可逆再生">
+        <text x="110" y="15" font-size="10.5" font-weight="700" fill="#0f6e56" text-anchor="middle">物理吸附 · 可脱附再生</text>
+        <!-- 吸附态 -->
+        <rect x="26" y="42" width="62" height="62" rx="8" fill="#efe6fb" stroke="#a98fd6" stroke-width="2"/>
+        <g fill="#3a86b5"><circle cx="42" cy="58" r="3"/><circle cx="64" cy="62" r="3"/><circle cx="50" cy="84" r="3"/><circle cx="74" cy="88" r="3"/><circle cx="38" cy="92" r="3"/></g>
+        <text x="57" y="120" font-size="9.5" font-weight="700" fill="#5a3b86" text-anchor="middle">吸附 CO₂</text>
+        <!-- 双向箭头 -->
+        <path d="M96 66 L124 66" stroke="#1d9e75" stroke-width="2.5"/><polygon points="124,66 117,62 117,70" fill="#1d9e75"/>
+        <path d="M124 86 L96 86" stroke="#ef9f27" stroke-width="2.5"/><polygon points="96,86 103,82 103,90" fill="#ef9f27"/>
+        <text x="110" y="60" font-size="8" fill="#0f6e56" text-anchor="middle">捕集</text>
+        <text x="110" y="100" font-size="8" fill="#b5740f" text-anchor="middle">加热脱附</text>
+        <!-- 再生态 -->
+        <rect x="132" y="42" width="62" height="62" rx="8" fill="#efe6fb" stroke="#a98fd6" stroke-width="2"/>
+        <g fill="#fff" stroke="#cdb6ec"><circle cx="148" cy="58" r="4"/><circle cx="170" cy="62" r="4"/><circle cx="156" cy="84" r="4"/><circle cx="180" cy="88" r="4"/></g>
+        <text x="163" y="120" font-size="9.5" font-weight="700" fill="#5a3b86" text-anchor="middle">放出 · 再生</text>
+        <text x="110" y="150" font-size="9.5" fill="#7a3d12" text-anchor="middle">作用弱 → 不需很高温就放出 → 反复用</text>
+        <text x="110" y="168" font-size="9" fill="#9a6b0f" text-anchor="middle">这正是 MOF 捕集 CO₂ 便于循环的原因</text>
+      </svg>
+      <figcaption class="cap">图3 捕集↔再生<span class="sub">物理吸附弱而可逆</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>

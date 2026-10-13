@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>记录卡 · 大象牙膏</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{--brand:#ff8a3d;--brand-d:#f2701a;--green:#27c08a;--green-d:#15a472;--blue:#4c9af5;--ink:#3b3942;--soft:#7d7986;--paper:#fbf8f3;}
+  body{background:radial-gradient(circle at 6% 2%,#ffe6d2 0,transparent 26%),radial-gradient(circle at 94% 1%,#dceefb 0,transparent 22%),var(--paper);background-attachment:fixed;
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,sans-serif;color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:14px;padding:9px 22px;border:0;border-radius:14px;background:var(--brand);color:#fff;cursor:pointer;font-weight:800;box-shadow:0 5px 12px rgba(255,138,61,.32);}
+  .bar .back{display:inline-block;font-size:14px;padding:9px 22px;border-radius:14px;background:#fff;color:var(--brand-d);font-weight:800;text-decoration:none;border:2px solid #ffd2b0;margin-right:10px;vertical-align:middle;}
+  .wrap{max-width:760px;margin:0 auto 50px;padding:0 16px;}
+  .hero{background:linear-gradient(120deg,#ffa24c,#ff6f61);color:#fff;border-radius:26px;padding:22px 26px;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(255,111,97,.25);margin-bottom:18px;}
+  .hero .lv{font-size:12.5px;font-weight:700;letter-spacing:1px;opacity:.95;}
+  .hero h1{font-size:26px;font-weight:800;margin:4px 0 12px;}
+  .hero .who{display:flex;gap:18px;flex-wrap:wrap;font-size:14.5px;}
+  .hero .who .f{flex:1;min-width:130px;}
+  .hero .who .u{display:inline-block;min-width:80px;border-bottom:2px solid rgba(255,255,255,.7);margin-left:6px;}
+  .hero .mascot{position:absolute;right:16px;top:14px;width:78px;opacity:.95;}
+  @media(max-width:560px){.hero .mascot{width:56px;}}
+  .card{background:#fff;border-radius:22px;box-shadow:0 8px 24px rgba(70,50,30,.07);border:1px solid #f3ecdf;padding:20px 22px;margin-bottom:16px;}
+  h2{font-size:18px;color:#33313a;display:flex;align-items:center;gap:9px;margin-bottom:12px;font-weight:800;}
+  h2 .ic{font-size:22px;}
+  h2 .step{flex:none;width:30px;height:30px;border-radius:11px;background:linear-gradient(135deg,#ffb15c,#f2701a);color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;transform:rotate(-4deg);}
+  .lines{font-size:15px;}
+  .lines .ln{border-bottom:1.6px dashed #e6d8c4;height:30px;margin:9px 0;}
+  .prompt{font-size:14.5px;color:var(--brand-d);font-weight:700;margin-bottom:4px;}
+  .sub{font-size:12.5px;color:var(--soft);}
+  /* 只改一样 */
+  .pickone{background:linear-gradient(120deg,#fff4e6,#fff0e6);border:2px dashed var(--brand);border-radius:16px;padding:14px 16px;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px 16px;margin:8px 0;}
+  .opt{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;}
+  .opt .bx{width:20px;height:20px;border:2.5px solid var(--brand);border-radius:7px;flex:none;}
+  .changed{margin-top:8px;font-size:14.5px;}
+  .changed .u{display:inline-block;min-width:64px;border-bottom:1.6px solid var(--brand);text-align:center;}
+  .guard{margin-top:10px;font-size:13px;color:#b23b22;background:#fff6f4;border:1.5px solid #ffc9bd;border-radius:11px;padding:8px 12px;}
+  .guard b{color:#e2563a;}
+  /* 两杯比一比 */
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{border:1.5px solid #f0e3d2;padding:10px;text-align:center;}
+  th{background:#fff5ec;color:var(--brand-d);font-weight:800;}
+  td.lbl{background:#fbf6ee;font-weight:700;text-align:left;color:#5a564f;width:34%;}
+  td .fill{display:block;min-height:24px;}
+  /* 画下来 */
+  .draw{border:2.5px dashed #ffd2b0;border-radius:18px;height:230px;background:repeating-linear-gradient(0deg,#fffdfb,#fffdfb 28px,#fff6ee 29px);position:relative;}
+  .draw .hint{position:absolute;left:14px;top:10px;font-size:12.5px;color:#cbb69e;}
+  /* 我发现了 / 费曼 */
+  .find{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;margin:9px 0;}
+  .find .bx{width:20px;height:20px;border:2.5px solid var(--green);border-radius:7px;flex:none;margin-top:2px;}
+  .feyn{background:linear-gradient(120deg,#eafaf4,#eaf5ff);border:2px solid #b7ead4;border-radius:18px;padding:16px 18px;font-size:14.5px;}
+  .feyn b{color:var(--green-d);}
+  .feyn .chk{display:flex;align-items:center;gap:10px;margin-top:10px;font-weight:800;color:var(--green-d);}
+  .feyn .chk .bx{width:22px;height:22px;border:2.5px solid var(--green);border-radius:7px;flex:none;}
+  @media print{body{background:#fff;}.noprint{display:none;}.card,.hero{box-shadow:none;}.card,.draw,.pickone,.feyn{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><a class="back" href="闯关任务卡.html">← 返回任务卡</a><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+  <div class="hero">
+    <svg class="mascot" viewBox="0 0 120 142" aria-hidden="true">
+      <circle cx="80" cy="14" r="6" fill="#ffe08a"/><circle cx="93" cy="27" r="4" fill="#fff" opacity=".75"/>
+      <path d="M30 80 q-16 -6 -20 -23" fill="none" stroke="#0c6b51" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="9" cy="54" r="5" fill="#eaf6ff" stroke="#0c6b51" stroke-width="2"/>
+      <path d="M44 24 h32 v6 h-5 v20 l20 41 a8 8 0 0 1 -7.2 11.6 h-47.6 a8 8 0 0 1 -7.2 -11.6 l20 -41 v-20 h-5 z" fill="#eaf6ff" stroke="#0c6b51" stroke-width="3.4" stroke-linejoin="round"/>
+      <path d="M38 78 h44 l12.5 25.6 a8 8 0 0 1 -7.2 11.6 h-47.6 a8 8 0 0 1 -7.2 -11.6 z" fill="#7fd6b4"/>
+      <circle cx="50" cy="92" r="3.4" fill="#0c4b3a"/><circle cx="70" cy="92" r="3.4" fill="#0c4b3a"/>
+      <path d="M52 101 q8 6 16 0" fill="none" stroke="#0c4b3a" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="lv">🧪 第 1 关 · 我的记录卡</div>
+    <h1>🐘 大象牙膏</h1>
+    <div class="who">
+      <div class="f">我的名字：<span class="u"></span></div>
+      <div class="f">日期：<span class="u"></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">1</span>先猜一猜</h2>
+    <div class="prompt">还没倒酵母之前，你觉得会发生什么？<span class="sub">（先猜，再做——这才是科学家干的事）</span></div>
+    <div class="lines"><div class="ln"></div><div class="ln"></div></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">🎯</span>我只改了这一样</h2>
+    <div class="pickone">
+      <div class="prompt">这一关我挑了改 ——（只勾一个）</div>
+      <div class="opts">
+        <div class="opt"><span class="bx"></span>酵母放更多</div>
+        <div class="opt"><span class="bx"></span>洗洁精放更多</div>
+        <div class="opt"><span class="bx"></span>水更温一点</div>
+        <div class="opt"><span class="bx"></span>别的：____________</div>
+      </div>
+      <div class="changed">我把它 从 <span class="u"></span> 改成 <span class="u"></span>，<b>别的全都没动</b>。</div>
+      <div class="guard">⛔ 双氧水一直是那 <b>50 ml</b>，没动它——想喷更高就多放酵母，<b>绝不换更浓的双氧水</b>。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">⚖️</span>两杯比一比</h2>
+    <div class="sub" style="margin-bottom:8px;">两杯只差你改的那一样，其他完全一样——这样比才公平。</div>
+    <table>
+      <tr><th></th><th>标准杯<br><span style="font-weight:400;font-size:12px;">（按基准配方）</span></th><th>我的杯<br><span style="font-weight:400;font-size:12px;">（改了一样）</span></th></tr>
+      <tr><td class="lbl">我改的那一样</td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+      <tr><td class="lbl">喷得多高？</td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+      <tr><td class="lbl">谁更高？（画 ✓）</td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">✏️</span>画下来</h2>
+    <div class="sub" style="margin-bottom:8px;">把喷发的样子画出来——杯子、泡沫、颜色，越像越好。</div>
+    <div class="draw"><span class="hint">在这里画 ↓</span></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">🔍</span>我发现了（看到就打 ✓）</h2>
+    <div class="find"><span class="bx"></span><div><b>加了酵母才猛喷</b>——不加酵母那杯几乎不动。</div></div>
+    <div class="find"><span class="bx"></span><div>摸杯子外面是 <b>热热的</b>。</div></div>
+    <div class="find"><span class="bx"></span><div>带火星的木条凑近泡沫口，<b>又烧亮了</b>（说明里面是氧气）。</div></div>
+    <div class="find"><span class="bx"></span><div>喷完去找那勺酵母，它 <b>还在</b>、没消失。</div></div>
+  </div>
+
+  <div class="card">
+    <h2><span class="ic">🗣️</span>讲给家人听（费曼闯关）</h2>
+    <div class="feyn">
+      <b>用你自己的话讲清楚两件事：</b><br>① 为什么加了一勺酵母，它就"噗"地喷出来了？<br>② 那勺酵母后来去哪了？
+      <div class="chk"><span class="bx"></span>我讲明白了，家人听懂了！🎉</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

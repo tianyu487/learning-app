@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图谱 KP 条目 · 福尔摩斯小侦探鉴证科</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}.c-purple{background:#7a4fae;}
+  .nodes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+  .node{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:13px 14px;}
+  .node.lg{border-color:#cdb6ec;background:#fcfaff;}
+  .node .nm{font-weight:800;color:#7a3d12;font-size:14px;}
+  .node.lg .nm{color:#5a3b86;}
+  .node .lv{font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;margin-left:6px;}
+  .node .lv.lgv{background:#7a4fae;}
+  .node .edge{display:block;margin-top:7px;font-size:12.5px;color:#7a7268;}
+  .node .edge.pre{border-left:3px solid #69a85a;padding-left:8px;}
+  .node .edge.post{border-left:3px solid #ef9f27;padding-left:8px;}
+  .node .ev{display:block;margin-top:7px;font-size:12px;color:#3a86b5;border-left:3px solid #a9cfe5;padding-left:8px;}
+  .warn{border-radius:13px;padding:12px 16px;font-size:13px;margin-top:8px;}
+  @media(max-width:640px){.nodes{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 90 80" width="64" height="58" aria-hidden="true">
+      <line x1="20" y1="20" x2="50" y2="40" stroke="#cbbfa6" stroke-width="2"/>
+      <line x1="20" y1="60" x2="50" y2="40" stroke="#cbbfa6" stroke-width="2"/>
+      <line x1="50" y1="40" x2="78" y2="28" stroke="#cbbfa6" stroke-width="2"/>
+      <circle cx="20" cy="20" r="9" fill="#bfe7d6"/><circle cx="20" cy="60" r="9" fill="#cdb6ec"/>
+      <circle cx="50" cy="40" r="11" fill="#1d9e75"/><circle cx="78" cy="28" r="8" fill="#f6dcae"/>
+    </svg>
+    <div>
+      <div class="tt1">读经典难度阶梯 · DJ-L3-001 小侦探鉴证科</div>
+      <div class="tt2">图谱 KP 条目</div>
+      <div class="chips"><span class="chip c-green">化学 +2</span><span class="chip c-purple">逻辑学 +2</span><span class="chip c-blue">校验通过 ✓</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师 / 教研内用<br>首个跨学科双图谱项目</div>
+  </div>
+
+  <div class="warn" style="background:#eafaf3;border:2px solid #1d9e75;">
+    <b>校验结果:已通过。</b>本项目<b>跨两门学科</b>:2 个 KP 并入<b>化学知识图谱</b>(混合物分离分支),2 个 KP 并入<b>逻辑学知识图谱</b>(推理与论证分支),均自校验通过、0 孤点、0 环。这是读经典项目库里首个"一个项目同时点亮两门图谱"的跨学科样板。
+  </div>
+
+  <div class="nodes">
+    <div class="node">
+      <span class="nm">纸层析·色谱启蒙</span><span class="lv">化学 · 小学 · 认识</span>
+      <span class="edge">化学图谱 · 分支「混合物的分离与提纯」(本阶新开)</span>
+      <span class="edge pre">前置:溶解 / 混合物的认识</span>
+      <span class="edge post">后继:色谱法 → 比移值 Rf → 薄层色谱 TLC(高中)</span>
+      <span class="ev">点亮 ← 黑墨裂成多色带</span>
+    </div>
+    <div class="node">
+      <span class="nm">控制变量·对照</span><span class="lv">化学/方法 · 小升初</span>
+      <span class="edge">化学图谱 · 分支「科学方法」</span>
+      <span class="edge pre">前置:控制变量(承接化学第 2 阶维C项目)</span>
+      <span class="edge post">后继:实验设计与对照 → 误差分析</span>
+      <span class="ev">点亮 ← 同纸同水同起跑线比对</span>
+    </div>
+    <div class="node lg">
+      <span class="nm">演绎推理·证据链与排除法</span><span class="lv lgv">逻辑学 · 认识</span>
+      <span class="edge">逻辑学图谱 · 分支「推理与论证」(本阶新开根节点)</span>
+      <span class="edge pre">前置:无(启蒙根节点)</span>
+      <span class="edge post">后继:充分 / 必要条件 → 三段论 → 常见形式谬误(肯定后件)</span>
+      <span class="ev">点亮 ← 线索→排除→锁定唯一</span>
+    </div>
+    <div class="node lg">
+      <span class="nm">物证同一认定·比对判据</span><span class="lv lgv">逻辑学/方法 · 小升初</span>
+      <span class="edge">逻辑学图谱 · 分支「论证与判据」</span>
+      <span class="edge pre">前置:演绎推理·证据链</span>
+      <span class="edge post">后继:证据的必要 / 充分性 → 反例与证伪</span>
+      <span class="ev">点亮 ← 图谱组合一致=同一支笔</span>
+    </div>
+  </div>
+
+  <div class="warn" style="background:#fdf3e6;border:2px dashed #ef9f27;">
+    <b>跨学科边说明:</b>本项目在化学的"混合物分离(层析)"与逻辑学的"证据链/同一认定"之间建立了一条<b>跨学科依赖边</b>——层析图谱是化学产物,但"凭它能否锁定同一支笔"是逻辑判断。这正对应手册图谱 Schema 里的"跨学科依赖":让孩子看见<b>化学方法服务于逻辑推理</b>。「控制变量」承接化学第 2 阶;「证据链→充分必要条件」向上通往初高中逻辑学,与习题进阶档(Rf 值、肯定后件谬误)对齐。
+  </div>
+</section>
+</div>
+</body>
+</html>

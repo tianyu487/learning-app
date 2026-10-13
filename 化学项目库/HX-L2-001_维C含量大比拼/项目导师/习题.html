@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题 · 维C含量大比拼</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}
+  .seg{font-size:14px;font-weight:800;color:#0f6e56;margin:22px 0 4px;padding-bottom:5px;border-bottom:2px solid #cfe7dc;}
+  .seg small{font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;}
+  .q{border:1.5px solid #eee4cf;border-radius:14px;padding:13px 16px;margin:12px 0;background:#fff;}
+  .q .qh{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap;}
+  .q .qn{width:28px;height:28px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;flex:none;}
+  .q .qt{font-size:14px;font-weight:700;color:#322f2a;flex:1;min-width:60%;}
+  .badge{font-size:10.5px;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap;}
+  .b-base{background:#69a85a;}.b-mid{background:#ef9f27;}.b-hard{background:#d36a5a;}
+  .b-s2{background:#1d9e75;}.b-cz{background:#3a86b5;}.b-gz{background:#7a4fae;}
+  .b-auto{background:#7a8a99;}.b-man{background:#b3a89a;}
+  .think{display:block;background:#eafaf3;border-left:4px solid #1d9e75;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;color:#0f6e56;font-size:12.5px;}
+  .think b{color:#0f6e56;}
+  .ans{display:inline-block;background:#fdecea;color:#a32d2d;font-weight:700;border-radius:8px;padding:2px 10px;margin-top:2px;font-size:12.5px;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:14px 0 0;}
+  code{background:#f3eee2;border-radius:5px;padding:1px 6px;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="14" y="12" width="52" height="56" rx="8" fill="#fff" stroke="#f1d79e" stroke-width="2.5"/>
+      <line x1="24" y1="28" x2="56" y2="28" stroke="#1d9e75" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#3a86b5" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="52" x2="44" y2="52" stroke="#7a4fae" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L2-001 维C含量大比拼</div>
+      <div class="tt2">习题</div>
+      <div class="chips"><span class="chip c-green">12 题 · 每题含思考方法</span><span class="chip c-blue">本阶 → 初中 → 高中</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>分档可裁剪使用</div>
+  </div>
+
+  <div class="note">标签:绿=本阶(小学高年级)、蓝=初中考点、紫=高中考点;后附难度与是否可判分。进阶题用于"上不封顶",按学员水平选用。</div>
+
+  <div class="seg">A · 本阶题<small>半定量 · 控制变量</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">1</span><span class="qt">同样多的蓝色碘液,A 果汁滴 8 滴褪色、B 果汁滴 20 滴褪色,哪个维C更高?</span>
+      <span class="badge b-s2">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>碘量固定时,用的果汁越少就越"浓"——用量与含量成反比。</span>
+    <span class="ans">答:A</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">2</span><span class="qt">要"公平"比较两种果汁的维C,下列哪些必须保持一样?碘液量 / 淀粉量 / 滴管 / 室温 / 果汁种类</span>
+      <span class="badge b-s2">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>控制变量——只让"果汁种类"这一个不同,其余全部固定。</span>
+    <span class="ans">答:碘液量、淀粉量、滴管、室温都要一样;只有果汁种类不同。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">3</span><span class="qt">滴定时为什么要"逐滴加、边加边晃,到刚好褪色就停",而不是一次倒一大股?</span>
+      <span class="badge b-s2">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>终点是"刚好褪色"的那一刻;一次倒多了会过量,数出来的滴数不准。</span>
+    <span class="ans">答:逐滴才能抓住刚好褪色的终点,倒多了会过量、读数偏大。</span>
+  </div>
+
+  <div class="seg">B · 初中考点<small>氧化还原概念 · 物质检验 · 实验探究</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">4</span><span class="qt">淀粉遇碘变蓝,这一现象可用来检验?A 淀粉(或碘)的存在 B 维生素C C 食盐</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>特征显色 = "指纹";蓝色对应淀粉与碘,可互相检验。</span>
+    <span class="ans">答:A</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">5</span><span class="qt">维C 能使碘的蓝色褪去,说明维生素C具有?A 酸性 B 还原性 C 碱性</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>它把碘"夺色"、使碘转化为无色 → 维C 把碘还原,体现还原性。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">6</span><span class="qt">下列说法正确的是?A 滴数越多维C越高 B 碘把维C氧化、维C把碘还原 C 蓝色是维C本身的颜色</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>滴数越多反而维C越低;蓝色来自碘-淀粉;一方被氧化必有另一方被还原。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">7</span><span class="qt">【实验探究】小明猜"加热会破坏果汁里的维C"。请你帮他设计一个实验来验证,写出做法与对照。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>控制变量——取同一果汁分成两份,一份加热、一份不加热,其余条件全相同,分别测使蓝色褪去的滴数对比。</span>
+    <span class="ans">答:同一果汁分两份,A 份加热数分钟后冷却、B 份不加热;用相同碘液量、相同滴管分别滴定,比较所需滴数。若加热份所需滴数明显增多,说明维C被破坏。</span>
+  </div>
+
+  <div class="seg">C · 高中考点<small>氧化剂还原剂 · 电子转移 · 滴定与定量</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">8</span><span class="qt">反应 <code>C₆H₈O₆ + I₂ → C₆H₆O₆ + 2HI</code> 中,氧化剂与还原剂分别是?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>化合价升高、被氧化的是还原剂;化合价降低、被还原的是氧化剂。维C 失氢被氧化,碘得电子被还原。</span>
+    <span class="ans">答:氧化剂是 I₂,还原剂是维生素C(C₆H₈O₆)。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">9</span><span class="qt">上式中碘元素化合价怎样变化?每 1 mol I₂ 参加反应转移多少电子?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>I 由 0 → −1(每个碘原子得 1 个电子),一个 I₂ 含 2 个碘原子。</span>
+    <span class="ans">答:碘从 0 价降到 −1 价;每 1 mol I₂ 转移 2 mol 电子。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">10</span><span class="qt">用已知浓度的碘标准液滴定维C溶液、以淀粉作指示剂。滴定终点的现象是什么?为什么"出现蓝色"即为终点?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>维C 没反应完时,加进去的碘立刻被还原、不显蓝;维C 一旦耗尽,多滴的碘遇淀粉显蓝。</span>
+    <span class="ans">答:当滴入最后一滴碘液时,溶液<b>变蓝且半分钟内不褪色</b>,即为终点——说明维C 恰好被碘完全氧化。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">11</span><span class="qt">【计算】维C与 I₂ 按物质的量 1:1 反应。滴定恰好用去 <code>0.010 mol/L</code> 碘液 <code>20.0 mL</code>,求被测维C的物质的量。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>n(I₂)=c·V,体积换算成升;按 1:1 得 n(维C)=n(I₂)。</span>
+    <span class="ans">答:n(I₂)=0.010×0.0200=2.0×10⁻⁴ mol;故 n(维C)=2.0×10⁻⁴ mol。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">12</span><span class="qt">承上题,已知维C摩尔质量 M=176 g/mol,求该样品中维C的质量(mg)。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>m=n·M,再把克换算成毫克。</span>
+    <span class="ans">答:m=2.0×10⁻⁴×176≈0.0352 g ≈ <b>35.2 mg</b>。</span>
+  </div>
+
+  <div class="note">Q3 / Q7 / Q10 串起"终点判断—控制变量—滴定原理"的台阶,从本阶的"数滴数"一路通到高中的定量滴定;Q11–Q12 是中和滴定计算的同构练习,可作高阶学员"上不封顶"。</div>
+</section>
+</div>
+</body>
+</html>

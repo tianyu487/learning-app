@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目卡片 · 反应速率擂台</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-org{background:#ef9f27;}.c-blue{background:#3a86b5;}.c-gray{background:#9a948a;}.c-elec{background:#7a4fae;}
+  .ladder{display:flex;gap:6px;margin-top:14px;}
+  .ladder .st{flex:1;text-align:center;font-size:11px;color:#9a948a;padding:7px 2px;border-radius:9px;background:#f3eee2;border:1.5px solid #ece3cf;}
+  .ladder .st b{display:block;font-size:13px;color:#b3a89a;}
+  .ladder .st.on{background:#1d9e75;border-color:#178060;color:#eafaf3;}
+  .ladder .st.on b{color:#fff;}
+  h2{font-size:17px;color:#0f6e56;margin:24px 0 12px;display:flex;align-items:center;gap:9px;}
+  h2 .n{width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:14px;flex:none;}
+  h3{font-size:14.5px;color:#7a3d12;margin:18px 0 8px;border-left:4px solid #ef9f27;padding-left:9px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid #eadfca;padding:7px 9px;text-align:left;vertical-align:top;}
+  th{background:#f3eee2;color:#7a3d12;font-weight:700;}
+  tr:nth-child(even) td{background:#fdfbf4;}
+  .kpgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0;}
+  .kp{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:12px;padding:10px 12px;font-size:13px;}
+  .kp b{color:#0f6e56;}
+  .kp .lv{float:right;font-size:10.5px;background:#1d9e75;color:#fff;border-radius:10px;padding:1px 8px;}
+  .callout{border-radius:13px;padding:12px 16px;margin:10px 0;font-size:13.5px;}
+  .open{background:#fdf3e6;border:2px dashed #ef9f27;}.open b{color:#b5740f;}
+  .qa{background:#eafaf3;border:1.5px solid #bfe7d6;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .elec{background:#f3eefb;border-left:4px solid #7a4fae;color:#5a3b86;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:8px 0;}
+  .elec b{color:#5a3b86;}
+  .beat{display:flex;gap:12px;margin:8px 0;align-items:stretch;}
+  .beat .num{flex:none;width:30px;height:30px;border-radius:50%;background:#ef9f27;color:#fff;font-weight:800;text-align:center;line-height:30px;}
+  .beat .bd{flex:1;background:#fff;border:1.5px solid #eee4cf;border-radius:11px;padding:9px 12px;font-size:13px;}
+  .beat .bt{font-weight:700;color:#7a3d12;}
+  .beat .kptag{display:inline-block;font-size:10.5px;background:#eafaf3;color:#0f6e56;border:1px solid #bfe7d6;border-radius:8px;padding:1px 7px;margin-left:6px;}
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0;}
+  ol.steps li{counter-increment:s;position:relative;padding:7px 0 7px 40px;border-bottom:1px dashed #ece3cf;font-size:13.5px;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:800;font-size:13px;}
+  ul.ev{padding-left:20px;font-size:13.5px;}ul.ev li{margin:3px 0;}
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0;}
+  .fig{background:#fff;border:1.5px solid #eee4cf;border-radius:14px;padding:10px 8px;text-align:center;margin:0;}
+  .fig svg{width:100%;height:auto;}
+  .fig .cap{font-size:12.5px;font-weight:700;color:#7a3d12;margin-top:6px;display:block;}
+  .fig .cap .sub{display:block;font-size:10.5px;font-weight:400;color:#9a948a;margin-top:2px;}
+  .deco{position:absolute;opacity:.5;pointer-events:none;}
+  @media(max-width:640px){.figs{grid-template-columns:1fr;}.kpgrid{grid-template-columns:1fr;}.ladder{flex-wrap:wrap;}.ladder .st{min-width:30%;}}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+
+<section class="sheet">
+  <svg class="deco" style="top:-10px;right:-6px;width:130px" viewBox="0 0 140 150" aria-hidden="true">
+    <circle cx="40" cy="30" r="6" fill="#f1d79e"/><circle cx="90" cy="20" r="4" fill="#bfe7d6"/>
+    <circle cx="116" cy="48" r="9" fill="#cdb6ec"/><circle cx="70" cy="60" r="3" fill="#a9cfe5"/>
+  </svg>
+  <div class="head">
+    <svg viewBox="0 0 90 100" width="68" height="76" aria-hidden="true">
+      <rect x="20" y="20" width="50" height="38" rx="5" fill="#efe6fb" stroke="#a98fd6" stroke-width="2"/>
+      <circle cx="32" cy="33" r="3.2" fill="#7a4fae"/><circle cx="42" cy="33" r="3.2" fill="#7a4fae"/><circle cx="52" cy="33" r="3.2" fill="#7a4fae"/>
+      <circle cx="37" cy="44" r="3.2" fill="#c9b3e8"/><circle cx="47" cy="44" r="3.2" fill="#c9b3e8"/>
+      <path d="M30 58 L30 78" stroke="#9a948a" stroke-width="2.5"/><path d="M60 58 L60 78" stroke="#9a948a" stroke-width="2.5"/>
+      <path d="M22 78 L68 78 L62 96 L28 96 Z" fill="#dff3ff" stroke="#9fcbe3" stroke-width="2"/>
+      <path d="M26 82 L64 82 L60 94 L30 94 Z" fill="#bfe7d6"/>
+      <circle cx="40" cy="87" r="2" fill="#fff" opacity=".7"/><circle cx="52" cy="89" r="1.6" fill="#fff" opacity=".7"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L4-001</div>
+      <div class="tt2">反应速率擂台 · 项目卡片</div>
+      <div class="chips">
+        <span class="chip c-green">第 4 阶 · 初中</span>
+        <span class="chip c-org">②线下物料</span>
+        <span class="chip c-blue">L3 → L4</span>
+        <span class="chip c-elec">电子:micro:bit 复用</span>
+      </div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>含六件套教学核</div>
+  </div>
+  <div class="ladder">
+    <div class="st"><b>1</b>看现象</div>
+    <div class="st"><b>2</b>量化控变量</div>
+    <div class="st"><b>3</b>传感建模</div>
+    <div class="st on"><b>4</b>多变量迭代</div>
+    <div class="st"><b>5</b>系统闭环</div>
+    <div class="st"><b>6</b>自造仪器</div>
+  </div>
+
+  <h2><span class="n">★</span>分类标注</h2>
+  <table>
+    <tr><th style="width:28%">字段</th><th>内容</th></tr>
+    <tr><td>项目编号</td><td>HX-L4-001</td></tr>
+    <tr><td>类型</td><td>②线下物料项目,有"擂台比快慢"话题、需物料盒子</td></tr>
+    <tr><td>难度阶</td><td><b>第 4 阶</b> · 初中 · 多变量迭代与建模</td></tr>
+    <tr><td>学员定位</td><td>L3 设计者 → L4 设计者(能多变量逐一控制、迭代出最优方案)</td></tr>
+    <tr><td>电子含量</td><td><b>micro:bit 复用</b>:改接测温度 + 按键计时,复用第 3 阶那块板,板子留好下个盒接着用</td></tr>
+  </table>
+
+  <div class="elec"><b>⚡ 电子核心(复用):</b>这块 micro:bit 从第 3 阶盐水电导率计里直接搬过来,不用重买。本盒只把它改成做两件事——读水温(内置温度传感)、按键给反应计时。一块电子大脑跨盒复用,正是手册"硬件一次买、耗材月月换"的落点,务必提醒"板子留好,下个盒接着用"。</div>
+
+  <h2><span class="n">★</span>点亮 KP</h2>
+  <div class="note">本阶 4 个 KP 从"单变量"走向"多变量逐一控制 + 速率建模 + 传感采集",掌握到"能说清谁加快了反应、能一次只改一个变量量时间、能画时间—变量趋势找最快"。</div>
+  <div class="kpgrid">
+    <div class="kp"><span class="lv">认识</span><b>KP1 影响反应速率的因素</b><br>温度、浓度、颗粒大小(表面积)、搅拌,都能改变反应的快慢。</div>
+    <div class="kp"><span class="lv">半定量</span><b>KP2 多变量逐一控制</b><br>一次只改一个变量、其余固定,记录"反应完成"的时间,才能比谁影响大。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP3 速率↔变量建模</b><br>把"时间—变量"画成柱状图/曲线,找出趋势与最快组合。</div>
+    <div class="kp"><span class="lv">方法</span><b>KP4 micro:bit 测温计时采集</b><br>用板子读水温、按键记时间,把快慢变成可记录的数字。</div>
+  </div>
+  <div class="note">移入"上不封顶"、本阶不点亮:速率定义 v=Δ量/Δt、碰撞理论、活化能定性,留给初中—高中(见习题进阶题)。</div>
+
+  <h2><span class="n">★</span>开放决策点</h2>
+  <div class="callout open">
+    <b>挑战:同样一颗泡腾片,设计出"最快配方",上擂台比快慢。</b><br>
+    孩子自选迭代方向:<b>改水温 ｜ 整颗 vs 掰碎(表面积) ｜ 改用量/浓度 ｜ 搅不搅</b>。
+    要求:<b>一次只改一个变量 → 量时间 → 画趋势 → 预测并验证最快组合</b>,并说清"我固定了什么、只改了哪一样"。
+  </div>
+</section>
+
+<section class="sheet">
+  <h2><span class="n">六</span>件套 · 教学内容核</h2>
+
+  <h3>① 驱动问题</h3>
+  <div class="callout qa">"同样一颗泡腾片(或一勺小苏打 + 柠檬酸),丢进水里就冒泡、慢慢溶完。能不能<b>动点手脚,让它快一倍</b>?到底是水更热、片更碎、还是水更多在帮忙?摆个擂台,<b>用数字比出谁最快</b>。"</div>
+
+  <h3>② 探究脉络</h3>
+  <div class="beat"><div class="num">1</div><div class="bd"><span class="bt">好奇钩子</span><span class="kptag">KP1 预告</span><br>两杯水各丢一颗一样的泡腾片,一杯热水一杯冰水 → 热的呼呼冒、冷的慢吞吞。<br><i>反直觉:同样的片,凭什么快慢差这么多?3 秒抓注意力。</i></div></div>
+  <div class="beat"><div class="num">2</div><div class="bd"><span class="bt">先动手试错</span><span class="kptag">KP1 缺口</span><br>让孩子乱改:掰碎、多放几颗、使劲搅 → "好像都更快",但说不清到底哪个最关键。<br><i>制造"乱改一通、谁也说不准"的缺口,逼出"一次只改一个"的需求。</i></div></div>
+  <div class="beat"><div class="num">3</div><div class="bd"><span class="bt">玩中探究</span><span class="kptag">KP1</span><span class="kptag">KP2</span><br>引入影响速率的因素(温度/表面积/浓度/搅拌);用 micro:bit 读水温、按键计时,<b>一次只改一个变量</b>,量出每次的时间。<br><i>在最想知道答案时引入控制变量 + 多变量逐一比。</i></div></div>
+  <div class="beat"><div class="num">4</div><div class="bd"><span class="bt">回现实检验</span><span class="kptag">KP2</span><span class="kptag">KP3</span><br>把几次时间画成柱状图/曲线,找出最快组合;再<b>预测一个没试过的组合</b>(如更热 + 掰碎),实测验证。<br><i>用自造趋势预测未知组合,秒表当裁判——现实说了算。</i></div></div>
+  <div class="beat"><div class="num">5</div><div class="bd"><span class="bt">点亮+费曼</span><span class="kptag">全部</span><br>点亮 KP1–4;让孩子讲"为什么热的快?为什么掰碎快(表面积大、接触多)?为什么比快慢前要先固定水量和片?"<br><i>讲明白才算学会。</i></div></div>
+
+  <h3>③ 证据</h3>
+  <table>
+    <tr><th style="width:26%">类型</th><th>内容</th></tr>
+    <tr><td>对照证据</td><td>只改温度、其余全固定,时间明显变 → 温度确实影响速率。</td></tr>
+    <tr><td>单调证据</td><td>温度越高,溶完/不再冒泡的时间越短 → 速率随温度单调上升。</td></tr>
+    <tr><td>多变量证据</td><td>分别改温度、表面积、用量、搅拌,各记一组时间 → 看谁的影响最大。</td></tr>
+    <tr><td>建模证据</td><td>把"时间—温度"几个点连成曲线,就能预测没测过的温度/组合。</td></tr>
+  </table>
+
+  <h3>④ 评价</h3>
+  <ul class="ev">
+    <li>能说出:<b>温度、表面积、浓度、搅拌</b>都能加快反应。</li>
+    <li>能做到:<b>一次只改一个变量</b>、其余固定,量出反应时间。</li>
+    <li>能画出:<b>时间—变量</b>柱状图/曲线,从中找出最快组合。</li>
+    <li><b>L4 萌芽</b>:能<b>设计并迭代</b>出"最快配方",预测、验证并讲清原理(费曼)。</li>
+    <li>导师端三轴记录:点亮 KP 数 / 多变量是否真"一次只改一个" / 能否独立讲解建模过程。</li>
+  </ul>
+
+  <h3>⑤ 分步解答</h3>
+  <ol class="steps">
+    <li>定基准:固定<b>水量</b>与<b>泡腾片规格</b>(同批同重量),做一杯"标准杯"。</li>
+    <li>装电子:micro:bit 测<b>水温</b>、按键<b>计时</b>(丢片按一下,反应完成再按一下)。</li>
+    <li>改温度:只换水温(冰/常温/温/热),其余不变,各记"完全溶解 / 不再冒泡"的时间。</li>
+    <li>改表面积:整颗 vs 掰碎(同温同水量),各记时间。</li>
+    <li>改用量/搅拌:分别多放/搅拌,逐一只改一样,各记时间。</li>
+    <li>画<b>柱状图</b>(各因素)与<b>时间—温度曲线</b>;预测一个最快组合并实测验证。</li>
+    <li>记录卡:画图 + 写"我固定了什么、这次只改了哪一样、最快配方是什么"。</li>
+  </ol>
+
+  <h3>⑥ 示意图</h3>
+  <div class="figs">
+
+    <figure class="fig">
+      <svg viewBox="0 0 240 190" aria-label="冷热双杯泡腾片对比">
+        <defs>
+          <linearGradient id="c1_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <linearGradient id="c1_cold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dff0fb"/><stop offset="1" stop-color="#a9d4ef"/></linearGradient>
+          <linearGradient id="c1_hot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe2d2"/><stop offset="1" stop-color="#f4a87f"/></linearGradient>
+        </defs>
+        <line x1="14" y1="172" x2="226" y2="172" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 冰水杯 -->
+        <path d="M34 56 L96 56 L89 158 L41 158 Z" fill="url(#c1_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M40 86 L90 86 L84 156 L46 156 Z" fill="url(#c1_cold)"/>
+        <circle cx="62" cy="120" r="6" fill="#fff" stroke="#d4b24a" stroke-width="1.5"/>
+        <circle cx="58" cy="100" r="2" fill="#fff" opacity=".8"/><circle cx="68" cy="108" r="1.6" fill="#fff" opacity=".8"/>
+        <text x="65" y="184" font-size="10" font-weight="700" fill="#3a86b5" text-anchor="middle">冰水 · 慢</text>
+        <!-- 热水杯 -->
+        <path d="M144 56 L206 56 L199 158 L151 158 Z" fill="url(#c1_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M150 86 L200 86 L194 156 L156 156 Z" fill="url(#c1_hot)"/>
+        <circle cx="172" cy="124" r="6" fill="#fff" stroke="#d4b24a" stroke-width="1.5"/>
+        <g fill="#fff" opacity=".85"><circle cx="164" cy="100" r="3"/><circle cx="178" cy="96" r="3.6"/><circle cx="170" cy="84" r="2.6"/><circle cx="182" cy="108" r="2.4"/><circle cx="160" cy="112" r="2.2"/></g>
+        <g stroke="#f4a87f" stroke-width="2" stroke-linecap="round" opacity=".8"><line x1="166" y1="50" x2="164" y2="42"/><line x1="178" y1="50" x2="180" y2="42"/></g>
+        <text x="175" y="184" font-size="10" font-weight="700" fill="#d36a5a" text-anchor="middle">热水 · 快</text>
+      </svg>
+      <figcaption class="cap">图1 冷热双杯<span class="sub">同样的片,热的冒得快</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 240 190" aria-label="整颗与掰碎对比">
+        <defs>
+          <linearGradient id="c2_glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef9ff"/><stop offset="1" stop-color="#cfeaf7"/></linearGradient>
+          <linearGradient id="c2_liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8f4e6"/><stop offset="1" stop-color="#7ec9a8"/></linearGradient>
+        </defs>
+        <rect x="56" y="6" width="128" height="22" rx="11" fill="#fdf3e6" stroke="#ef9f27" stroke-width="1.5"/>
+        <text x="120" y="21" font-size="11" font-weight="700" fill="#b5740f" text-anchor="middle">掰碎 = 表面积更大</text>
+        <line x1="14" y1="172" x2="226" y2="172" stroke="#e0d6c0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 整颗 -->
+        <path d="M30 70 L92 70 L85 158 L37 158 Z" fill="url(#c2_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M36 100 L86 100 L80 156 L42 156 Z" fill="url(#c2_liq)"/>
+        <circle cx="61" cy="128" r="9" fill="#fff" stroke="#d4b24a" stroke-width="2"/>
+        <circle cx="55" cy="112" r="1.8" fill="#fff" opacity=".8"/>
+        <text x="61" y="184" font-size="10" font-weight="700" fill="#9a948a" text-anchor="middle">整颗 · 慢</text>
+        <!-- 掰碎 -->
+        <path d="M150 70 L212 70 L205 158 L157 158 Z" fill="url(#c2_glass)" stroke="#9fcbe3" stroke-width="2.5"/>
+        <path d="M156 100 L206 100 L200 156 L162 156 Z" fill="url(#c2_liq)"/>
+        <g fill="#fff" stroke="#d4b24a" stroke-width="1.5"><circle cx="172" cy="120" r="3.4"/><circle cx="184" cy="128" r="3"/><circle cx="178" cy="138" r="2.6"/><circle cx="190" cy="118" r="2.4"/><circle cx="166" cy="132" r="2.6"/></g>
+        <g fill="#fff" opacity=".85"><circle cx="170" cy="108" r="2.6"/><circle cx="186" cy="104" r="3"/><circle cx="180" cy="114" r="2"/><circle cx="194" cy="110" r="2.2"/></g>
+        <text x="181" y="184" font-size="10" font-weight="700" fill="#0f6e56" text-anchor="middle">掰碎 · 快</text>
+      </svg>
+      <figcaption class="cap">图2 整颗 vs 掰碎<span class="sub">碎了接触多,溶得快</span></figcaption>
+    </figure>
+
+    <figure class="fig">
+      <svg viewBox="0 0 220 190" aria-label="时间温度柱状曲线图">
+        <line x1="34" y1="20" x2="34" y2="158" stroke="#cbbfa6" stroke-width="2"/>
+        <line x1="34" y1="158" x2="200" y2="158" stroke="#cbbfa6" stroke-width="2"/>
+        <text x="20" y="26" font-size="10" fill="#7a3d12" text-anchor="middle">时间</text>
+        <text x="196" y="176" font-size="10" fill="#7a3d12" text-anchor="middle">温度</text>
+        <!-- 柱:温度越高时间越短 -->
+        <rect x="52" y="48" width="22" height="110" fill="#9fcbe3"/><text x="63" y="42" font-size="9" fill="#3a86b5" text-anchor="middle">冰</text>
+        <rect x="92" y="78" width="22" height="80" fill="#bfe7d6"/><text x="103" y="72" font-size="9" fill="#0f6e56" text-anchor="middle">常温</text>
+        <rect x="132" y="106" width="22" height="52" fill="#f6c79a"/><text x="143" y="100" font-size="9" fill="#b5740f" text-anchor="middle">温</text>
+        <rect x="172" y="128" width="22" height="30" fill="#f4a87f"/><text x="183" y="122" font-size="9" fill="#d36a5a" text-anchor="middle">热</text>
+        <!-- 趋势线 -->
+        <polyline points="63,48 103,78 143,106 183,128" fill="none" stroke="#1d9e75" stroke-width="2.5" stroke-dasharray="4 3"/>
+        <circle cx="63" cy="48" r="3.5" fill="#1d9e75"/><circle cx="103" cy="78" r="3.5" fill="#1d9e75"/><circle cx="143" cy="106" r="3.5" fill="#1d9e75"/><circle cx="183" cy="128" r="3.5" fill="#ef9f27" stroke="#b5740f" stroke-width="1.2"/>
+        <text x="183" y="146" font-size="8.5" fill="#b5740f" text-anchor="middle">最快</text>
+      </svg>
+      <figcaption class="cap">图3 时间—温度<span class="sub">温度越高时间越短,找最快</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+</div>
+</body>
+</html>

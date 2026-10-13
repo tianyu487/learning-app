@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题 · 智能滴定机器人</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;line-height:1.6;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 22px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+  .wrap{max-width:860px;margin:0 auto 40px;padding:0 16px;}
+  .sheet{background:#fffdf8;border-radius:18px;box-shadow:0 3px 18px rgba(0,0,0,.12);padding:26px 30px;position:relative;overflow:hidden;}
+  .head{display:flex;align-items:center;gap:18px;background:linear-gradient(100deg,#fcf3e2,#eafaf3);border:2px solid #f1d79e;border-radius:16px;padding:16px 20px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin:3px 0 6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.8;}
+  .chips .chip{display:inline-block;font-size:11.5px;color:#fff;border-radius:20px;padding:2px 11px;margin-right:6px;}
+  .c-green{background:#1d9e75;}.c-blue{background:#3a86b5;}
+  .seg{font-size:14px;font-weight:800;color:#0f6e56;margin:22px 0 4px;padding-bottom:5px;border-bottom:2px solid #cfe7dc;}
+  .seg small{font-weight:400;color:#9a948a;font-size:11.5px;margin-left:6px;}
+  .q{border:1.5px solid #eee4cf;border-radius:14px;padding:13px 16px;margin:12px 0;background:#fff;}
+  .q .qh{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap;}
+  .q .qn{width:28px;height:28px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;flex:none;}
+  .q .qt{font-size:14px;font-weight:700;color:#322f2a;flex:1;min-width:60%;}
+  .badge{font-size:10.5px;border-radius:10px;padding:2px 8px;color:#fff;white-space:nowrap;}
+  .b-base{background:#69a85a;}.b-mid{background:#ef9f27;}.b-hard{background:#d36a5a;}
+  .b-s3{background:#1d9e75;}.b-cz{background:#3a86b5;}.b-gz{background:#7a4fae;}
+  .b-auto{background:#7a8a99;}.b-man{background:#b3a89a;}
+  .think{display:block;background:#eafaf3;border-left:4px solid #1d9e75;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0;color:#0f6e56;font-size:12.5px;}
+  .think b{color:#0f6e56;}
+  .ans{display:inline-block;background:#fdecea;color:#a32d2d;font-weight:700;border-radius:8px;padding:2px 10px;margin-top:2px;font-size:12.5px;}
+  .note{background:#f4f6f0;border-left:4px solid #9bb56a;color:#5e6b43;font-size:12.5px;border-radius:0 8px 8px 0;padding:9px 12px;margin:14px 0 0;}
+  code{background:#f3eee2;border-radius:5px;padding:1px 6px;}
+  @media print{body{background:#fff;}.noprint{display:none;}.sheet{box-shadow:none;border:1px solid #eee;}}
+</style>
+</head>
+<body>
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+<div class="wrap">
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 80 80" width="60" height="60" aria-hidden="true">
+      <rect x="14" y="12" width="52" height="56" rx="8" fill="#fff" stroke="#f1d79e" stroke-width="2.5"/>
+      <line x1="24" y1="28" x2="56" y2="28" stroke="#1d9e75" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="40" x2="56" y2="40" stroke="#3a86b5" stroke-width="3" stroke-linecap="round"/>
+      <line x1="24" y1="52" x2="44" y2="52" stroke="#7a4fae" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">化学难度阶梯 · HX-L5-001 智能滴定机器人</div>
+      <div class="tt2">习题</div>
+      <div class="chips"><span class="chip c-green">12 题 · 每题含思考方法</span><span class="chip c-blue">本阶 → 初中 → 高中</span></div>
+    </div>
+    <div class="meta">交接 → 项目导师<br>分档可裁剪使用</div>
+  </div>
+
+  <div class="note">标签:绿=本阶(初中→高中过渡)、蓝=初中考点、紫=高中考点;后附难度与是否可判分。进阶题用于"上不封顶",按学员水平选用。</div>
+
+  <div class="seg">A · 本阶题<small>滴定终点 · 闭环三环节 · 自动 vs 手动</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">1</span><span class="qt">滴定时,机器人该停下的"终点"指的是?A 第一滴落下时 / B 刚好变色且再滴也不再变那一刻 / C 杯子滴满时</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>终点 = 颜色"刚好变到位、再滴下去也不再变化"的那一刻,正是该停的信号。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">2</span><span class="qt">把机器人的工作拆成三步:"看颜色 / 判断到没到点 / 滴或停"。请分别给它们起名,这就是闭环的哪三环节?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-base">易</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>传感器看颜色=感知,程序比较阈值=判断,舵机/泵动作=执行,三步连成圈就是闭环。</span>
+    <span class="ans">参考:感知(看颜色)→判断(到没到点)→执行(滴/停),三者循环成闭环。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">3</span><span class="qt">同一杯液体、同样设置,机器人自动滴和你手动滴,哪个更不容易"滴过头"?为什么?</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>机器靠传感盯着颜色、判断一致、反应快;人靠眼和手,容易手抖或反应慢半拍。</span>
+    <span class="ans">参考:机器更不容易过头;它持续盯颜色、判断标准固定、到点立即停,人手有延迟和手抖。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">4</span><span class="qt">机器人有时停早(颜色还没真到)、有时停晚(过头一点)。你该调哪个设置让它停得更准?说说你的调法。</span>
+      <span class="badge b-s3">本阶</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>调"该停"的颜色阈值——停早就把阈值定得更接近真终点色;并放慢滴速,让判断有时间反应。</span>
+    <span class="ans">参考:调整目标颜色阈值,并适当减小每滴量/放慢滴速;多跑几次看终点是否一致。</span>
+  </div>
+
+  <div class="seg">B · 初中考点<small>酸碱中和 · 指示剂 · 反应概念</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">5</span><span class="qt">酸和碱混合发生的反应叫?A 燃烧 / B 中和反应 / C 溶解</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>酸与碱作用生成盐和水,这类反应叫中和反应。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">6</span><span class="qt">紫甘蓝汁在我们的实验里起什么作用?A 让液体变香 / B 当指示剂,用颜色显示酸碱变化 / C 增加浓度</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>指示剂的作用就是"用颜色变化告诉我们酸碱性变没变",紫甘蓝汁是天然指示剂。</span>
+    <span class="ans">答:B</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">7</span><span class="qt">把紫甘蓝汁分别滴进白醋和小苏打水里,颜色会不会一样?这说明指示剂能告诉我们什么?</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>紫甘蓝汁遇酸偏红、遇碱偏绿/黄,颜色不同正说明它能区分酸碱、显示酸碱强弱。</span>
+    <span class="ans">参考:不一样(遇酸偏红、遇碱偏绿黄);说明指示剂能用颜色显示液体的酸碱性及其变化。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">8</span><span class="qt">【实验探究】往加了紫甘蓝汁的白醋里慢慢滴小苏打水,描述颜色会怎样变,并说明"什么时候算到了中和到点"。</span>
+      <span class="badge b-cz">初中</span><span class="badge b-mid">中</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>酸性时偏红,随着碱中和酸,颜色向中性/碱性一侧过渡;颜色变到目标色且不再变,即接近中和到点。</span>
+    <span class="ans">参考:颜色由偏红逐渐转向紫/绿;当颜色变到目标色并稳定不再变时,即认为到了中和到点(终点)。</span>
+  </div>
+
+  <div class="seg">C · 高中考点<small>中和滴定计算 · 当量点 · 误差分析</small></div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">9</span><span class="qt">用 <code>n = cV</code> 计算:某 NaOH 溶液浓度 <code>c = 0.1 mol/L</code>,量取 <code>V = 0.020 L</code>。求其物质的量 n。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-mid">中</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>直接代入 n=cV,注意体积用升(L)、浓度用 mol/L。</span>
+    <span class="ans">答:n = 0.1 × 0.020 = <b>0.002 mol</b>(即 2×10⁻³ mol)。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">10</span><span class="qt">用 0.1 mol/L NaOH 滴定 20.0 mL 盐酸,到终点共用去 NaOH 25.0 mL。求盐酸的浓度(HCl 与 NaOH 按 1:1 反应)。</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-auto">可判分</span></div>
+    <span class="think"><b>思考方法:</b>到当量点时 n(HCl)=n(NaOH)。先算 n(NaOH)=cV,再用 c(HCl)=n/V(HCl)。</span>
+    <span class="ans">答:n(NaOH)=0.1×0.0250=0.0025 mol=n(HCl);c(HCl)=0.0025/0.0200=<b>0.125 mol/L</b>。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">11</span><span class="qt">滴定里有"当量点"(酸碱恰好完全反应)和"变色点"(指示剂变色)。为什么要选合适的指示剂,让变色点尽量靠近当量点?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>我们是靠"变色"来判断终点的;若变色点离当量点远,停下来时反应其实没恰好完成,测出的浓度就有系统偏差。</span>
+    <span class="ans">参考:因为我们用变色判停。变色点越接近当量点,终点越接近真实恰好反应点,结果越准;选指示剂就是让两者尽量重合,减小系统误差。</span>
+  </div>
+
+  <div class="q">
+    <div class="qh"><span class="qn">12</span><span class="qt">【误差分析】若机器人"停晚了"、滴过头(碱液加多了),按 c=n/V 算出的待测酸浓度会偏大还是偏小?为什么?</span>
+      <span class="badge b-gz">高中</span><span class="badge b-hard">难</span><span class="badge b-man">人工判</span></div>
+    <span class="think"><b>思考方法:</b>过头 → 用去的标准液体积 V 偏大 → 算出的 n 偏大 → 推得的待测物质的量/浓度偏大。</span>
+    <span class="ans">答:偏大。滴过头使所用标准液体积读数偏大,n=cV 偏大,反推的待测酸浓度随之偏大。</span>
+  </div>
+
+  <div class="note">Q1/Q2/Q4 串起本阶"终点—闭环—调阈值";Q5–Q8 补齐初中酸碱中和与指示剂概念;Q9→Q10→Q12 把 n=cV 从单步代入,推到中和滴定反解浓度、再到误差分析,正是手册"上不封顶"的高中台阶。</div>
+</section>
+</div>
+</body>
+</html>
