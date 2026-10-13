@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>化学知识图谱 · viewer</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#0e1320;color:#d7def0;font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;}
+  a{color:inherit;}
+  .top{display:flex;align-items:center;gap:14px;padding:12px 18px;background:#121a2c;border-bottom:1px solid #20293f;}
+  .top .logo{font-size:16px;font-weight:700;color:#fff;}
+  .top .logo span{color:#3fc79b;}
+  .top .sub{font-size:12px;color:#8a93b2;}
+  .top .stats{margin-left:auto;font-size:12px;color:#8a93b2;}
+  .top .stats b{color:#e9b949;font-weight:600;}
+  .tabs{display:flex;gap:4px;padding:6px 14px;background:#101728;border-bottom:1px solid #20293f;flex-wrap:wrap;}
+  .tabs button{background:none;border:0;color:#9aa4c2;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13.5px;}
+  .tabs button.on{background:#1d2740;color:#fff;}
+  .wrap{display:flex;min-height:560px;}
+  .side{width:280px;flex:none;background:#0f1626;border-right:1px solid #20293f;max-height:78vh;overflow:auto;}
+  .side.hide{display:none;}
+  .search{padding:10px;}
+  .search input{width:100%;background:#0b1120;border:1px solid #28324c;color:#d7def0;border-radius:8px;padding:8px 10px;font-size:13px;}
+  .br{padding:8px 12px 2px;font-size:11px;color:#5f6c8c;letter-spacing:1px;text-transform:uppercase;}
+  .tp{padding:6px 12px;font-size:12.5px;color:#8a93b2;font-weight:600;}
+  .kp{padding:6px 12px 6px 24px;font-size:13.5px;color:#c2cbe6;cursor:pointer;border-left:2px solid transparent;display:flex;align-items:center;gap:7px;}
+  .kp:hover{background:#161f33;}
+  .kp.on{background:#1a2440;border-left-color:#3fc79b;color:#fff;}
+  .dot{width:7px;height:7px;border-radius:50%;background:#39446b;flex:none;}
+  .dot.lit{background:#3fc79b;box-shadow:0 0 6px #3fc79b;}
+  .main{flex:1;padding:22px 26px;max-height:78vh;overflow:auto;}
+  .h1{font-size:22px;font-weight:700;color:#fff;display:flex;align-items:center;gap:10px;}
+  .badge{font-size:11px;padding:2px 9px;border-radius:20px;background:#103a30;color:#3fc79b;font-weight:600;}
+  .badge.gao{background:#3a2740;color:#c79bec;}
+  .crumb{font-size:12.5px;color:#6f7aa0;margin:6px 0 16px;}
+  .card{background:#121a2c;border:1px solid #222c44;border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+  .card .lab{font-size:11px;color:#6f7aa0;letter-spacing:1px;margin-bottom:8px;}
+  .card ul{margin-left:18px;}
+  .card li{margin:5px 0;line-height:1.6;}
+  .formula{display:inline-block;background:#102a3a;border:1px solid #1d4a63;color:#7fd6f0;border-radius:8px;padding:6px 12px;font-size:14px;margin-top:4px;}
+  .eg b{color:#e9b949;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{background:#1a2238;border:1px solid #2a3450;border-radius:8px;padding:5px 11px;font-size:12.5px;cursor:pointer;color:#c2cbe6;}
+  .chip:hover{border-color:#3fc79b;color:#fff;}
+  .chip.lit{border-color:#3fc79b;color:#3fc79b;}
+  .chip.proj{background:#16233a;}
+  .muted{color:#6f7aa0;font-size:13px;}
+  .pj{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid #222c44;border-radius:10px;margin-bottom:8px;background:#121a2c;}
+  .pj .nm{flex:1;}
+  .pj .lv{font-size:11px;color:#8a93b2;}
+  .pj button{background:#1d2740;border:1px solid #2a3450;color:#c2cbe6;border-radius:7px;padding:5px 12px;cursor:pointer;font-size:12.5px;}
+  .pj.done button{background:#103a30;border-color:#3fc79b;color:#3fc79b;}
+  .pt{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;max-width:560px;}
+  .el{background:#16203a;border:1px solid #28324c;border-radius:7px;padding:6px 4px;text-align:center;cursor:pointer;}
+  .el small{display:block;font-size:9px;color:#6f7aa0;}
+  .el b{font-size:14px;color:#e6ecfb;}
+  .el:hover{border-color:#3fc79b;}
+  .sec-h{font-size:16px;color:#fff;margin:2px 0 14px;font-weight:600;}
+  svg text{fill:#c2cbe6;font-size:11px;}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo">化学知识图谱 · <span>viewer</span></div>
+  <div class="sub">项目点亮知识点 · 数据驱动(演示版)</div>
+  <div class="stats" id="stats"></div>
+</div>
+<div class="tabs" id="tabs">
+  <button data-t="kp" class="on">知识点</button>
+  <button data-t="proj">项目 · 点亮</button>
+  <button data-t="net">依赖网络图</button>
+  <button data-t="path">主线视图</button>
+  <button data-t="pt">元素周期表</button>
+</div>
+<div class="wrap">
+  <div class="side" id="side"><div class="search"><input id="q" placeholder="搜索知识点…"></div><div id="tree"></div></div>
+  <div class="main" id="main"></div>
+</div>
+
+<script>
+const DATA={
+ branches:[
+  {id:"A",name:"物质的微观结构",topics:[
+    {id:"A1",name:"原子结构",kps:["atom","iso","shell","level"]},
+    {id:"A2",name:"元素周期律与周期表",kps:["ptable","periodlaw","radius"]},
+    {id:"A3",name:"化学键",kps:["ionic","covalent"]}
+  ]},
+  {id:"B",name:"物质的变化与反应",topics:[
+    {id:"B1",name:"酸碱与中和",kps:["acid","neutral"]},
+    {id:"B2",name:"气体的制取与性质",kps:["co2","mass"]}
+  ]}
+ ],
+ kps:{
+  atom:{name:"原子的构成",stage:"初中",b:"A",t:"原子结构",
+    points:["质子数=核电荷数=核外电子数,决定元素种类","中子数影响相对原子质量但不改变元素","电子质量极小,质量几乎集中在核"],
+    formula:"质子数(Z)+中子数(N)=质量数(A)",
+    eg:"卢瑟福金箔实验:极少数α粒子大角度反弹,证明原子内有很小、很重、带正电的核。",
+    prereq:[],next:["iso","shell"],evidences:["HX-06-01","HX-06-04"]},
+  iso:{name:"相对原子质量与同位素",stage:"初中",b:"A",t:"原子结构",
+    points:["同位素:质子数相同、中子数不同","相对原子质量是各同位素的加权平均"],
+    formula:"相对原子质量 = Σ(同位素质量×丰度)",
+    eg:"碳-12 与碳-14 同为碳元素,中子数不同。",
+    prereq:["atom"],next:["periodlaw"],evidences:["HX-06-06"]},
+  shell:{name:"原子核外电子分层",stage:"初中",b:"A",t:"原子结构",
+    points:["电子分层排布,每层最多容纳 2n² 个","最外层电子决定化学性质"],
+    formula:"第 n 层最多 2n² 个电子",
+    eg:"钠最外层 1 个电子,容易失去 → 活泼金属。",
+    prereq:["atom"],next:["level","ionic"],evidences:["HX-06-08"]},
+  level:{name:"能级与能层",stage:"高中",b:"A",t:"原子结构",
+    points:["能层(n)再分能级(s、p、d、f)","电子按能量由低到高填充"],
+    formula:"能层 n → 能级 s/p/d/f",
+    eg:"1s² 2s² 2p⁶ … 即电子排布式。",
+    prereq:["shell"],next:[],evidences:[]},
+  ptable:{name:"周期表的结构",stage:"初中",b:"A",t:"元素周期律与周期表",
+    points:["7 个周期、18 个纵列、16 个族","同周期从左到右核电荷数递增"],
+    formula:"周期数 = 电子层数;主族序数 = 最外层电子数",
+    eg:"门捷列夫按性质排出周期表并预言未知元素。",
+    prereq:["iso"],next:["periodlaw","radius"],evidences:[]},
+  periodlaw:{name:"核外电子排布与周期律",stage:"高中",b:"A",t:"元素周期律与周期表",
+    points:["性质随核电荷数周期性变化","由最外层电子排布周期性决定"],
+    formula:"性质 ~ 最外层电子数(周期性)",
+    eg:"同主族元素化学性质相似。",
+    prereq:["ptable"],next:["radius"],evidences:[]},
+  radius:{name:"原子半径递变",stage:"高中",b:"A",t:"元素周期律与周期表",
+    points:["同周期从左到右原子半径减小","同主族从上到下原子半径增大"],
+    formula:"半径:同周期↘ 同主族↗",
+    eg:"Na > Mg > Al 的原子半径递减。",
+    prereq:["periodlaw"],next:[],evidences:[]},
+  ionic:{name:"离子键",stage:"初中",b:"A",t:"化学键",
+    points:["金属失电子、非金属得电子形成阴阳离子","靠静电作用结合"],
+    formula:"金属 + 非金属 → 离子键",
+    eg:"氯化钠 NaCl 由 Na⁺ 与 Cl⁻ 组成。",
+    prereq:["shell"],next:["covalent"],evidences:[]},
+  covalent:{name:"共价键",stage:"高中",b:"A",t:"化学键",
+    points:["非金属原子间共用电子对","分极性与非极性"],
+    formula:"共用电子对 → 共价键",
+    eg:"水 H₂O 中 O—H 为极性共价键。",
+    prereq:["ionic"],next:[],evidences:[]},
+  acid:{name:"酸与碱(指示剂变色)",stage:"初中",b:"B",t:"酸碱与中和",
+    points:["酸使石蕊变红,碱使石蕊变蓝","pH<7 酸性,>7 碱性"],
+    formula:"pH < 7 酸性 · pH > 7 碱性",
+    eg:"紫甘蓝汁是天然酸碱指示剂。",
+    prereq:[],next:["neutral"],evidences:["HX-04-03"]},
+  neutral:{name:"中和反应",stage:"初中",b:"B",t:"酸碱与中和",
+    points:["酸 + 碱 → 盐 + 水","放热反应"],
+    formula:"HCl + NaOH → NaCl + H₂O",
+    eg:"用碱中和过多胃酸。",
+    prereq:["acid"],next:[],evidences:[]},
+  co2:{name:"二氧化碳的性质",stage:"初中",b:"B",t:"气体的制取与性质",
+    points:["无色、比空气重、不支持燃烧","使澄清石灰水变浑浊(检验)"],
+    formula:"CO₂ + Ca(OH)₂ → CaCO₃↓ + H₂O",
+    eg:"小苏打+醋产生 CO₂,可'浇灭'蜡烛。",
+    prereq:[],next:["mass"],evidences:["HX-05-04","HX-05-03"]},
+  mass:{name:"质量守恒定律",stage:"初中",b:"B",t:"气体的制取与性质",
+    points:["反应前后元素种类、原子个数不变","总质量守恒"],
+    formula:"反应物总质量 = 生成物总质量",
+    eg:"敞口反应'变轻',是因为 CO₂ 逸出。",
+    prereq:["co2"],next:[],evidences:["HX-05-06"]}
+ },
+ projects:{
+  "HX-06-01":{name:"元素与符号 · 入门探索",level:6,lights:"atom"},
+  "HX-06-04":{name:"元素与符号 · 小实验",level:6,lights:"atom"},
+  "HX-06-06":{name:"元素与符号 · 测量与记录",level:6,lights:"iso"},
+  "HX-06-08":{name:"元素与符号 · 搭建作品",level:6,lights:"shell"},
+  "HX-04-03":{name:"酸与碱(变色) · 观察与发现",level:4,lights:"acid"},
+  "HX-05-03":{name:"气体探秘(二氧化碳) · 观察与发现",level:5,lights:"co2"},
+  "HX-05-04":{name:"气体探秘(二氧化碳) · 小实验",level:5,lights:"co2"},
+  "HX-05-06":{name:"气体探秘(二氧化碳) · 测量与记录",level:5,lights:"mass"}
+ }
+};
+
+let done=new Set();
+try{const s=localStorage.getItem("kg_done");if(s)done=new Set(JSON.parse(s));}catch(e){}
+const save=()=>{try{localStorage.setItem("kg_done",JSON.stringify([...done]));}catch(e){}};
+const lit=id=>(DATA.kps[id].evidences||[]).some(p=>done.has(p));
+let cur=Object.keys(DATA.kps)[0], tab="kp", q="";
+
+const el=(h)=>{const d=document.createElement("div");d.innerHTML=h;return d.firstElementChild;};
+function stats(){
+  const nb=DATA.branches.length, nt=DATA.branches.reduce((a,b)=>a+b.topics.length,0);
+  const nk=Object.keys(DATA.kps).length, np=Object.keys(DATA.projects).length;
+  const nl=Object.keys(DATA.kps).filter(lit).length;
+  document.getElementById("stats").innerHTML=`${nb} 分支 · ${nt} 主题 · ${nk} 知识点 ｜ 项目 ${np} ｜ 已点亮 <b>${nl}/${nk}</b>`;
+}
+function tree(){
+  const box=document.getElementById("tree");box.innerHTML="";
+  DATA.branches.forEach(br=>{
+    box.appendChild(el(`<div class="br">分支 ${br.id} · ${br.name}</div>`));
+    br.topics.forEach(tp=>{
+      box.appendChild(el(`<div class="tp">${tp.id} ${tp.name}</div>`));
+      tp.kps.forEach(id=>{
+        const k=DATA.kps[id]; if(q&&!k.name.includes(q))return;
+        const row=el(`<div class="kp ${id===cur?'on':''}"><span class="dot ${lit(id)?'lit':''}"></span>${k.name}</div>`);
+        row.onclick=()=>{cur=id;render();};
+        box.appendChild(row);
+      });
+    });
+  });
+}
+function chip(id){const k=DATA.kps[id];const c=el(`<span class="chip ${lit(id)?'lit':''}">${k.name}</span>`);c.onclick=()=>{cur=id;render();};return c;}
+function projChip(pid){const p=DATA.projects[pid];const c=el(`<span class="chip proj ${done.has(pid)?'lit':''}">${pid} ${done.has(pid)?'✓':''}</span>`);c.title=p?p.name:pid;c.onclick=()=>{toggle(pid);};return c;}
+function toggle(pid){done.has(pid)?done.delete(pid):done.add(pid);save();render();}
+
+function detail(){
+  const k=DATA.kps[cur], m=document.getElementById("main");m.innerHTML="";
+  m.appendChild(el(`<div class="h1">${k.name} <span class="badge ${k.stage==='高中'?'gao':''}">${k.stage}</span></div>`));
+  m.appendChild(el(`<div class="crumb">分支 ${k.b} · ${DATA.branches.find(b=>b.id===k.b).name} &nbsp;&gt;&nbsp; ${k.t}</div>`));
+  const pts=k.points.map(p=>`<li>${p}</li>`).join("");
+  m.appendChild(el(`<div class="card"><div class="lab">要点</div><ul>${pts}</ul>${k.formula?`<div class="formula">${k.formula}</div>`:""}${k.eg?`<div class="eg" style="margin-top:10px"><b>实例 · </b>${k.eg}</div>`:""}</div>`));
+  // prereq
+  const pre=el(`<div class="card"><div class="lab">前置依赖(prereq · ${k.prereq.length})</div></div>`);
+  if(k.prereq.length){const c=el(`<div class="chips"></div>`);k.prereq.forEach(i=>c.appendChild(chip(i)));pre.appendChild(c);}else pre.appendChild(el(`<div class="muted">无(入门点)</div>`));
+  m.appendChild(pre);
+  // next
+  const nx=el(`<div class="card"><div class="lab">后继(依赖本知识点的 · ${k.next.length})</div></div>`);
+  if(k.next.length){const c=el(`<div class="chips"></div>`);k.next.forEach(i=>c.appendChild(chip(i)));nx.appendChild(c);}else nx.appendChild(el(`<div class="muted">无</div>`));
+  m.appendChild(nx);
+  // evidences
+  const ev=el(`<div class="card"><div class="lab">可点亮本知识点的项目(evidences · ${k.evidences.length})${lit(cur)?'　<span class="badge">已点亮</span>':''}</div></div>`);
+  if(k.evidences.length){const c=el(`<div class="chips"></div>`);k.evidences.forEach(p=>c.appendChild(projChip(p)));ev.appendChild(c);}else ev.appendChild(el(`<div class="muted">暂无关联项目</div>`));
+  m.appendChild(ev);
+}
+function projects(){
+  const m=document.getElementById("main");m.innerHTML='<div class="sec-h">项目 · 点亮(点一下"点亮",对应知识点就会亮起)</div>';
+  Object.keys(DATA.projects).forEach(pid=>{
+    const p=DATA.projects[pid];const k=DATA.kps[p.lights];
+    const row=el(`<div class="pj ${done.has(pid)?'done':''}"><div class="nm">${p.name}<div class="lv">${pid} · ${p.level}阶 · 点亮:${k?k.name:'—'}</div></div><button>${done.has(pid)?'已点亮 ✓':'点亮'}</button></div>`);
+    row.querySelector("button").onclick=()=>toggle(pid);
+    m.appendChild(row);
+  });
+}
+function network(){
+  const m=document.getElementById("main");m.innerHTML='<div class="sec-h">依赖网络图(箭头:前置 → 知识点;绿点=已点亮)</div>';
+  const ids=Object.keys(DATA.kps);const col={A:0,B:1};const yi={};
+  const pos={};ids.forEach(id=>{const b=DATA.kps[id].b;yi[b]=(yi[b]||0);pos[id]={x:120+col[b]*330,y:40+yi[b]*52};yi[b]++;});
+  let svg=`<svg width="100%" viewBox="0 0 700 ${40+Math.max(...Object.values(yi))*52+20}">`;
+  svg+=`<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#475585" stroke-width="1.5"/></marker></defs>`;
+  ids.forEach(id=>DATA.kps[id].next.forEach(n=>{if(pos[n]){const a=pos[id],b=pos[n];svg+=`<line x1="${a.x+60}" y1="${a.y+12}" x2="${b.x-4}" y2="${b.y+12}" stroke="#2c3756" stroke-width="1.2" marker-end="url(#a)"/>`;}}));
+  ids.forEach(id=>{const p=pos[id],k=DATA.kps[id];svg+=`<g style="cursor:pointer" onclick="window.__go('${id}')"><circle cx="${p.x}" cy="${p.y+12}" r="6" fill="${lit(id)?'#3fc79b':'#39446b'}"/><text x="${p.x+12}" y="${p.y+16}">${k.name}</text></g>`;});
+  svg+=`</svg>`;m.innerHTML+=svg;
+}
+window.__go=(id)=>{cur=id;tab="kp";document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t==="kp"));render();};
+function path(){
+  const m=document.getElementById("main");m.innerHTML='<div class="sec-h">主线视图(建议学习顺序)</div>';
+  DATA.branches.forEach(br=>{
+    let line=`<div class="card"><div class="lab">分支 ${br.id} · ${br.name}</div><div style="line-height:2">`;
+    const seq=[];br.topics.forEach(tp=>tp.kps.forEach(id=>seq.push(DATA.kps[id].name)));
+    line+=seq.map(n=>`<span class="chip" style="cursor:default">${n}</span>`).join(' <span class="muted">→</span> ');
+    line+="</div></div>";m.innerHTML+=line;
+  });
+}
+function periodic(){
+  const m=document.getElementById("main");m.innerHTML='<div class="sec-h">元素周期表(前 20 号 · 演示)</div><div class="muted" id="elnote" style="margin-bottom:12px">点一个元素看看。</div>';
+  const E=[["H",1],["He",2],["Li",3],["Be",4],["B",5],["C",6],["N",7],["O",8],["F",9],["Ne",10],["Na",11],["Mg",12],["Al",13],["Si",14],["P",15],["S",16],["Cl",17],["Ar",18],["K",19],["Ca",20]];
+  const grid=el('<div class="pt"></div>');
+  E.forEach(([s,z])=>{const c=el(`<div class="el"><small>${z}</small><b>${s}</b></div>`);c.onclick=()=>{document.getElementById("elnote").textContent=`${s}(${z}号):最外层电子数与周期表位置决定其化学性质。`;};grid.appendChild(c);});
+  m.appendChild(grid);
+}
+function render(){
+  stats();
+  document.getElementById("side").classList.toggle("hide",tab!=="kp");
+  if(tab==="kp"){tree();detail();}
+  else if(tab==="proj")projects();
+  else if(tab==="net")network();
+  else if(tab==="path")path();
+  else if(tab==="pt")periodic();
+}
+document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tab=b.dataset.t;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));render();});
+document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim();tree();});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看不见的二氧化碳 · 学生学习包</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ece9e2; font-family: "PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif; color: #2b2b2b; }
+  .bar { text-align: center; padding: 14px; }
+  .bar button { font-size: 15px; padding: 8px 18px; border: 0; border-radius: 8px; background: #1d9e75; color: #fff; cursor: pointer; }
+  .sheet { width: 210mm; min-height: 297mm; margin: 12px auto; padding: 16mm 15mm; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.12); }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid #ef9f27; padding-bottom: 10px; }
+  .head .t1 { font-size: 13px; color: #ba7517; letter-spacing: 1px; }
+  .head .t2 { font-size: 26px; font-weight: 700; margin-top: 2px; }
+  .head .meta { font-size: 12px; color: #777; text-align: right; line-height: 1.6; }
+  h2 { font-size: 17px; margin: 22px 0 10px; padding-left: 10px; border-left: 5px solid #1d9e75; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; }
+  .item { font-size: 14px; padding: 4px 0; }
+  .box { display: inline-block; width: 15px; height: 15px; border: 2px solid #888; border-radius: 3px; margin-right: 8px; vertical-align: -2px; }
+  .safe { background: #fcf3e2; border: 1px dashed #ef9f27; border-radius: 8px; padding: 10px 14px; font-size: 13px; line-height: 1.7; }
+  .safe b { color: #ba7517; }
+  ol.steps { padding-left: 0; list-style: none; counter-reset: s; }
+  ol.steps li { counter-increment: s; position: relative; padding: 10px 0 10px 44px; border-bottom: 1px dashed #e2ded5; font-size: 14.5px; line-height: 1.6; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 9px; width: 30px; height: 30px; background: #1d9e75; color: #fff; border-radius: 50%; text-align: center; line-height: 30px; font-weight: 700; }
+  .tag { display: inline-block; font-size: 11px; background: #fde8e8; color: #a32d2d; border-radius: 4px; padding: 1px 7px; margin-left: 6px; }
+  .line { border-bottom: 1.5px dashed #bbb; height: 26px; margin: 8px 0; }
+  .obs { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .obs .cell { border: 2px solid #e2ded5; border-radius: 10px; padding: 8px; }
+  .obs .cap { font-size: 12.5px; font-weight: 700; color: #0f6e56; margin-bottom: 6px; }
+  .obs .draw { height: 90px; background: repeating-linear-gradient(#fff,#fff 22px,#f4f1ea 23px); border-radius: 6px; }
+  .obs .w { border-bottom: 1.2px dashed #bbb; height: 22px; margin-top: 6px; }
+  .elem { display: flex; gap: 16px; margin-top: 6px; }
+  .elem span { width: 52px; height: 52px; border: 2px dashed #999; border-radius: 50%; text-align: center; line-height: 52px; font-size: 18px; font-weight: 700; color: #444; }
+  .row { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .stamp { width: 80px; height: 80px; border: 2px dashed #ef9f27; border-radius: 50%; color: #ba7517; font-size: 12px; text-align: center; line-height: 80px; }
+  .fold { font-size: 12px; color: #999; }
+  @media print {
+    body { background: #fff; }
+    .noprint { display: none; }
+    .sheet { width: auto; min-height: auto; margin: 0; padding: 14mm; box-shadow: none; page-break-after: always; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+
+<section class="sheet">
+  <div class="head">
+    <div><div class="t1">居里夫人实验室 · 第 1 课</div><div class="t2">看不见的二氧化碳</div></div>
+    <div class="meta">编号 HX-02-002<br>适龄:小学 3–4 年级<br>时长:约 45 分钟</div>
+  </div>
+
+  <h2>物料清单(开始前先点齐)</h2>
+  <div class="grid">
+    <div class="item"><span class="box"></span>小苏打 1 袋</div>
+    <div class="item"><span class="box"></span>白醋 1 瓶</div>
+    <div class="item"><span class="box"></span>气球 2 只</div>
+    <div class="item"><span class="box"></span>透明塑料瓶 2 个</div>
+    <div class="item"><span class="box"></span>小蜡烛 + 底盘</div>
+    <div class="item"><span class="box"></span>透明杯 / 吸管</div>
+    <div class="item"><span class="box"></span>澄清石灰水 1 小瓶</div>
+    <div class="item"><span class="box"></span>护目镜</div>
+  </div>
+
+  <h2>安全须知</h2>
+  <div class="safe">
+    全程<b>戴护目镜</b>、保持<b>通风</b>;<b>点蜡烛和用火由大人操作</b>;
+    小苏打和白醋无毒,但别凑太近闻、别入口;<b>石灰水不能喝、不能进眼睛</b>;桌边备一杯清水和湿布。
+  </div>
+
+  <h2>动手步骤</h2>
+  <ol class="steps">
+    <li>戴好护目镜,把桌面铺平整。</li>
+    <li>往瓶里放 <b>2 平勺小苏打</b>。</li>
+    <li>用小漏斗,往气球里装小半个的<b>白醋</b>。</li>
+    <li>把气球套在瓶口,然后竖起气球让醋倒进瓶里 —— <b>看气球鼓起来</b>。</li>
+    <li>换一组瓶子产气,把气体沿斜槽/导管引向蜡烛 —— <b>看火熄灭</b>。<span class="tag">大人点火</span></li>
+    <li>把气体通进澄清石灰水 —— <b>看它变浑浊</b>。</li>
+    <li>翻到第 2 页,填写你的实验记录卡。</li>
+  </ol>
+  <p class="fold">提示:每一步做完再做下一步,慢慢来,可以重复试几次。</p>
+</section>
+
+<section class="sheet">
+  <div class="head">
+    <div><div class="t1">我的实验记录卡</div><div class="t2">看不见的二氧化碳</div></div>
+    <div class="meta">姓名:____________<br>日期:____________</div>
+  </div>
+
+  <h2>① 动手前,我的猜想</h2>
+  <p style="font-size:13.5px;color:#666;margin:0 0 4px">小苏打遇到醋,会发生什么?气球会怎样?</p>
+  <div class="line"></div>
+  <div class="line"></div>
+
+  <h2>② 我看到了什么(画下来 + 写一句)</h2>
+  <div class="obs">
+    <div class="cell"><div class="cap">气球</div><div class="draw"></div><div class="w"></div></div>
+    <div class="cell"><div class="cap">蜡烛的火</div><div class="draw"></div><div class="w"></div></div>
+    <div class="cell"><div class="cap">石灰水</div><div class="draw"></div><div class="w"></div></div>
+  </div>
+
+  <h2>③ 我的解释:火为什么会灭?</h2>
+  <div class="line"></div>
+  <div class="line"></div>
+
+  <h2>④ 元素小拼图</h2>
+  <p style="font-size:13.5px;color:#666;margin:0 0 2px">圈出"二氧化碳(CO₂)"里含有的元素:</p>
+  <div class="elem"><span>C</span><span>H</span><span>O</span><span>Na</span></div>
+
+  <div class="row">
+    <div style="font-size:14px"><span class="box"></span>我已经对着镜头,用自己的话讲清楚"火为什么会灭"(费曼任务)</div>
+  </div>
+  <div class="row">
+    <div style="font-size:13px;color:#666">家长签名:________________</div>
+    <div class="stamp">完成!</div>
+  </div>
+</section>
+
+</body>
+</html>

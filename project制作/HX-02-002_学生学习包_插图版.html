@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看不见的二氧化碳 · 学生学习包(插图版)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#e7e3da;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;color:#322f2a;}
+  .bar{text-align:center;padding:14px;}
+  .bar button{font-size:15px;padding:9px 20px;border:0;border-radius:8px;background:#1d9e75;color:#fff;cursor:pointer;}
+  .sheet{position:relative;width:210mm;min-height:297mm;margin:14px auto;padding:15mm;background:#fffdf8;box-shadow:0 3px 16px rgba(0,0,0,.14);overflow:hidden;}
+  .head{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#fcf3e2,#fff8ef);border:2px solid #f1d79e;border-radius:16px;padding:12px 16px;}
+  .head .tt1{font-size:13px;color:#ba7517;letter-spacing:1px;}
+  .head .tt2{font-size:25px;font-weight:800;color:#7a3d12;margin-top:2px;}
+  .chip{display:inline-block;font-size:11px;background:#1d9e75;color:#fff;border-radius:20px;padding:2px 10px;margin-top:6px;}
+  .head .meta{margin-left:auto;font-size:11.5px;color:#8a857c;text-align:right;line-height:1.7;}
+  h2{font-size:16px;color:#0f6e56;margin:18px 0 10px;display:flex;align-items:center;gap:8px;}
+  h2 .n{display:inline-block;width:24px;height:24px;background:#1d9e75;color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:13px;}
+  .preview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .pcard{background:#fff;border:2px solid #eee4cf;border-radius:14px;padding:10px;text-align:center;}
+  .pcard svg{height:62px;}
+  .pcard .cap{font-size:13px;font-weight:700;margin-top:4px;color:#7a3d12;}
+  .pcard .sub{font-size:11px;color:#9a948a;}
+  .matgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;}
+  .item{font-size:14px;padding:4px 0;display:flex;align-items:center;}
+  .box{width:16px;height:16px;border:2px solid #c8a96a;border-radius:4px;margin-right:9px;flex:none;}
+  .safe{display:flex;align-items:center;gap:14px;background:#fdf0e7;border:2px dashed #ef9f27;border-radius:14px;padding:10px 14px;font-size:12.5px;line-height:1.7;}
+  .safe .ic{display:flex;gap:10px;flex:none;}
+  .safe b{color:#a32d2d;}
+  ol.steps{list-style:none;counter-reset:s;}
+  ol.steps li{counter-increment:s;position:relative;padding:8px 0 8px 42px;border-bottom:1px dashed #ece3cf;font-size:14px;line-height:1.55;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:7px;width:28px;height:28px;background:#ef9f27;color:#fff;border-radius:50%;text-align:center;line-height:28px;font-weight:800;}
+  .tag{display:inline-block;font-size:11px;background:#fde8e8;color:#a32d2d;border-radius:5px;padding:1px 8px;margin-left:4px;}
+  .deco{position:absolute;opacity:.5;}
+  .speech{display:flex;align-items:center;gap:12px;margin:6px 0 4px;}
+  .bubble{background:#eafaf3;border:1.5px solid #bfe7d6;border-radius:14px;padding:8px 14px;font-size:13.5px;color:#0f6e56;position:relative;}
+  .line{border-bottom:1.6px dashed #c7bfae;height:24px;margin:7px 0;}
+  .obs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .cell{border:2px solid #eee4cf;border-radius:12px;padding:8px;}
+  .cell .ch{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#0f6e56;margin-bottom:6px;}
+  .draw{height:86px;border-radius:8px;background:repeating-linear-gradient(#fff,#fff 21px,#f5f0e6 22px);border:1px solid #efe7d5;}
+  .w{border-bottom:1.3px dashed #c7bfae;height:20px;margin-top:7px;}
+  .atoms{display:flex;gap:18px;margin-top:8px;}
+  .atom{width:50px;height:50px;border-radius:50%;color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+  .stamp{width:78px;height:78px;border:2px dashed #ef9f27;border-radius:50%;color:#ba7517;font-size:12px;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .hint{font-size:12.5px;color:#9a948a;margin:2px 0 0;}
+  @media print{
+    body{background:#fff;}
+    .noprint{display:none;}
+    .sheet{width:auto;min-height:auto;margin:0;padding:13mm;box-shadow:none;page-break-after:always;}
+    @page{size:A4;margin:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar noprint"><button onclick="window.print()">打印 / 存为 PDF</button></div>
+
+<!-- ============ PAGE 1 ============ -->
+<section class="sheet">
+  <svg class="deco" style="top:-20px;right:-10px;width:150px" viewBox="0 0 150 150" aria-hidden="true">
+    <circle cx="40" cy="40" r="6" fill="#f1d79e"/><circle cx="80" cy="22" r="4" fill="#bfe7d6"/>
+    <circle cx="110" cy="55" r="9" fill="#f6dcae"/><circle cx="64" cy="70" r="3" fill="#f4c4b3"/>
+  </svg>
+
+  <div class="head">
+    <svg viewBox="0 0 100 110" width="76" height="84" aria-hidden="true">
+      <path d="M16 104 Q50 74 84 104 Z" fill="#fff" stroke="#e3dccb" stroke-width="2"/>
+      <path d="M41 88 L50 98 L59 88 Z" fill="#1d9e75"/>
+      <path d="M27 42 Q24 12 50 11 Q76 12 73 42 Q80 54 66 60 L34 60 Q20 54 27 42Z" fill="#6b5640"/>
+      <circle cx="50" cy="46" r="20" fill="#f1c9a5"/>
+      <path d="M30 40 Q30 18 50 17 Q70 18 70 40 Q60 31 50 31 Q40 31 30 40Z" fill="#6b5640"/>
+      <circle cx="43" cy="46" r="2.4" fill="#3a2f25"/><circle cx="57" cy="46" r="2.4" fill="#3a2f25"/>
+      <path d="M44 54 Q50 59 56 54" fill="none" stroke="#b5705a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">居里夫人实验室 · 第 1 课</div>
+      <div class="tt2">看不见的二氧化碳</div>
+      <span class="chip">从元素开始 · 动手做</span>
+    </div>
+    <div class="meta">编号 HX-02-002<br>适龄:小学 3–4 年级<br>时长:约 45 分钟</div>
+  </div>
+
+  <h2><span class="n">★</span>今天你会亲眼看到</h2>
+  <div class="preview">
+    <div class="pcard">
+      <svg viewBox="0 0 60 70" aria-hidden="true">
+        <path d="M30 6 C44 6 49 24 39 42 C35 50 25 50 21 42 C11 24 16 6 30 6Z" fill="#e24b4a"/>
+        <path d="M27 48 H33 L30 53Z" fill="#e24b4a"/><path d="M30 53 Q35 62 27 68" fill="none" stroke="#bbb" stroke-width="1.4"/>
+        <circle cx="24" cy="22" r="3" fill="#fff" opacity=".5"/>
+      </svg>
+      <div class="cap">气球自己鼓</div><div class="sub">谁在吹它?</div>
+    </div>
+    <div class="pcard">
+      <svg viewBox="0 0 60 70" aria-hidden="true">
+        <rect x="24" y="30" width="12" height="30" rx="2" fill="#f3e2c0"/><rect x="29" y="24" width="2" height="7" fill="#6b5640"/>
+        <path d="M30 8 C35 16 34 22 30 26 C26 22 25 16 30 8Z" fill="#d9d4c8"/>
+        <rect x="20" y="60" width="20" height="4" rx="2" fill="#cabfa5"/>
+        <path d="M6 20 Q20 26 24 34" fill="none" stroke="#1d9e75" stroke-width="2" stroke-dasharray="3 3"/>
+        <path d="M40 14 L48 22 M48 14 L40 22" stroke="#a32d2d" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <div class="cap">隔空灭火</div><div class="sub">看不见的灭火器</div>
+    </div>
+    <div class="pcard">
+      <svg viewBox="0 0 60 70" aria-hidden="true">
+        <path d="M16 12 H44 L40 60 H20 Z" fill="#eef0ea" stroke="#cfd6c8" stroke-width="1.5"/>
+        <path d="M19 34 H41 L40 60 H20Z" fill="#e3ddcf"/>
+        <circle cx="26" cy="44" r="2" fill="#fff"/><circle cx="33" cy="50" r="1.6" fill="#fff"/><circle cx="30" cy="40" r="1.6" fill="#fff"/>
+      </svg>
+      <div class="cap">石灰水变浑</div><div class="sub">它的"指纹"</div>
+    </div>
+  </div>
+
+  <h2><span class="n">1</span>物料清单(先点齐)</h2>
+  <div class="matgrid">
+    <div class="item"><span class="box"></span>小苏打 1 袋</div>
+    <div class="item"><span class="box"></span>白醋 1 瓶</div>
+    <div class="item"><span class="box"></span>气球 2 只</div>
+    <div class="item"><span class="box"></span>透明塑料瓶 2 个</div>
+    <div class="item"><span class="box"></span>小蜡烛 + 底盘</div>
+    <div class="item"><span class="box"></span>透明杯 / 吸管</div>
+    <div class="item"><span class="box"></span>澄清石灰水 1 小瓶</div>
+    <div class="item"><span class="box"></span>护目镜</div>
+  </div>
+
+  <h2><span class="n">2</span>安全须知</h2>
+  <div class="safe">
+    <span class="ic">
+      <svg viewBox="0 0 48 26" width="44" aria-hidden="true"><rect x="2" y="6" width="44" height="3" rx="1" fill="#888"/><circle cx="15" cy="15" r="9" fill="#cde7f7" stroke="#1d9e75" stroke-width="2"/><circle cx="33" cy="15" r="9" fill="#cde7f7" stroke="#1d9e75" stroke-width="2"/><rect x="22" y="13" width="4" height="4" fill="#1d9e75"/></svg>
+      <svg viewBox="0 0 28 32" width="24" aria-hidden="true"><path d="M14 2 C20 10 19 16 14 20 C9 16 8 10 14 2Z" fill="#ef9f27"/><path d="M14 8 C17 13 16 17 14 19 C12 17 11 13 14 8Z" fill="#e24b4a"/></svg>
+      <svg viewBox="0 0 30 30" width="24" aria-hidden="true"><rect x="4" y="4" width="22" height="22" rx="2" fill="#eaf6ff" stroke="#9fc8e6" stroke-width="2"/><line x1="15" y1="4" x2="15" y2="26" stroke="#9fc8e6" stroke-width="2"/><line x1="4" y1="15" x2="26" y2="15" stroke="#9fc8e6" stroke-width="2"/></svg>
+    </span>
+    <span>全程<b>戴护目镜</b>、保持<b>通风</b>;<b>点蜡烛和用火由大人操作</b>;小苏打和白醋无毒,但别凑近闻、别入口;<b>石灰水不能喝、不能进眼睛</b>;桌边备清水和湿布。</span>
+  </div>
+
+  <h2><span class="n">3</span>动手步骤</h2>
+  <ol class="steps">
+    <li>戴好护目镜,把桌面铺平整。</li>
+    <li>往瓶里放 <b>2 平勺小苏打</b>。</li>
+    <li>用小漏斗,往气球里装小半个的<b>白醋</b>。</li>
+    <li>气球套住瓶口,竖起气球让醋倒进瓶里 —— <b>看气球鼓起来</b>。</li>
+    <li>换一组瓶子产气,把气体沿斜槽引向蜡烛 —— <b>看火熄灭</b>。<span class="tag">大人点火</span></li>
+    <li>把气体通进澄清石灰水 —— <b>看它变浑浊</b>。</li>
+    <li>翻到第 2 页,填写你的实验记录卡。</li>
+  </ol>
+</section>
+
+<!-- ============ PAGE 2 ============ -->
+<section class="sheet">
+  <div class="head">
+    <svg viewBox="0 0 100 110" width="60" height="66" aria-hidden="true">
+      <path d="M16 104 Q50 74 84 104 Z" fill="#fff" stroke="#e3dccb" stroke-width="2"/>
+      <path d="M41 88 L50 98 L59 88 Z" fill="#1d9e75"/>
+      <path d="M27 42 Q24 12 50 11 Q76 12 73 42 Q80 54 66 60 L34 60 Q20 54 27 42Z" fill="#6b5640"/>
+      <circle cx="50" cy="46" r="20" fill="#f1c9a5"/>
+      <path d="M30 40 Q30 18 50 17 Q70 18 70 40 Q60 31 50 31 Q40 31 30 40Z" fill="#6b5640"/>
+      <circle cx="43" cy="46" r="2.4" fill="#3a2f25"/><circle cx="57" cy="46" r="2.4" fill="#3a2f25"/>
+      <path d="M44 54 Q50 59 56 54" fill="none" stroke="#b5705a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="tt1">我的实验记录卡</div>
+      <div class="tt2">看不见的二氧化碳</div>
+    </div>
+    <div class="meta">姓名:____________<br>日期:____________</div>
+  </div>
+
+  <div class="speech">
+    <div class="bubble">先大胆猜,再动手看——真正的科学家,都是用证据说话的!</div>
+  </div>
+
+  <h2><span class="n">1</span>动手前,我的猜想</h2>
+  <p class="hint">小苏打遇到醋,会发生什么?气球会怎样?</p>
+  <div class="line"></div><div class="line"></div>
+
+  <h2><span class="n">2</span>我看到了什么(画下来 + 写一句)</h2>
+  <div class="obs">
+    <div class="cell">
+      <div class="ch"><svg viewBox="0 0 26 30" width="16" aria-hidden="true"><path d="M13 3 C20 3 22 12 17 20 C15 24 11 24 9 20 C4 12 6 3 13 3Z" fill="#e24b4a"/><path d="M13 24 Q16 28 11 30" fill="none" stroke="#bbb" stroke-width="1"/></svg>气球</div>
+      <div class="draw"></div><div class="w"></div>
+    </div>
+    <div class="cell">
+      <div class="ch"><svg viewBox="0 0 26 30" width="16" aria-hidden="true"><rect x="10" y="13" width="6" height="14" rx="1" fill="#f3e2c0"/><path d="M13 4 C16 9 15 12 13 14 C11 12 10 9 13 4Z" fill="#ef9f27"/></svg>蜡烛的火</div>
+      <div class="draw"></div><div class="w"></div>
+    </div>
+    <div class="cell">
+      <div class="ch"><svg viewBox="0 0 26 30" width="16" aria-hidden="true"><path d="M7 6 H19 L17 26 H9Z" fill="#eef0ea" stroke="#cfd6c8" stroke-width="1"/><path d="M8 16 H18 L17 26 H9Z" fill="#e3ddcf"/></svg>石灰水</div>
+      <div class="draw"></div><div class="w"></div>
+    </div>
+  </div>
+
+  <h2><span class="n">3</span>我的解释:火为什么会灭?</h2>
+  <div class="line"></div><div class="line"></div>
+
+  <h2><span class="n">4</span>元素小拼图</h2>
+  <p class="hint">圈出"二氧化碳(CO₂)"里含有的元素:</p>
+  <div class="atoms">
+    <div class="atom" style="background:#1d9e75">C</div>
+    <div class="atom" style="background:#888780">H</div>
+    <div class="atom" style="background:#d85a30">O</div>
+    <div class="atom" style="background:#7f77dd">Na</div>
+  </div>
+
+  <div class="row">
+    <div style="font-size:14px;display:flex;align-items:center"><span class="box"></span>我已经对着镜头,用自己的话讲清"火为什么会灭"(费曼任务)</div>
+  </div>
+  <div class="row">
+    <div style="font-size:13px;color:#8a857c">家长签名:________________</div>
+    <div class="stamp">完成!</div>
+  </div>
+</section>
+
+</body>
+</html>
